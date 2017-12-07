@@ -2,34 +2,37 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="60dp"
-    android:gravity="center_vertical"
-    android:paddingTop="10dp"
-    android:background="@color/colorPrimary"
+    android:layout_height="50dp"
+    android:id="@+id/toolbar"
     >
-
     <ImageView
         android:layout_marginLeft="15dp"
         android:id="@+id/index_top_user"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
+        android:layout_width="45dp"
+        android:paddingRight="10dp"
+        android:paddingLeft="10dp"
+        android:layout_height="25dp"
         android:layout_centerVertical="true"
         android:src="@drawable/index_user"
         android:onClick="userCenter"/>
     <ImageView
+        android:layout_gravity="center_horizontal"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="22dp"
         android:layout_centerInParent="true"
         android:src="@drawable/index_top"
         />
 
     <ImageView
+        android:layout_gravity="right"
         android:id="@+id/index_top_set"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
+        android:layout_width="45dp"
+        android:layout_height="25dp"
+        android:paddingRight="10dp"
+        android:paddingLeft="10dp"
         android:layout_marginRight="15dp"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:src="@drawable/index_set"
+        android:src="@mipmap/index_set"
         android:onClick="setCenter"/>
 </RelativeLayout>

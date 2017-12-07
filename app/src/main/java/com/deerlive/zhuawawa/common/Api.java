@@ -1,6 +1,5 @@
 package com.deerlive.zhuawawa.common;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Build;
 import android.util.Log;
@@ -31,7 +30,8 @@ import cz.msebera.android.httpclient.HttpResponse;
  */
 public class Api {
     public static final String APP_VER = "1.0.4";
-    public static final String HOST = "http://kuailai.deerlive.com/";
+    //public static final String HOST = "http://kuailai.deerlive.com/";
+    public static final String HOST = "http://test.doll.anwenqianbao.com/";
     private static final String OS = "android";
     public static final String QUDAO = "kuailai-one";
     private static final String OS_VER = Build.VERSION.RELEASE;
@@ -54,7 +54,9 @@ public class Api {
     private static final String GET_ZHUA_RECORD = HOST + "Api/SiSi/getPlayLogByUid";
     private static final String GET_COIN_RECORD = HOST + "/Api/SiSi/getMoneylog";
     private static final String GET_USER_INFO = HOST + "Api/SiSi/getUserInfo";
+
     private static final String GET_PAY_METHOD = HOST + "Api/SiSi/get_recharge_package";
+
     private static final String BEGIN_PAY = HOST + "/Api/Pay/begin_pay";
     private static final String REQUEST_CONNECT_DEVICE = HOST + "Api/SiSi/connDeviceControl";
     private static final String GET_NOTAKEN_WAWA = HOST + "Api/SiSi/getNotTakenWawaByUid";
@@ -142,6 +144,10 @@ public class Api {
     }
 
     public static JSONObject getJsonObject(Context context, int statusCode, byte[] responseBody, OnRequestDataListener listener) {
+
+
+
+
         final String net_error = context.getString(R.string.net_error);
         if (statusCode == 200) {
             String response = null;
@@ -189,20 +195,28 @@ public class Api {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+
+                LogUtils.d("onSuccess===",statusCode);
+
                 try {
                     if (responseBody != null) {
+
                         JSONObject data = getJsonObject(context, statusCode, responseBody, listener);
+
                         if (data != null) {
                             if(200 == data.getIntValue("code")){
+
                                 listener.requestSuccess(statusCode, data);
                             }else {
                                 listener.requestFailure(-1, data.getString("descrp"));
                             }
 
                         }else{
+
                             listener.requestFailure(-1, net_error);
                         }
                     } else {
+
                         if (listener != null) {
                             listener.requestFailure(-1, net_error);
                         }
@@ -214,11 +228,13 @@ public class Api {
 
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                LogUtils.d("onFailure===",statusCode);
+
+
                 try {
                     if (null != context && responseBody != null) {
                         String response = "";
                         response = new String(responseBody, "UTF-8");
-                        LogUtils.i("response=" + response);
                         if (listener != null) {
                             listener.requestFailure(-1, net_error);
                         }

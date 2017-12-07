@@ -1,5 +1,6 @@
 package com.deerlive.zhuawawa.activity;
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -15,8 +16,10 @@ import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.bigkoo.convenientbanner.listener.OnItemClickListener;
 import com.blankj.utilcode.util.ActivityUtils;
+import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ScreenUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.deerlive.zhuawawa.MainActivity;
 import com.deerlive.zhuawawa.R;
 import com.deerlive.zhuawawa.adapter.BannerItemViewHolder;
@@ -81,8 +84,15 @@ public class LoginActivity extends BaseActivity {
         @Override
         public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
             //mLoadingDialog.dismiss();
+
+
             PlatformDb db = platform.getDb();
             String name = db.getUserName();
+
+
+            LogUtils.d("Platform",db.getUserName());
+
+
             String from = "Wechat";
             String head_img = db.getUserIcon();
             String openid = db.getUserId();
@@ -115,10 +125,12 @@ public class LoginActivity extends BaseActivity {
         @Override
         public void handleMessage(Message msg) {
             if(msg.what == 1){
+                LogUtils.d(params.toString());
               Api.doLogin(LoginActivity.this, params, new OnRequestDataListener() {
                 @Override
                 public void requestSuccess(int code, JSONObject data) {
                     mLoadingDialog.dismiss();
+                    LogUtils.d("requestSuccess",data);
                     SPUtils.getInstance().put("token",data.getString("token"));
                     JSONObject userinfo = data.getJSONObject("data");
                     SPUtils.getInstance().put("balance",userinfo.getString("balance"));
@@ -135,6 +147,9 @@ public class LoginActivity extends BaseActivity {
                 @Override
                 public void requestFailure(int code, String msg) {
                     toast(msg);
+                    ToastUtils.showShort("requestFailure="+msg);
+
+                    LogUtils.d("requestFailure",code+"msg=="+msg);
                     mLoadingDialog.dismiss();
                 }
             });

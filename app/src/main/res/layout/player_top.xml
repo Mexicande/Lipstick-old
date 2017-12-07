@@ -1,40 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="60dp"
+    android:layout_height="50dp"
     android:gravity="center_vertical"
-    android:paddingTop="10dp"
-    android:background="@color/colorPrimary"
     >
-
     <ImageView
-        android:layout_marginLeft="10dp"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
+        android:layout_width="23dp"
+        android:layout_height="23dp"
         android:layout_centerVertical="true"
-        android:src="@drawable/player_back"
+        android:src="@mipmap/player_back"
         android:onClick="goBack"/>
     <ImageView
-        android:layout_width="131dp"
-        android:layout_height="35dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
         android:layout_centerInParent="true"
-        android:src="@drawable/index_top"
+        android:src="@mipmap/index_top"
         />
     <RelativeLayout
+        android:layout_gravity="right"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="10dp"
-        android:layout_alignParentRight="true"
         android:onClick="goCharge">
         <ImageView
             android:id="@+id/index_top_set"
-            android:layout_width="105dp"
-            android:layout_height="35dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:src="@drawable/player_balance"/>
-
+            android:src="@mipmap/player_balance"/>
         <com.deerlive.zhuawawa.view.StrokeTextView
             android:id="@+id/play_balance"
             android:layout_width="wrap_content"
@@ -53,4 +49,4 @@
     </RelativeLayout>
 
 
-</RelativeLayout>
+</android.support.v7.widget.Toolbar>

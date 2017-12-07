@@ -37,6 +37,7 @@ import com.deerlive.zhuawawa.model.PayModel;
 import com.deerlive.zhuawawa.pay.alipay.Alipay;
 import com.deerlive.zhuawawa.pay.alipay.PayResult;
 import com.deerlive.zhuawawa.pay.wechat.Wechat;
+import com.deerlive.zhuawawa.utils.LogUtils;
 import com.hss01248.dialog.StyledDialog;
 
 import java.util.ArrayList;
@@ -280,8 +281,10 @@ public class ChargeActivity extends BaseActivity implements OnRecyclerViewItemCl
                     // 判断resultStatus 为“9000”则代表支付成功，具体状态码代表含义可参考接口文档
                     if (TextUtils.equals(resultStatus, "9000")) {
                         Toast.makeText(ChargeActivity.this, "支付成功", Toast.LENGTH_SHORT).show();
+
                         int b = Integer.parseInt(mPayMethodData.get(mCur).getCoin()) + Integer.parseInt(mBalance);
                         mMybalanceText.setText(b+"");
+
                         SPUtils.getInstance().put("balance",mBalance);
                     } else {
                         // 判断resultStatus 为非"9000"则代表可能支付失败

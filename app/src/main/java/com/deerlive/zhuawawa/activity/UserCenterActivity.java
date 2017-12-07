@@ -37,6 +37,7 @@ public class UserCenterActivity extends BaseActivity {
     private String mmBalance;
     private String mToken;
     private String mId;
+
     public void goBack(View v){
         finish();
     }
@@ -87,6 +88,7 @@ public class UserCenterActivity extends BaseActivity {
 
             @Override
             public void requestFailure(int code, String msg) {
+
                 toast(msg);
             }
         });

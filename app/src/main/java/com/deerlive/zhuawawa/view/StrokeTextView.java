@@ -62,7 +62,7 @@ public class StrokeTextView extends TextView {
             // 描外层
             // super.setTextColor(Color.BLUE); // 不能直接这么设，如此会导致递归
             setTextColorUseReflection(mOuterColor);
-            m_TextPaint.setStrokeWidth(5); // 描边宽度
+            m_TextPaint.setStrokeWidth(3); // 描边宽度
             m_TextPaint.setStyle(Paint.Style.FILL_AND_STROKE); // 描边种类
             m_TextPaint.setFakeBoldText(true); // 外层text采用粗体
             m_TextPaint.setShadowLayer(1, 0, 0, 0); // 字体的阴影效果，可以忽略

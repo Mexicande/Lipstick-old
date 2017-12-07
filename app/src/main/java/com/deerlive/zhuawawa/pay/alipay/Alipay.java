@@ -24,7 +24,6 @@ public class Alipay {
     // 商户私钥，pkcs8格式
     public static final String RSA_PRIVATE = Constants.RSA_PRIVATE;
     // 支付宝公钥
-    public static final String RSA_PUBLIC = Constants.ALI_RSA_PUBLIC;
     private static final int SDK_PAY_FLAG = 1;
     private Activity mContext;
    private Handler mHandler;

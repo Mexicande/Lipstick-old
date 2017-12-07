@@ -4,9 +4,26 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/user_bg"
+    android:background="@drawable/bg"
     android:orientation="vertical">
-    <include layout="@layout/charge_top"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+        <ImageView
+            android:layout_marginLeft="16dp"
+            android:id="@+id/layout_top_back"
+            android:layout_width="23dp"
+            android:layout_height="23dp"
+            android:onClick="goBack"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/player_back"/>
+        <ImageView
+            android:layout_width="131dp"
+            android:layout_height="35dp"
+            android:layout_centerInParent="true"
+            android:src="@drawable/index_top"
+            />
+    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -36,7 +53,7 @@
                     android:layout_height="wrap_content"
                     android:text="昵称"
                     android:textStyle="bold"
-                    android:textColor="@color/colorIndexFont"
+                    android:textColor="@color/text_color"
                     android:textSize="16sp"/>
                 <TextView
                     android:id="@+id/user_id"
@@ -44,7 +61,7 @@
                     android:layout_height="wrap_content"
                     android:text=""
                     android:layout_marginTop="2dp"
-                    android:textColor="@color/colorIndexFont"
+                    android:textColor="@color/color_shouhuo_text"
                     android:textSize="12sp"/>
                 <TextView
                     android:id="@+id/user_all_num"
@@ -52,7 +69,7 @@
                     android:layout_height="wrap_content"
                     android:text=""
                     android:layout_marginTop="2dp"
-                    android:textColor="@color/colorIndexFont"
+                    android:textColor="@color/color_shouhuo_text"
                     android:textSize="12sp"/>
             </LinearLayout>
 
@@ -81,8 +98,8 @@
                         android:src="@drawable/user_coin"/>
                 </LinearLayout>
                 <RelativeLayout
-                    android:layout_width="85dp"
-                    android:layout_height="35dp"
+                    android:layout_width="90dp"
+                    android:layout_height="50dp"
                     android:layout_marginLeft="5dp"
                     android:background="@drawable/user_coin_bg"
                     android:onClick="goCharge">
@@ -92,11 +109,8 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="10dp"
-                        android:text="600"
-                        android:textStyle="bold"
-                        android:textSize="12sp"
-                        android:gravity="center"
-                        app:outerColor="@color/colorIndexFont"
+                        android:text=""
+                        android:textSize="11sp"
                         app:innnerColor="@android:color/white"/>
                 </RelativeLayout>
 
@@ -120,7 +134,7 @@
                 </LinearLayout>
                 <RelativeLayout
                     android:layout_width="85dp"
-                    android:layout_height="35dp"
+                    android:layout_height="50dp"
                     android:layout_marginLeft="5dp"
                     android:onClick="goWaWa"
                     android:background="@drawable/user_zhuazhu_bg">
@@ -131,10 +145,8 @@
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="10dp"
                         android:text="2"
-                        android:textStyle="bold"
-                        android:textSize="12sp"
+                        android:textSize="11sp"
                         android:gravity="center"
-                        app:outerColor="@color/colorIndexFont"
                         app:innnerColor="@android:color/white"/>
                 </RelativeLayout>
 
@@ -171,15 +183,22 @@
                 android:layout_marginLeft="6dp"
                 android:layout_weight="1"
                 android:text="@string/message"
-                android:textColor="@color/colorIndexFont"
+                android:textColor="@color/center_black"
                 android:textSize="12sp"
                 android:id="@+id/textView" />
+            <ImageView
+                android:layout_marginRight="10dp"
+                android:layout_gravity="center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/iv_arrow"/>
+
         </LinearLayout>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="@dimen/divider"
-            android:background="@color/colorDivider"/>
+            android:background="@color/user_center_lion"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -198,14 +217,20 @@
                 android:layout_marginLeft="6dp"
                 android:layout_weight="1"
                 android:text="@string/shouhuo"
-                android:textColor="@color/colorIndexFont"
+                android:textColor="@color/center_black"
                 android:textSize="12sp"/>
+            <ImageView
+                android:layout_marginRight="10dp"
+                android:layout_gravity="center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/iv_arrow"/>
         </LinearLayout>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="@dimen/divider"
-            android:background="@color/colorDivider"/>
+            android:background="@color/user_center_lion"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -224,14 +249,20 @@
                 android:layout_marginLeft="6dp"
                 android:layout_weight="1"
                 android:text="@string/zhuaqu_record"
-                android:textColor="@color/colorIndexFont"
+                android:textColor="@color/center_black"
                 android:textSize="12sp"/>
+            <ImageView
+                android:layout_marginRight="10dp"
+                android:layout_gravity="center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/iv_arrow"/>
         </LinearLayout>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="@dimen/divider"
-            android:background="@color/colorDivider"/>
+            android:background="@color/user_center_lion"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -250,13 +281,19 @@
                 android:layout_marginLeft="6dp"
                 android:layout_weight="1"
                 android:text="@string/jinbi_record"
-                android:textColor="@color/colorIndexFont"
+                android:textColor="@color/center_black"
                 android:textSize="12sp"/>
+            <ImageView
+                android:layout_marginRight="10dp"
+                android:layout_gravity="center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/iv_arrow"/>
         </LinearLayout>
         <View
             android:layout_width="match_parent"
             android:layout_height="@dimen/divider"
-            android:background="@color/colorDivider"/>
+            android:background="@color/user_center_lion"/>
     </LinearLayout>
 
 

@@ -5,10 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/charge_bg"
+    android:background="@drawable/bg"
     tools:context="com.deerlive.zhuawawa.MainActivity">
     <include layout="@layout/layout_index_top"/>
-
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:id="@+id/refreshLayout"
         android:layout_width="match_parent"
@@ -18,6 +17,8 @@
             android:layout_height="wrap_content"/>
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerview"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:overScrollMode="never"/>

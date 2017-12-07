@@ -17,18 +17,42 @@
         <TextView
             android:layout_width="315dp"
             android:layout_height="50dp"
-            android:background="@drawable/wx_login"
             android:layout_gravity="bottom|center"
-            android:layout_marginBottom="120dp"
-            android:onClick="loginWx"/>
-        <TextView
+            android:layout_marginBottom="130dp"
+            android:gravity="center_horizontal"
+            android:textColor="@color/text_color"
+            android:textSize="16sp"
+            android:text="微信登陆"/>
+        <ImageView
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginBottom="60dp"
+            android:layout_gravity="bottom|center"
+            android:src="@drawable/iv_wechat"
+            android:onClick="loginWx"
+            />
+        <LinearLayout
+            android:layout_gravity="bottom|center"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|center"
-            android:textColor="@color/colorIndexFont"
-            android:text="@string/xieyi"
-            android:textSize="12sp"
-            android:layout_marginBottom="90dp"
-            android:onClick="xieyi"/>
+            android:layout_height="wrap_content">
+            <CheckBox
+                android:layout_marginTop="2dp"
+                android:id="@+id/checkbox_zfb"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:background="@drawable/login_check"
+                android:button="@null"
+                android:checked="true"
+                android:enabled="true" />
+            <TextView
+                android:layout_marginLeft="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:textColor="@color/text_color"
+                android:text="@string/xieyi"
+                android:textSize="12sp"
+                android:layout_marginBottom="20dp"
+                android:onClick="xieyi"/>
+        </LinearLayout>
     </FrameLayout>
 </LinearLayout>

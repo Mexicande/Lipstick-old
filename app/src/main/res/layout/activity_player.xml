@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:id="@+id/root_container"
     android:orientation="vertical"
-    android:background="@android:color/white">
+    android:background="@drawable/promary_drawable">
     <include layout="@layout/player_top"/>
     <FrameLayout
         android:layout_width="match_parent"

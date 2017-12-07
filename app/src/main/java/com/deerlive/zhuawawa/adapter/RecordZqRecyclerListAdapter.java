@@ -1,6 +1,7 @@
 package com.deerlive.zhuawawa.adapter;
 
 import android.content.Context;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -176,7 +177,7 @@ public class RecordZqRecyclerListAdapter extends RecyclerView.Adapter<RecyclerVi
 
     class MessageViewHolder extends RecyclerView.ViewHolder {
         @Bind(R.id.item_danmu_container)
-        RelativeLayout mContainer;
+        CardView mContainer;
         @Bind(R.id.zq_name)
         TextView zq_result;
         @Bind(R.id.zq_result)

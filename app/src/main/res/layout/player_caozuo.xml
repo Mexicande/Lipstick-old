@@ -4,7 +4,7 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="140dp"
-    android:background="@color/colorPrimary"
+    android:background="@drawable/bg"
     >
     <LinearLayout
         android:layout_width="wrap_content"
@@ -35,51 +35,60 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="bottom"
-        android:padding="10dp"
+        android:visibility="gone"
         android:orientation="horizontal"
-        android:visibility="gone">
-        <LinearLayout
+        >
+        <RelativeLayout
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical">
             <LinearLayout
+                android:layout_marginTop="5dp"
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentTop="true"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center">
                 <ImageView
                     android:id="@+id/image_caozuo_up"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
                     android:src="@drawable/caozuo_up"/>
             </LinearLayout>
             <RelativeLayout
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:layout_marginRight="25dp"
+                android:layout_marginLeft="25dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center">
                 <ImageView
                     android:id="@+id/image_caozuo_left"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
                     android:src="@drawable/caozuo_left"/>
                 <ImageView
                     android:id="@+id/image_caozuo_right"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
                     android:layout_alignParentRight="true"
                     android:src="@drawable/caozuo_right"/>
             </RelativeLayout>
             <LinearLayout
+                android:layout_marginBottom="5dp"
+                android:layout_alignParentBottom="true"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center">
                 <ImageView
                     android:id="@+id/image_caozuo_down"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
                     android:src="@drawable/caozuo_down"/>
             </LinearLayout>
-        </LinearLayout>
+        </RelativeLayout>
         <RelativeLayout
             android:layout_width="0dp"
             android:layout_weight="1"
@@ -102,8 +111,6 @@
                 android:layout_centerInParent="true"/>
         </RelativeLayout>
     </LinearLayout>
-
-
     <RelativeLayout
         android:id="@+id/look_container"
         android:layout_width="match_parent"
@@ -118,43 +125,52 @@
             android:layout_width="60dp"
             android:layout_height="54dp"
             android:layout_marginLeft="30dp"
-            android:src="@drawable/player_mess"
-            android:onClick="showSend"/>
-        <FrameLayout
+            android:src="@drawable/record_jiang"
+            android:onClick="showRecord"
+           />
+        <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true">
-
             <ImageView
                 android:id="@+id/game_status_ing"
-                android:layout_width="150dp"
+                    android:layout_width="150dp"
                 android:layout_height="80dp"
                 android:src="@drawable/game_ok_no"/>
-            <com.deerlive.zhuawawa.view.StrokeTextView
-                android:id="@+id/play_price"
+            <LinearLayout
+                android:layout_below="@id/game_status_ing"
+                android:layout_centerHorizontal="true"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="123"
-                android:shadowDx="5"
-                android:shadowDy="5"
-                android:shadowRadius="5"
-                android:layout_marginBottom="25dp"
-                android:layout_marginLeft="12dp"
-                android:layout_gravity="bottom|center"
-                android:shadowColor="@android:color/black"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                app:outerColor="@color/colorIndexFont"
-                app:innnerColor="@android:color/white"/>
-        </FrameLayout>
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:src="@mipmap/iv_satar"/>
+                <com.deerlive.zhuawawa.view.StrokeTextView
+                    android:id="@+id/play_price"
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="123"
+                    android:shadowDx="5"
+                    android:gravity="center"
+                    android:shadowDy="5"
+                    android:shadowRadius="5"
+                    android:shadowColor="@android:color/black"
+                    android:textSize="14sp"
+                    app:outerColor="@color/colorIndexFont"
+                    app:innnerColor="@android:color/white"/>
+            </LinearLayout>
+        </RelativeLayout>
 
         <ImageView
             android:layout_width="60dp"
             android:layout_height="54dp"
             android:layout_marginRight="30dp"
             android:layout_alignParentRight="true"
-            android:src="@drawable/record_jiang"
-            android:onClick="showRecord"/>
+            android:src="@drawable/player_mess"
+            android:onClick="showSend"/>
     </RelativeLayout>
 
 </RelativeLayout>

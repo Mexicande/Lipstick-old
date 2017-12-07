@@ -9,4 +9,28 @@
     <color name="colorIndexFont">#442204</color>
     <color name="colorDanmu">#88545454</color>
     <color name="trans">#02494949</color>
+    <color name="center_black">#031107</color>
+    
+    <color name="message_red">#F84242</color>
+
+    <color name="color_shouhuo_text">#116727</color>
+    <color name="green_text">#199739</color>
+    <color name="shape3">#3CCE62</color>
+    <color name="shape2">#7DE968</color>
+    <color name="white">#ffffff</color>
+    <color name="text_color">#333333</color>
+    <color name="soild_color">#D6FED1</color>
+    <color name="green_lion">#9FDF97</color>
+    <color name="green_press">#9FDF97</color>
+
+    <color name="product_limit">#999999</color>
+    
+    <color name="user_center_lion">#B5F0AD</color>
+    <color name="grey_b2b2b2">#B2B2B2</color>
+    <color name="blue_78d2f6">#78D2F6</color>
+    <color name="blue_01aaee">#01AAEE</color>
+    <color name="red_f3323b">#F3323B</color>
+    <color name="common_pressed">#20000000</color>  <!--白色背景按下去的颜色-->
+    <color name="line">#e8e8e8</color>
+    <color name="cash_line">#EBE8E8</color>
 </resources>

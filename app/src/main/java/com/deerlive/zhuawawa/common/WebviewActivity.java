@@ -42,6 +42,7 @@ public class WebviewActivity extends BaseActivity implements PlatformActionListe
     Platform mPlatFormWeChat;
     Platform mPlatFormMoment;
     @OnClick(R.id.layout_top_back)
+
     public void back(View v){
         finish();
     }

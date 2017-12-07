@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <DevInfor>
     <ShareSDK
-        AppKey = "17ac9213914dc"/>
+        AppKey = "22df8db419014"/>
 
     <Wechat
         Id="1"
         SortId="1"
-        AppId="wx03fdb77a141c2e05"
-        AppSecret="71989e9a71dcea5235b580e4d66a0cc8"
+        AppId="wx8bf15a7269bafb69"
+        AppSecret="e051831188f1181e89ae75facc19d6ce"
         BypassApproval="false"
         Enable="true" />
 
@@ -15,8 +15,8 @@
     <WechatMoments
         Id="2"
         SortId="2"
-        AppId="wx03fdb77a141c2e05"
-        AppSecret="71989e9a71dcea5235b580e4d66a0cc8"
+        AppId="wx8bf15a7269bafb69"
+        AppSecret="e051831188f1181e89ae75facc19d6ce"
         BypassApproval="false"
         Enable="true" />
 

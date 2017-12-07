@@ -33,7 +33,7 @@ public class SplashActivity extends BaseActivity {
         Api.getLaunchScreen(this, new JSONObject(), new OnRequestDataListener() {
             @Override
             public void requestSuccess(int code, final JSONObject data) {
-                    Glide.with(getApplicationContext()).load(data.getString("info")).into(mLauchScreen);
+                   // Glide.with(getApplicationContext()).load(data.getString("info")).into(mLauchScreen);
 //                    mLauchScreen.setOnClickListener(new View.OnClickListener() {
 //                        @Override
 //                        public void onClick(View view) {
