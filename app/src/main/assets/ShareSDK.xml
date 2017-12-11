@@ -2,7 +2,7 @@
 <DevInfor>
     <ShareSDK
         AppKey = "22df8db419014"/>
-
+    <!--weixin-->
     <Wechat
         Id="1"
         SortId="1"

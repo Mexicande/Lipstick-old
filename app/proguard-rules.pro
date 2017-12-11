@@ -121,6 +121,9 @@
 -keepclasseswithmembernames class * {
     public <init>(Android.content.Context, Android.util.AttributeSet, int);
 }
+-keepclassmembers class * {
+   public <init> (org.json.JSONObject);
+}
 -keepclassmembers enum * {
     public static **[] values();
     public static ** valueOf(java.lang.String);

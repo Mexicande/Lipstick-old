@@ -1,5 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'bugly'
+apply plugin: 'walle'
+
 bugly {
     appId = 'f973cfa9b3'
     appKey = 'ca1bc150-cd9f-4bdc-a0d2-ed5ea90f3a94'
@@ -27,6 +29,8 @@ android {
 
         }
         release {
+            v1SigningEnabled true
+            v2SigningEnabled true
             storeFile file('../keystore/sisi.jks')
             keyAlias 'sisi'
             keyPassword 'dfsbLPL6wjG4t68kjd'
@@ -49,6 +53,7 @@ android {
             signingConfig signingConfigs.release
         }
         release {
+
             // 不显示Log
             buildConfigField "boolean", "LOG_DEBUG", "false"
             //混淆
@@ -67,6 +72,14 @@ android {
         main {
             jniLibs.srcDirs = ['libs']
         }
+    }
+    walle {
+        // 指定渠道包的输出路径
+        apkOutputFolder = new File("${project.buildDir}/outputs/channels");
+        // 定制渠道包的APK的文件名称
+        apkFileNameFormat = '${channel}-v${versionName}-${buildTime}.apk';
+        // 渠道配置文件
+        channelFile = new File("${project.getProjectDir()}/channel")
     }
 }
 
@@ -91,6 +104,9 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
         exclude group: 'com.android.support', module: 'recyclerview-v7'
     }
+    compile 'com.meituan.android.walle:library:1.1.5'
+    compile 'com.umeng.analytics:analytics:latest.integration'
+
     compile 'com.android.support:cardview-v7:25.3.1'
     compile 'com.gyf.barlibrary:barlibrary:2.3.0'
     compile(name: 'LiteAVSDK_Player', ext: 'aar')

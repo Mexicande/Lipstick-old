@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">快来抓娃娃</string>
+    <string name="app_name">快抓娃娃机</string>
     <string name="net_error">网络请求失败</string>
     <string name="device_error">机器出现故障</string>
     <string name="login_weixin">微信登录</string>

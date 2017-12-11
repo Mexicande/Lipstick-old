@@ -33,19 +33,19 @@ public class SplashActivity extends BaseActivity {
         Api.getLaunchScreen(this, new JSONObject(), new OnRequestDataListener() {
             @Override
             public void requestSuccess(int code, final JSONObject data) {
-                   // Glide.with(getApplicationContext()).load(data.getString("info")).into(mLauchScreen);
-//                    mLauchScreen.setOnClickListener(new View.OnClickListener() {
-//                        @Override
-//                        public void onClick(View view) {
-//                            if(null != data.getString("url") && null != data.getString("title")){
-//                                Bundle temp = new Bundle();
-//                                temp.putString("title",data.getString("title"));
-//                                temp.putString("jump",data.getString("url"));
-//                                ActivityUtils.startActivity(temp,WebviewActivity.class);
-//                                SplashActivity.this.finish();
-//                            }
-//                        }
-//                    });
+                   Glide.with(getApplicationContext()).load(data.getString("info")).into(mLauchScreen);
+                    mLauchScreen.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            if(null != data.getString("url") && null != data.getString("title")){
+                                Bundle temp = new Bundle();
+                                temp.putString("title",data.getString("title"));
+                                temp.putString("jump",data.getString("url"));
+                                ActivityUtils.startActivity(temp,WebviewActivity.class);
+                                SplashActivity.this.finish();
+                            }
+                        }
+                    });
             }
 
             @Override

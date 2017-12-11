@@ -89,10 +89,6 @@ public class LoginActivity extends BaseActivity {
             PlatformDb db = platform.getDb();
             String name = db.getUserName();
 
-
-            LogUtils.d("Platform",db.getUserName());
-
-
             String from = "Wechat";
             String head_img = db.getUserIcon();
             String openid = db.getUserId();
@@ -130,7 +126,7 @@ public class LoginActivity extends BaseActivity {
                 @Override
                 public void requestSuccess(int code, JSONObject data) {
                     mLoadingDialog.dismiss();
-                    LogUtils.d("requestSuccess",data);
+
                     SPUtils.getInstance().put("token",data.getString("token"));
                     JSONObject userinfo = data.getJSONObject("data");
                     SPUtils.getInstance().put("balance",userinfo.getString("balance"));
@@ -147,9 +143,6 @@ public class LoginActivity extends BaseActivity {
                 @Override
                 public void requestFailure(int code, String msg) {
                     toast(msg);
-                    ToastUtils.showShort("requestFailure="+msg);
-
-                    LogUtils.d("requestFailure",code+"msg=="+msg);
                     mLoadingDialog.dismiss();
                 }
             });

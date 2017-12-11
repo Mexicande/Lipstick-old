@@ -47,6 +47,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.KeyboardUtils;
+import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
@@ -300,6 +301,8 @@ public class PlayerActivity extends BaseActivity implements View.OnTouchListener
         JSONObject p = new JSONObject();
         p.put("token",mToken);
         p.put("deviceid",mRemoteUid);
+        LogUtils.d("toke===",mToken);
+        LogUtils.d("deviceid===",mRemoteUid);
         Api.enterPlayer(this, p, new OnRequestDataListener() {
             @Override
             public void requestSuccess(int code, JSONObject data) {
@@ -327,6 +330,9 @@ public class PlayerActivity extends BaseActivity implements View.OnTouchListener
             public void requestFailure(int code, String msg) {
                 toast(msg);
                // finish();
+                LogUtils.d("code===",code);
+                LogUtils.d("msg===",msg);
+
             }
         });
     }

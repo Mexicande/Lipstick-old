@@ -7,6 +7,7 @@ import com.blankj.utilcode.util.SnackbarUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.deerlive.zhuawawa.R;
 import com.gyf.barlibrary.ImmersionBar;
+import com.umeng.analytics.MobclickAgent;
 
 import butterknife.ButterKnife;
 
@@ -45,5 +46,13 @@ public abstract class BaseActivity extends AppCompatActivity {
         if (mImmersionBar != null)
             mImmersionBar.destroy();
         active = false;
+    }
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
     }
 }

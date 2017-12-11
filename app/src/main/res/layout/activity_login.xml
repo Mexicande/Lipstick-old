@@ -37,7 +37,7 @@
             android:layout_height="wrap_content">
             <CheckBox
                 android:layout_marginTop="2dp"
-                android:id="@+id/checkbox_zfb"
+                android:id="@+id/checkbox_login"
                 android:layout_width="15dp"
                 android:layout_height="15dp"
                 android:background="@drawable/login_check"
