@@ -99,7 +99,7 @@ public class ChargeActivity extends BaseActivity implements OnRecyclerViewItemCl
     }
 
     @Override
-    protected void onResume() {
+    public void onResume() {
         super.onResume();
 
         mBeginPay.setClickable(true);

@@ -1,9 +1,11 @@
 package com.deerlive.zhuawawa.model;
 
+import java.io.Serializable;
+
 /**
  * Created by fengjh on 16/7/31.
  */
-public class Banner {
+public class Banner implements Serializable{
 
     private String pic;
     private String title;

@@ -10,6 +10,8 @@ import com.mob.MobSDK;
 import com.tencent.bugly.crashreport.CrashReport;
 import com.umeng.analytics.MobclickAgent;
 
+import cn.jpush.android.api.JPushInterface;
+
 
 /**
  * Created by Administrator on 2017/10/23.
@@ -24,21 +26,25 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         instance = this;
+
         Utils.init(this);
+
         LogUtils.init(getInstance());
+
         StyledDialog.init(this);
-       //MobSDK.init(this,"21e75c561cc28","cbb65c61bf460075ad37ed570b8ca2f1");
+        //ShareSDK
         MobSDK.init(this,"22df8db419014","0f69e4d8a099b8426a58a16fccb8e88e");
 
-        CrashReport.initCrashReport(getApplicationContext(), "f973cfa9b3", false);
-
-
+        //Bugly
+        CrashReport.initCrashReport(getApplicationContext(), "8063782a38", false);
+        //Walle
         channel = WalleChannelReader.getChannel(this.getApplicationContext());
         //友盟
         MobclickAgent.startWithConfigure(new MobclickAgent.UMAnalyticsConfig(this,"5a2e357aa40fa3791100004f"
                 ,channel));
+        //极光推送
         //JPushInterface.setDebugMode(true);
-        //JPushInterface.init(this);
+        JPushInterface.init(this);
     }
     public static MyApplication getInstance(){
         return instance;

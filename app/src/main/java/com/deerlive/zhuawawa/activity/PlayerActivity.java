@@ -973,7 +973,7 @@ public class PlayerActivity extends BaseActivity implements View.OnTouchListener
     //下抓倒计时
     CountDownTimer mPlayerDaoJishi;
     private void startTimerPlay(){
-        goTimeLeft = 30;
+            goTimeLeft = 30;
         mPlayerDaoJishi = new CountDownTimer(30000, 1000) {
 
             public void onTick(long millisUntilFinished) {
@@ -1145,7 +1145,7 @@ public class PlayerActivity extends BaseActivity implements View.OnTouchListener
     }
 
     @Override
-    protected void onPause() {
+    public void onPause() {
         super.onPause();
         closeRecord();
     }

@@ -1,13 +1,13 @@
 package com.deerlive.zhuawawa;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
@@ -22,10 +22,11 @@ import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.bigkoo.convenientbanner.listener.OnItemClickListener;
 import com.blankj.utilcode.util.ActivityUtils;
+import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ScreenUtils;
 import com.blankj.utilcode.util.SizeUtils;
-import com.blankj.utilcode.util.SnackbarUtils;
 import com.blankj.utilcode.util.StringUtils;
+import com.blankj.utilcode.util.Utils;
 import com.deerlive.zhuawawa.activity.PlayerActivity;
 import com.deerlive.zhuawawa.activity.SettingActivity;
 import com.deerlive.zhuawawa.activity.UserCenterActivity;
@@ -216,7 +217,7 @@ public class MainActivity extends BaseActivity {
     private void initBanner() {
         LinearLayout temp = (LinearLayout)LayoutInflater.from(this).inflate(R.layout.layout_home_banner,null);
         mConvenientBanner = (ConvenientBanner)temp.findViewById(R.id.convenientBanner);
-     /*   int bannerWidth = ScreenUtils.getScreenWidth();
+       /* int bannerWidth = ScreenUtils.getScreenWidth();
         int bannerHeight = bannerWidth * 2 / 5;
         mConvenientBanner.setLayoutParams(new LinearLayout.LayoutParams(bannerWidth, bannerHeight));*/
         mConvenientBanner.setPointViewVisible(true);
@@ -231,11 +232,16 @@ public class MainActivity extends BaseActivity {
         mConvenientBanner.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                Banner b = mBannerData.get(position);
-                Bundle temp = new Bundle();
-                temp.putString("title",b.getTitle());
-                temp.putString("jump",b.getJump());
-                ActivityUtils.startActivity(temp,WebviewActivity.class);
+
+                LogUtils.d("mBanner===",mBannerData.get(position).getJump()+"");
+                if(!" ".equals(mBannerData.get(position).getJump())){
+                    Banner b = mBannerData.get(position);
+                    Bundle temp = new Bundle();
+                    temp.putString("title",b.getTitle());
+                    temp.putString("jump",b.getJump());
+                    ActivityUtils.startActivity(temp,WebviewActivity.class);
+                }
+
             }
         });
     }

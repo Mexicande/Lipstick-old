@@ -4,7 +4,7 @@ public class Constants {
     /*微信支付*/
 
     //微信的APP_ID
-    public static String WX_APP_ID       = "wx8bf15a7269bafb69";
+    public static String WX_APP_ID       = "wx8bf15a7269bafb369";
     public static String WX_PARTNER_ID   = "";
     public static String url = "http://www.sisi.tv/Api/SiSi/begin_wxpay";
     /*支付宝支付*/

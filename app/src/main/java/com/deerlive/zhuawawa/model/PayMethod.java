@@ -1,11 +1,13 @@
 package com.deerlive.zhuawawa.model;
 
+import java.io.Serializable;
+
 /**
  * Created by Administrator on 2017/10/30.
  * Author: XuDeLong
  */
 
-public class PayMethod {
+public class PayMethod implements Serializable{
     private String coin;
     private String price;
     private String if_check;

@@ -38,6 +38,7 @@ public class UserCenterActivity extends BaseActivity {
     private String mToken;
     private String mId;
 
+
     public void goBack(View v){
         finish();
     }
@@ -48,12 +49,13 @@ public class UserCenterActivity extends BaseActivity {
     }
 
     @Override
-    protected void onResume() {
+    public void onResume() {
         super.onResume();
         getUserInfo();
     }
 
     private void initData() {
+
         mmUserName = SPUtils.getInstance().getString("user_nicename");
         mmAvator = SPUtils.getInstance().getString("avatar");
         mmBalance = SPUtils.getInstance().getString("balance");

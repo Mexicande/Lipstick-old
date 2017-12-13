@@ -3,8 +3,8 @@ apply plugin: 'bugly'
 apply plugin: 'walle'
 
 bugly {
-    appId = 'f973cfa9b3'
-    appKey = 'ca1bc150-cd9f-4bdc-a0d2-ed5ea90f3a94'
+    appId = '8063782a38'
+    appKey = '56838b92-88eb-453a-aa74-06eabba3c8b8'
 }
 android {
     compileSdkVersion 25
