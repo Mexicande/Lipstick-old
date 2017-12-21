@@ -29,9 +29,9 @@ import cz.msebera.android.httpclient.HttpResponse;
  * Author: XuDeLong
  */
 public class Api {
-    public static final String APP_VER = "1.0.4";
+    public static final String APP_VER = "1.0.0";
     //public static final String HOST = "http://kuailai.deerlive.com/";
-    public static final String HOST = "http://test.doll.anwenqianbao.com/";
+    public static final String HOST = "http://doll.anwenqianbao.com/";
     private static final String OS = "android";
     public static final String QUDAO = "kuailai-one";
     private static final String OS_VER = Build.VERSION.RELEASE;
