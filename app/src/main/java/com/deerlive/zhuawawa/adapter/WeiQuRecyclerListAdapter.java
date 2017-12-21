@@ -91,7 +91,6 @@ public class WeiQuRecyclerListAdapter extends RecyclerView.Adapter<RecyclerView.
     public boolean haveFooterView() {
         return mFooterView != null;
     }
-
     private boolean isHeaderView(int position) {
         return haveHeaderView() && position == 0;
     }

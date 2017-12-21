@@ -15,7 +15,7 @@
         android:background="@color/white"
         android:layout_height="30dp"
         android:gravity="center"
-        android:text="点击保存"
+        android:text="保存图片"
         android:textSize="16sp"/>
 
 </LinearLayout>

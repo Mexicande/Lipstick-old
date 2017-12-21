@@ -1,12 +1,8 @@
 package com.deerlive.zhuawawa.activity;
 import android.annotation.TargetApi;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.media.AudioManager;
 import android.media.MediaPlayer;
-import android.media.MediaRecorder;
 import android.media.SoundPool;
 import android.media.projection.MediaProjection;
 import android.media.projection.MediaProjectionManager;
@@ -54,10 +50,8 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
 import com.deerlive.zhuawawa.R;
 import com.deerlive.zhuawawa.adapter.MessageRecyclerListAdapter;
-import com.deerlive.zhuawawa.adapter.RecordZjRecyclerListAdapter;
 import com.deerlive.zhuawawa.agora.MyEngineEventHandler;
 import com.deerlive.zhuawawa.base.BaseActivity;
-import com.deerlive.zhuawawa.base.BaseEditActivity;
 import com.deerlive.zhuawawa.common.Api;
 import com.deerlive.zhuawawa.common.GlideCircleTransform;
 import com.deerlive.zhuawawa.common.ScreenRecorder;
@@ -67,7 +61,6 @@ import com.deerlive.zhuawawa.intf.OnRequestDataListener;
 import com.deerlive.zhuawawa.model.DanmuMessage;
 import com.deerlive.zhuawawa.model.Game;
 import com.deerlive.zhuawawa.model.MessageType;
-import com.hss01248.dialog.StyledDialog;
 import com.loopj.android.http.RequestParams;
 import com.tencent.rtmp.TXLivePlayer;
 import com.tencent.rtmp.ui.TXCloudVideoView;
@@ -228,7 +221,7 @@ public class PlayerActivity extends BaseActivity implements View.OnTouchListener
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP_MR1)
     private void initScreenRecorder() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             mMediaProjectionManager = (MediaProjectionManager) getSystemService(MEDIA_PROJECTION_SERVICE);
         }
     }

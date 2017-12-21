@@ -13,6 +13,8 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.alibaba.fastjson.JSONObject;
 import com.blankj.utilcode.util.ActivityUtils;
+import com.blankj.utilcode.util.AppUtils;
+import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.deerlive.zhuawawa.R;
@@ -31,6 +33,8 @@ public class SettingActivity extends BaseActivity {
     SuperTextView checkboxYinxiao;
     @Bind(R.id.tv_title)
     TextView tvTitle;
+    @Bind(R.id.bt_version)
+    SuperTextView btVersion;
     private String token;
 
     public void goBack(View v) {
@@ -57,6 +61,9 @@ public class SettingActivity extends BaseActivity {
     }
 
     private void setListener() {
+        String versionName = AppUtils.getAppVersionName();
+        btVersion.setLeftString("检测更新（"+versionName+"）");
+
         checkboxBgm.setSwitchCheckedChangeListener(new SuperTextView.OnSwitchCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {

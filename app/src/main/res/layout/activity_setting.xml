@@ -169,6 +169,7 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"/>
         <com.deerlive.zhuawawa.view.supertextview.SuperTextView
+            android:id="@+id/bt_version"
             android:onClick="checkUpdate"
             android:elevation="2dp"
             android:layout_width="match_parent"
