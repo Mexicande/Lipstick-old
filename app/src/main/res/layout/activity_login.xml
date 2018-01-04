@@ -14,24 +14,30 @@
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
             android:src="@drawable/open"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </LinearLayout>
         <TextView
             android:layout_width="315dp"
             android:layout_height="50dp"
             android:layout_gravity="bottom|center"
-            android:layout_marginBottom="130dp"
+            android:layout_marginBottom="120dp"
             android:gravity="center_horizontal"
-            android:textColor="@color/text_color"
+            android:textColor="@color/white"
             android:textSize="16sp"
             android:text="微信登陆"/>
         <ImageView
+            android:id="@+id/weChat_login"
             android:layout_width="70dp"
             android:layout_height="70dp"
-            android:layout_marginBottom="60dp"
+            android:layout_marginBottom="70dp"
             android:layout_gravity="bottom|center"
             android:src="@drawable/iv_wechat"
-            android:onClick="loginWx"
             />
         <LinearLayout
+            android:layout_marginBottom="20dp"
             android:layout_gravity="bottom|center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
@@ -48,7 +54,7 @@
                 android:layout_marginLeft="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="20dp"
-                android:textColor="@color/text_color"
+                android:textColor="@color/white"
                 android:text="@string/xieyi"
                 android:textSize="12sp"
                 android:layout_marginBottom="20dp"

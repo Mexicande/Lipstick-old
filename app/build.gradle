@@ -23,6 +23,11 @@ android {
         ndk {
             abiFilters "armeabi", "armeabi-v7a"
         }
+        javaCompileOptions{
+            annotationProcessorOptions{
+                includeCompileClasspath = true
+            }
+        }
     }
     signingConfigs {
         debug {

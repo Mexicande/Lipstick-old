@@ -56,7 +56,7 @@ public class ChargeActivity extends BaseActivity implements OnRecyclerViewItemCl
     @Bind(R.id.my_balance_text)
     TextView mMybalanceText;
     @Bind(R.id.beigin_pay)
-    ImageView mBeginPay;
+    Button mBeginPay;
     @Bind(R.id.pay_container)
     LinearLayout mChargeContainer;
     private String mToken;

@@ -34,7 +34,7 @@
                     android:layout_height="wrap_content"
                     android:text="昵称"
                     android:textStyle="bold"
-                    android:textColor="@color/colorIndexFont"
+                    android:textColor="@color/white"
                     android:textSize="16sp"/>
                 <TextView
                     android:id="@+id/user_all_num"
@@ -42,7 +42,7 @@
                     android:layout_height="wrap_content"
                     android:text=""
                     android:layout_marginTop="2dp"
-                    android:textColor="@color/colorIndexFont"
+                    android:textColor="#FDF2F3"
                     android:textSize="12sp"/>
             </LinearLayout>
 

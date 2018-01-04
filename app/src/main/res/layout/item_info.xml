@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="5dp"
-    app:cardBackgroundColor="#D6FED1"
+    app:cardBackgroundColor="@color/shallow_red"
     app:cardCornerRadius="6dp"
     app:cardUseCompatPadding="true"
     app:cardElevation="1dp"
@@ -26,7 +26,7 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:background="@drawable/circle_bg"
-                android:src="@mipmap/logo"
+                android:src="@mipmap/iv_logo"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="10dp"
                 />
@@ -50,10 +50,9 @@
                     android:layout_width="wrap_content"
                     android:textSize="13sp"
                     android:text="123"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="5dp"
                     android:textColor="@color/text_color"
                     android:layout_height="wrap_content"/>
-
             </LinearLayout>
         </RelativeLayout>
 
@@ -64,7 +63,7 @@
             android:layout_width="wrap_content"
             android:textSize="10sp"
             android:text="123"
-            android:textColor="@color/green_text"
+            android:textColor="@color/shape2"
             android:layout_height="wrap_content" />
 
     </LinearLayout>

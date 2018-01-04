@@ -9,23 +9,26 @@
     <color name="colorIndexFont">#442204</color>
     <color name="colorDanmu">#88545454</color>
     <color name="trans">#02494949</color>
-    <color name="center_black">#031107</color>
-    
+    <color name="center_black">#FFFFFF</color>
+    <color name="red_lion">#FAC0C2</color>
     <color name="message_red">#F84242</color>
-
+    <color name="red_text">#F32E40</color>
+    <color name="shallow_red">#FDF2F3</color>
+    <color name="select_red">#fbd4d7</color>
     <color name="color_shouhuo_text">#116727</color>
-    <color name="green_text">#199739</color>
-    <color name="shape3">#3CCE62</color>
-    <color name="shape2">#7DE968</color>
+    <color name="green_text">#F55261</color>
+    <color name="shape3">#F55261</color>
+    <color name="shape2">#F9765B</color>
     <color name="white">#ffffff</color>
     <color name="text_color">#333333</color>
     <color name="soild_color">#D6FED1</color>
     <color name="green_lion">#9FDF97</color>
     <color name="green_press">#9FDF97</color>
 
+    <color name="black_666">#666666</color>
     <color name="product_limit">#999999</color>
     
-    <color name="user_center_lion">#B5F0AD</color>
+    <color name="user_center_lion">#FAC0C2</color>
     <color name="grey_b2b2b2">#B2B2B2</color>
     <color name="blue_78d2f6">#78D2F6</color>
     <color name="blue_01aaee">#01AAEE</color>

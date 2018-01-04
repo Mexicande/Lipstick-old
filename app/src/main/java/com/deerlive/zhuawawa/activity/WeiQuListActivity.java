@@ -6,7 +6,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSONArray;
@@ -30,7 +29,6 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import java.util.ArrayList;
 
 import butterknife.Bind;
-import butterknife.OnClick;
 
 public class WeiQuListActivity extends BaseActivity implements OnRecyclerViewItemClickListener, CompoundButton.OnCheckedChangeListener {
 
@@ -40,17 +38,21 @@ public class WeiQuListActivity extends BaseActivity implements OnRecyclerViewIte
     RecyclerView mRecyclerView;
     @Bind(R.id.checkbox_all)
     CheckBox mCheckBoxAll;
+    @Bind(R.id.tv_title)
+    TextView tvTitle;
     private String mToken;
     private CashDialog cashDialog;
     private ArrayList<DanmuMessage> mListData = new ArrayList();
-    private WeiQuRecyclerListAdapter mAdapter = new WeiQuRecyclerListAdapter(this,mListData);
+    private WeiQuRecyclerListAdapter mAdapter = new WeiQuRecyclerListAdapter(this, mListData);
 
-    public void goBack(View v){
+    public void goBack(View v) {
         finish();
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        tvTitle.setText("金币记录");
         mToken = SPUtils.getInstance().getString("token");
         mRefreshLayout.autoRefresh();
         initGameList();
@@ -80,19 +82,19 @@ public class WeiQuListActivity extends BaseActivity implements OnRecyclerViewIte
 
     private void getGameData(final int limit_begin) {
         JSONObject params = new JSONObject();
-        params.put("token",mToken);
-        params.put("limit_begin",limit_begin);
-        params.put("limit_num",10);
+        params.put("token", mToken);
+        params.put("limit_begin", limit_begin);
+        params.put("limit_num", 10);
         Api.getNoTakenWawa(this, params, new OnRequestDataListener() {
             @Override
             public void requestSuccess(int code, JSONObject data) {
-                if(limit_begin == 0){
+                if (limit_begin == 0) {
                     mListData.clear();
                 }
-                if(mRefreshLayout.isRefreshing()){
+                if (mRefreshLayout.isRefreshing()) {
                     mRefreshLayout.finishRefresh();
                 }
-                if(mRefreshLayout.isLoading()){
+                if (mRefreshLayout.isLoading()) {
                     mRefreshLayout.finishLoadmore();
                 }
                 JSONArray list = data.getJSONArray("info");
@@ -113,14 +115,14 @@ public class WeiQuListActivity extends BaseActivity implements OnRecyclerViewIte
             @Override
             public void requestFailure(int code, String msg) {
                 toast(msg);
-                if(limit_begin == 0){
+                if (limit_begin == 0) {
                     mListData.clear();
                     mAdapter.notifyDataSetChanged();
                 }
-                if(mRefreshLayout.isRefreshing()){
+                if (mRefreshLayout.isRefreshing()) {
                     mRefreshLayout.finishRefresh();
                 }
-                if(mRefreshLayout.isLoading()){
+                if (mRefreshLayout.isLoading()) {
                     mRefreshLayout.finishLoadmore();
                 }
             }
@@ -135,10 +137,10 @@ public class WeiQuListActivity extends BaseActivity implements OnRecyclerViewIte
     @Override
     public void onRecyclerViewItemClick(View view, int position) {
         String s = mListData.get(position).getRemoteUid();
-        if("1".equals(s)){
+        if ("1".equals(s)) {
             mListData.get(position).setRemoteUid("0");
         }
-        if("0".equals(s)){
+        if ("0".equals(s)) {
             mListData.get(position).setRemoteUid("1");
         }
         mAdapter.notifyItemChanged(position);
@@ -146,32 +148,34 @@ public class WeiQuListActivity extends BaseActivity implements OnRecyclerViewIte
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        if(isChecked){
-            for (int i = 0;i<mListData.size();i++){
+        if (isChecked) {
+            for (int i = 0; i < mListData.size(); i++) {
                 mListData.get(i).setRemoteUid("1");
             }
-        }else {
-            for (int i = 0;i<mListData.size();i++){
+        } else {
+            for (int i = 0; i < mListData.size(); i++) {
                 mListData.get(i).setRemoteUid("0");
             }
         }
         mAdapter.notifyDataSetChanged();
     }
-   private String doll_id = "";
-    public void tiqu(View v){
-        doll_id="";
-        for(int i =0;i<mListData.size();i++){
-            if("1".equals(mListData.get(i).getRemoteUid())){
+
+    private String doll_id = "";
+
+    public void tiqu(View v) {
+        doll_id = "";
+        for (int i = 0; i < mListData.size(); i++) {
+            if ("1".equals(mListData.get(i).getRemoteUid())) {
                 doll_id += mListData.get(i).getId();
                 doll_id += ",";
             }
         }
-        if(doll_id.length()>0){
-            doll_id = doll_id.substring(0,doll_id.length()-1);
+        if (doll_id.length() > 0) {
+            doll_id = doll_id.substring(0, doll_id.length() - 1);
         }
-        if(StringUtils.isTrimEmpty(doll_id)){
+        if (StringUtils.isTrimEmpty(doll_id)) {
             toast(getString(R.string.data_empty_error));
-        }else {
+        } else {
             cashDialog = new CashDialog(this);
             cashDialog.setYesOnclickListener("是", new CashDialog.onYesOnclickListener() {
                 @Override
@@ -189,28 +193,29 @@ public class WeiQuListActivity extends BaseActivity implements OnRecyclerViewIte
             cashDialog.show();
         }
     }
-    public void duihuan(View v){
-        doll_id="";
-        for(int i =0;i<mListData.size();i++){
-            if("1".equals(mListData.get(i).getRemoteUid())){
+
+    public void duihuan(View v) {
+        doll_id = "";
+        for (int i = 0; i < mListData.size(); i++) {
+            if ("1".equals(mListData.get(i).getRemoteUid())) {
                 doll_id += mListData.get(i).getId();
                 doll_id += ",";
             }
         }
-        if(doll_id.length()>0){
-            doll_id = doll_id.substring(0,doll_id.length()-1);
+        if (doll_id.length() > 0) {
+            doll_id = doll_id.substring(0, doll_id.length() - 1);
         }
-        if(StringUtils.isTrimEmpty(doll_id)){
+        if (StringUtils.isTrimEmpty(doll_id)) {
             toast(getString(R.string.data_empty_error));
-        }else {
+        } else {
 
-            tiquDuihuan("0",doll_id);
+            tiquDuihuan("0", doll_id);
         }
     }
 
-    private void  tiquDuihuan(String type,String doll_id){
+    private void tiquDuihuan(String type, String doll_id) {
         JSONObject p = new JSONObject();
-        p.put("token",mToken);
+        p.put("token", mToken);
       /*  String doll_id = "";
         for(int i =0;i<mListData.size();i++){
             if("1".equals(mListData.get(i).getRemoteUid())){
@@ -226,15 +231,15 @@ public class WeiQuListActivity extends BaseActivity implements OnRecyclerViewIte
             toast(getString(R.string.data_empty_error));
             return;
         }*/
-        p.put("doll_id",doll_id);
-        LogUtils.i("提取===",doll_id);
+        p.put("doll_id", doll_id);
+        LogUtils.i("提取===", doll_id);
 
-        p.put("type",type);
+        p.put("type", type);
         Api.applyPostOrDuiHuanWaWa(this, p, new OnRequestDataListener() {
             @Override
             public void requestSuccess(int code, JSONObject data) {
                 toast(data.getString("descrp"));
-                SPUtils.getInstance().put("balance",data.getString("balance"));
+                SPUtils.getInstance().put("balance", data.getString("balance"));
                 getGameData(0);
             }
 

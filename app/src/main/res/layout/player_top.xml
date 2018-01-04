@@ -28,7 +28,7 @@
         android:onClick="goCharge">
         <ImageView
             android:id="@+id/index_top_set"
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:src="@mipmap/player_balance"/>

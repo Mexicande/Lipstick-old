@@ -46,7 +46,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/check_all"
                 android:layout_marginLeft="10dp"
-                android:textColor="@color/colorIndexFont"/>
+                android:textColor="@color/white"/>
         </LinearLayout>
 
         <ImageView

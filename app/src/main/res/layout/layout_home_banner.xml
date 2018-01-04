@@ -2,12 +2,50 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="160dp"
+    android:layout_height="wrap_content"
     android:orientation="vertical">
     <com.bigkoo.convenientbanner.ConvenientBanner
         android:id="@+id/convenientBanner"
         android:layout_width="match_parent"
         android:layout_height="160dp"
-        app:theme="@style/BannerStyle"
         app:canLoop="true"/>
+ <!--   <cn.bingoogolapple.bgabanner.BGABanner
+        android:id="@+id/convenientBanner"
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        app:banner_pageChangeDuration="1000"
+        app:banner_pointAutoPlayAble="false"
+        app:banner_pointContainerBackground="@android:color/transparent"
+        app:banner_pointDrawable="@drawable/bga_banner_selector_point_hollow"
+        app:banner_pointTopBottomMargin="15dp"
+        app:banner_transitionEffect="alpha" />-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_marginTop="18dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:background="@drawable/xml_oval_half_transparent_bg"
+        android:layout_height="28dp">
+        <ImageView
+            android:id="@+id/iv_loudspeaker4"
+            android:layout_marginLeft="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/iv_trumpet"/>
+        <com.deerlive.zhuawawa.view.marquee.MarqueeView
+            android:id="@+id/marqueeView"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/iv_loudspeaker4"
+            app:mvAnimDuration="1000"
+            app:mvDirection="right_to_left"
+            app:mvInterval="3000"
+            app:mvGravity="left"
+            app:mvTextColor="@color/shape3"
+            app:mvTextSize="14sp"
+            app:mvSingleLine="true"/>
+    </RelativeLayout>
 </LinearLayout>

@@ -4,7 +4,7 @@
     android:id="@+id/item_danmu_container"
     android:layout_width="match_parent"
     android:layout_height="80dp"
-    android:background="@drawable/bg_weiquwawa"
+    android:background="@drawable/pay_bg_off"
     android:layout_margin="5dp"
     android:padding="10dp">
     <CheckBox
@@ -19,7 +19,7 @@
     <ImageView
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:src="@mipmap/logo"
+        android:src="@mipmap/iv_logo"
         android:layout_marginLeft="40dp"
         android:layout_centerVertical="true"
         android:id="@+id/zq_avator"/>

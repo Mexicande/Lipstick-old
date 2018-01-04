@@ -14,13 +14,14 @@
         android:layout_below="@id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
         android:layout_gravity="center"
+        android:elevation="10dp"
         android:foreground="?android:attr/selectableItemBackground"
-        card_view:cardBackgroundColor="#D6FED1"
-        card_view:cardCornerRadius="5dp"
-        card_view:cardElevation="1dp"
+        card_view:cardBackgroundColor="@color/shallow_red"
+        card_view:cardCornerRadius="10dp"
+        card_view:cardElevation="3dp"
         >
     <LinearLayout
         android:layout_width="match_parent"
@@ -35,7 +36,7 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:text="温馨提示"
-            android:textColor="#116727"
+            android:textColor="@color/message_red"
             android:textStyle="bold"
             android:textSize="20sp"/>
         <LinearLayout
@@ -50,7 +51,7 @@
                 android:layout_height="wrap_content"
                 android:text="一次提取"
                 android:gravity="center"
-                android:textColor="#116727"
+                android:textColor="@color/text_color"
                 android:textSize="16sp" />
             <TextView
                 android:layout_gravity="center"
@@ -67,7 +68,7 @@
                 android:layout_height="wrap_content"
                 android:text="件娃娃以上包邮哦"
                 android:gravity="center"
-                android:textColor="#116727"
+                android:textColor="@color/text_color"
                 android:textSize="16sp" />
         </LinearLayout>
         <LinearLayout
@@ -81,7 +82,7 @@
                 android:layout_height="wrap_content"
                 android:text="单只娃娃邮寄需要消耗"
                 android:gravity="center"
-                android:textColor="#116727"
+                android:textColor="@color/text_color"
                 android:textSize="16sp" />
             <TextView
                 android:layout_gravity="center_horizontal"
@@ -98,7 +99,7 @@
                 android:layout_height="wrap_content"
                 android:text="金币"
                 android:gravity="center"
-                android:textColor="#116727"
+                android:textColor="@color/text_color"
                 android:textSize="16sp" />
         </LinearLayout>
         <TextView
@@ -108,14 +109,14 @@
             android:layout_height="wrap_content"
             android:text="是否继续提取？"
             android:gravity="center"
-            android:textColor="#116727"
+            android:textColor="@color/text_color"
             android:textSize="16sp" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
             android:layout_marginTop="10dp"
-            android:background="#116727" />
+            android:background="#FBD7DA" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -130,12 +131,12 @@
                 android:gravity="center"
                 android:maxLines="1"
                 android:text="是"
-                android:textColor="#116727"
+                android:textColor="@color/text_color"
                 android:textSize="19sp" />
             <View
                 android:layout_width="0.5dp"
                 android:layout_height="match_parent"
-                android:background="#116727"/>
+                android:background="#FBD7DA"/>
 
             <Button
                 android:id="@+id/no"
@@ -146,7 +147,7 @@
                 android:gravity="center"
                 android:maxLines="1"
                 android:text="否"
-                android:textColor="#116727"
+                android:textColor="@color/text_color"
                 android:textSize="19sp" />
         </LinearLayout>
     </LinearLayout>

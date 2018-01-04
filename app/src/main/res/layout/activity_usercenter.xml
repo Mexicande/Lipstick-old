@@ -31,20 +31,23 @@
         android:orientation="vertical"
         android:padding="10dp"
         android:layout_margin="20dp"
-        android:background="@drawable/user_center_bg">
-        <LinearLayout
+        android:background="@drawable/pay_bg_off">
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:gravity="center_vertical">
+            >
             <ImageView
                 android:id="@+id/user_avator"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
                 android:layout_margin="10dp"
-                android:src="@mipmap/logo"/>
+                android:src="@mipmap/iv_logo"/>
+
             <LinearLayout
+                android:layout_toRightOf="@id/user_avator"
                 android:layout_width="wrap_content"
+                android:layout_centerVertical="true"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
                 <TextView
@@ -61,7 +64,7 @@
                     android:layout_height="wrap_content"
                     android:text=""
                     android:layout_marginTop="2dp"
-                    android:textColor="@color/color_shouhuo_text"
+                    android:textColor="@color/black_666"
                     android:textSize="12sp"/>
                 <TextView
                     android:id="@+id/user_all_num"
@@ -69,11 +72,20 @@
                     android:layout_height="wrap_content"
                     android:text=""
                     android:layout_marginTop="2dp"
-                    android:textColor="@color/color_shouhuo_text"
+                    android:textColor="@color/black_666"
                     android:textSize="12sp"/>
             </LinearLayout>
+            <ImageView
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_alignParentRight="true"
+                android:layout_gravity="end"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/iv_vip"
+                />
 
-        </LinearLayout>
+        </RelativeLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -98,7 +110,7 @@
                         android:src="@drawable/user_coin"/>
                 </LinearLayout>
                 <RelativeLayout
-                    android:layout_width="90dp"
+                    android:layout_width="95dp"
                     android:layout_height="50dp"
                     android:layout_marginLeft="5dp"
                     android:background="@drawable/user_coin_bg"
@@ -133,7 +145,7 @@
                         android:src="@drawable/user_zhua_num"/>
                 </LinearLayout>
                 <RelativeLayout
-                    android:layout_width="85dp"
+                    android:layout_width="95dp"
                     android:layout_height="50dp"
                     android:layout_marginLeft="5dp"
                     android:onClick="goWaWa"
@@ -183,14 +195,14 @@
                 android:layout_weight="1"
                 android:text="@string/customer_service"
                 android:textColor="@color/center_black"
-                android:textSize="12sp"
+                android:textSize="14sp"
                 android:id="@+id/tv_service" />
             <ImageView
                 android:layout_marginRight="10dp"
                 android:layout_gravity="center_vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@mipmap/iv_arrow"/>
+                android:src="@mipmap/iv_right_arrow"/>
 
         </LinearLayout>
 
@@ -217,14 +229,14 @@
                 android:layout_weight="1"
                 android:text="@string/message"
                 android:textColor="@color/center_black"
-                android:textSize="12sp"
+                android:textSize="14sp"
                 android:id="@+id/textView" />
             <ImageView
                 android:layout_marginRight="10dp"
                 android:layout_gravity="center_vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@mipmap/iv_arrow"/>
+                android:src="@mipmap/iv_right_arrow"/>
 
         </LinearLayout>
 
@@ -251,13 +263,13 @@
                 android:layout_weight="1"
                 android:text="@string/shouhuo"
                 android:textColor="@color/center_black"
-                android:textSize="12sp"/>
+                android:textSize="14sp"/>
             <ImageView
                 android:layout_marginRight="10dp"
                 android:layout_gravity="center_vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@mipmap/iv_arrow"/>
+                android:src="@mipmap/iv_right_arrow"/>
         </LinearLayout>
 
         <View
@@ -283,13 +295,13 @@
                 android:layout_weight="1"
                 android:text="@string/zhuaqu_record"
                 android:textColor="@color/center_black"
-                android:textSize="12sp"/>
+                android:textSize="14sp"/>
             <ImageView
                 android:layout_marginRight="10dp"
                 android:layout_gravity="center_vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@mipmap/iv_arrow"/>
+                android:src="@mipmap/iv_right_arrow"/>
         </LinearLayout>
 
         <View
@@ -315,13 +327,13 @@
                 android:layout_weight="1"
                 android:text="@string/jinbi_record"
                 android:textColor="@color/center_black"
-                android:textSize="12sp"/>
+                android:textSize="14sp"/>
             <ImageView
                 android:layout_marginRight="10dp"
                 android:layout_gravity="center_vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@mipmap/iv_arrow"/>
+                android:src="@mipmap/iv_right_arrow"/>
         </LinearLayout>
         <View
             android:layout_width="match_parent"

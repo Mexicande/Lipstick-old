@@ -1,6 +1,8 @@
 package com.deerlive.zhuawawa.adapter;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -116,7 +118,7 @@ public class GameRecyclerListAdapter extends RecyclerView.Adapter<RecyclerView.V
         } else if (viewType == TYPE_HEADER) {
             return new HeaderHolder(mHeaderView);
         } else {
-            return new GameViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_game_index, parent, false));
+            return new GameViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.home_item, parent, false));
         }
     }
 
@@ -151,13 +153,23 @@ public class GameRecyclerListAdapter extends RecyclerView.Adapter<RecyclerView.V
         }
     }
 
-    private void setGameStatus(String mGameStatus,ImageView v) {
+    private void setGameStatus(String mGameStatus,TextView v) {
         switch (mGameStatus){
             case "2"://空闲
-                v.setImageResource(R.drawable.game_item_status_waiting);
+                Drawable drawableLeft1 = mContext.getResources().getDrawable(
+                        R.drawable.iv_blue_dot);
+                v.setCompoundDrawablesWithIntrinsicBounds(drawableLeft1,null,null,null);
+                v.setCompoundDrawablePadding(4);
+                v.setText("空闲中");
+                //v.setImageResource(R.drawable.game_item_status_waiting);
                 break;
             case "3": //游戏中
-                v.setImageResource(R.drawable.game_item_status_ing);
+                Drawable drawableLeft2 = mContext.getResources().getDrawable(
+                        R.drawable.iv_red_dot);
+                v.setCompoundDrawablesWithIntrinsicBounds(drawableLeft2,null,null,null);
+                v.setText("游戏中");
+                v.setCompoundDrawablePadding(4);
+                //v.setImageResource(R.drawable.game_item_status_ing);
                 break;
         }
     }
@@ -195,7 +207,7 @@ public class GameRecyclerListAdapter extends RecyclerView.Adapter<RecyclerView.V
 
     class GameViewHolder extends RecyclerView.ViewHolder {
         @Bind(R.id.item_game_container)
-        FrameLayout mContainer;
+        CardView mContainer;
         @Bind(R.id.game_icon)
         ImageView mGameIcon;
         @Bind(R.id.item_game_name)
@@ -203,7 +215,7 @@ public class GameRecyclerListAdapter extends RecyclerView.Adapter<RecyclerView.V
         @Bind(R.id.game_price)
         TextView mGamePrice;
         @Bind(R.id.game_status)
-        ImageView mGameStatus;
+        TextView mGameStatus;
         public GameViewHolder(View inflate) {
             super(inflate);
             ButterKnife.bind(this, inflate);

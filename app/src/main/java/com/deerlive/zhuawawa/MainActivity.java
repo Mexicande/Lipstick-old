@@ -39,13 +39,16 @@ import com.deerlive.zhuawawa.intf.OnRecyclerViewItemClickListener;
 import com.deerlive.zhuawawa.intf.OnRequestDataListener;
 import com.deerlive.zhuawawa.model.Banner;
 import com.deerlive.zhuawawa.model.Game;
+import com.deerlive.zhuawawa.utils.LocalImageHolderView;
 import com.deerlive.zhuawawa.view.SpaceItemDecoration;
+import com.deerlive.zhuawawa.view.marquee.MarqueeView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.Bind;
 
@@ -213,27 +216,36 @@ public class MainActivity extends BaseActivity {
             }
         });
     }
-
     private void initBanner() {
         LinearLayout temp = (LinearLayout)LayoutInflater.from(this).inflate(R.layout.layout_home_banner,null);
         mConvenientBanner = (ConvenientBanner)temp.findViewById(R.id.convenientBanner);
+        MarqueeView marqueeView= (MarqueeView) temp.findViewById(R.id.marqueeView);
+        List<String> info = new ArrayList<>();
+        info.add("像我这样优秀的人,本该灿烂过一生。");
+        info.add("像我这样聪明的人,早就告别了单纯。");
+        info.add("怎么还是用了一段情,去换一身伤痕。");
+        info.add("像我这样的迷茫的人,像我这样寻找的人。");
+        info.add("像我这样孤独的人,像我这样傻的人。");
+        info.add("世界上有多少人");
+        marqueeView.startWithList(info);
+
        /* int bannerWidth = ScreenUtils.getScreenWidth();
         int bannerHeight = bannerWidth * 2 / 5;
-        mConvenientBanner.setLayoutParams(new LinearLayout.LayoutParams(bannerWidth, bannerHeight));*/
+        mConvenientBanner.setLayoutParams(new LinearLayout.LayoutParams(bannerWidth, bannerHeight));
+*/
         mConvenientBanner.setPointViewVisible(true);
-        mConvenientBanner.setPages(new CBViewHolderCreator() {
+        mConvenientBanner.setPages(new CBViewHolderCreator<LocalImageHolderView>() {
             @Override
-            public Object createHolder() {
-                return new BannerItemViewHolder();
+            public LocalImageHolderView createHolder() {
+                return new LocalImageHolderView();
             }
         }, mBannerData);
+
         mConvenientBanner.startTurning(3000);
         mGameAdapter.addHeaderView(temp);
         mConvenientBanner.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-
-                LogUtils.d("mBanner===",mBannerData.get(position).getJump()+"");
                 if(!" ".equals(mBannerData.get(position).getJump())){
                     Banner b = mBannerData.get(position);
                     Bundle temp = new Bundle();

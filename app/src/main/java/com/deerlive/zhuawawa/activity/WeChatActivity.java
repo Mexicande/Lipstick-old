@@ -32,6 +32,8 @@ public class WeChatActivity extends AppCompatActivity {
     ImageView ivBack;
     @Bind(R.id.iv_qr)
     ImageView ivQr;
+    @Bind(R.id.tv_title)
+    TextView tvTitle;
     private EasyPopup mCirclePop;
 
     @Override
@@ -39,6 +41,7 @@ public class WeChatActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_we_chat);
         ButterKnife.bind(this);
+        tvTitle.setText("客服小抓来帮您");
         setListener();
     }
 
@@ -52,7 +55,8 @@ public class WeChatActivity extends AppCompatActivity {
         ivQr.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                mCirclePop.showAtAnchorView(v, VerticalGravity.CENTER, HorizontalGravity.CENTER, 0, 0);;
+                mCirclePop.showAtAnchorView(v, VerticalGravity.CENTER, HorizontalGravity.CENTER, 0, 0);
+                ;
                 return false;
             }
         });

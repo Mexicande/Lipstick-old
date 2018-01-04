@@ -125,7 +125,7 @@
             android:layout_width="60dp"
             android:layout_height="54dp"
             android:layout_marginLeft="30dp"
-            android:src="@drawable/record_jiang"
+            android:src="@mipmap/record_jiang"
             android:onClick="showRecord"
            />
         <RelativeLayout
@@ -169,7 +169,7 @@
             android:layout_height="54dp"
             android:layout_marginRight="30dp"
             android:layout_alignParentRight="true"
-            android:src="@drawable/player_mess"
+            android:src="@mipmap/player_mess"
             android:onClick="showSend"/>
     </RelativeLayout>
 
