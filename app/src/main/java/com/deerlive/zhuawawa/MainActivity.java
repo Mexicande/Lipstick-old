@@ -1,53 +1,57 @@
 package com.deerlive.zhuawawa;
+
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.bigkoo.convenientbanner.listener.OnItemClickListener;
 import com.blankj.utilcode.util.ActivityUtils;
-import com.blankj.utilcode.util.LogUtils;
-import com.blankj.utilcode.util.ScreenUtils;
 import com.blankj.utilcode.util.SizeUtils;
 import com.blankj.utilcode.util.StringUtils;
-import com.blankj.utilcode.util.Utils;
+import com.bumptech.glide.Glide;
 import com.deerlive.zhuawawa.activity.PlayerActivity;
 import com.deerlive.zhuawawa.activity.SettingActivity;
 import com.deerlive.zhuawawa.activity.UserCenterActivity;
-import com.deerlive.zhuawawa.adapter.BannerItemViewHolder;
 import com.deerlive.zhuawawa.adapter.GameRecyclerListAdapter;
 import com.deerlive.zhuawawa.base.BaseActivity;
 import com.deerlive.zhuawawa.common.Api;
 import com.deerlive.zhuawawa.common.WebviewActivity;
 import com.deerlive.zhuawawa.intf.OnRecyclerViewItemClickListener;
 import com.deerlive.zhuawawa.intf.OnRequestDataListener;
+import com.deerlive.zhuawawa.model.Annunciate;
 import com.deerlive.zhuawawa.model.Banner;
 import com.deerlive.zhuawawa.model.Game;
 import com.deerlive.zhuawawa.utils.LocalImageHolderView;
+import com.deerlive.zhuawawa.utils.LogUtils;
 import com.deerlive.zhuawawa.view.SpaceItemDecoration;
 import com.deerlive.zhuawawa.view.marquee.MarqueeView;
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.callback.AbsCallback;
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import butterknife.Bind;
@@ -58,11 +62,10 @@ public class MainActivity extends BaseActivity {
     SmartRefreshLayout mRefreshLayout;
     @Bind(R.id.recyclerview)
     RecyclerView mRecyclerView;
-
     private ArrayList<Game> mGameData = new ArrayList();
     private ArrayList<Banner> mBannerData = new ArrayList();
     private ConvenientBanner mConvenientBanner;
-    private GameRecyclerListAdapter mGameAdapter = new GameRecyclerListAdapter(this,mGameData);
+    private GameRecyclerListAdapter mGameAdapter = new GameRecyclerListAdapter(this, mGameData);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +86,7 @@ public class MainActivity extends BaseActivity {
         initBanner();
         mRefreshLayout.autoRefresh();
         initData();
+
     }
 
   /*  @Override
@@ -93,11 +97,11 @@ public class MainActivity extends BaseActivity {
                 .init();
     }*/
 
-    public void userCenter(View v){
+    public void userCenter(View v) {
         ActivityUtils.startActivity(UserCenterActivity.class);
     }
 
-    public void setCenter(View v){
+    public void setCenter(View v) {
         ActivityUtils.startActivity(SettingActivity.class);
     }
 
@@ -109,18 +113,18 @@ public class MainActivity extends BaseActivity {
 
     private void getGameData(final int limit_begin) {
         JSONObject params = new JSONObject();
-        params.put("limit_begin",limit_begin);
-        params.put("limit_num",10);
+        params.put("limit_begin", limit_begin);
+        params.put("limit_num", 10);
         Api.getGameList(this, params, new OnRequestDataListener() {
             @Override
             public void requestSuccess(int code, JSONObject data) {
-                if(limit_begin == 0){
+                if (limit_begin == 0) {
                     mGameData.clear();
                 }
-                if(mRefreshLayout.isRefreshing()){
+                if (mRefreshLayout.isRefreshing()) {
                     mRefreshLayout.finishRefresh();
                 }
-                if(mRefreshLayout.isLoading()){
+                if (mRefreshLayout.isLoading()) {
                     mRefreshLayout.finishLoadmore();
                 }
                 JSONArray list = data.getJSONArray("info");
@@ -133,6 +137,7 @@ public class MainActivity extends BaseActivity {
                     g.setGamePrice(t.getString("price"));
                     g.setGameStatus(t.getString("channel_status"));
                     g.setGamePlayUrl(t.getString("channel_stream"));
+                    g.setVip_level(t.getString("vip_level"));
                     mGameData.add(g);
                 }
                 mGameAdapter.notifyDataSetChanged();
@@ -141,14 +146,14 @@ public class MainActivity extends BaseActivity {
             @Override
             public void requestFailure(int code, String msg) {
                 toast(msg);
-                if(limit_begin == 0){
+                if (limit_begin == 0) {
                     mGameData.clear();
                     mGameAdapter.notifyDataSetChanged();
                 }
-                if(mRefreshLayout.isRefreshing()){
+                if (mRefreshLayout.isRefreshing()) {
                     mRefreshLayout.finishRefresh();
                 }
-                if(mRefreshLayout.isLoading()){
+                if (mRefreshLayout.isLoading()) {
                     mRefreshLayout.finishLoadmore();
                 }
             }
@@ -161,7 +166,7 @@ public class MainActivity extends BaseActivity {
             public void requestSuccess(int code, JSONObject data) {
                 mBannerData.clear();
                 JSONArray info = data.getJSONArray("data");
-                for (int i =0;i<info.size();i++){
+                for (int i = 0; i < info.size(); i++) {
                     JSONObject t = info.getJSONObject(i);
                     Banner item = new Banner();
                     item.setPic(t.getString("pic"));
@@ -184,9 +189,9 @@ public class MainActivity extends BaseActivity {
         manager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
-                if(mGameAdapter.haveHeaderView() && position == 0){
+                if (mGameAdapter.haveHeaderView() && position == 0) {
                     return 2;
-                }else {
+                } else {
                     return 1;
                 }
             }
@@ -198,8 +203,8 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onRecyclerViewItemClick(View view, int position) {
                 Bundle d = new Bundle();
-                d.putSerializable("item",mGameData.get(position));
-                ActivityUtils.startActivity(d,PlayerActivity.class);
+                d.putSerializable("item", mGameData.get(position));
+                ActivityUtils.startActivity(d, PlayerActivity.class);
             }
         });
 
@@ -216,23 +221,45 @@ public class MainActivity extends BaseActivity {
             }
         });
     }
+    private MarqueeView marqueeView;
+
     private void initBanner() {
-        LinearLayout temp = (LinearLayout)LayoutInflater.from(this).inflate(R.layout.layout_home_banner,null);
-        mConvenientBanner = (ConvenientBanner)temp.findViewById(R.id.convenientBanner);
-        MarqueeView marqueeView= (MarqueeView) temp.findViewById(R.id.marqueeView);
-        List<String> info = new ArrayList<>();
-        info.add("像我这样优秀的人,本该灿烂过一生。");
-        info.add("像我这样聪明的人,早就告别了单纯。");
-        info.add("怎么还是用了一段情,去换一身伤痕。");
-        info.add("像我这样的迷茫的人,像我这样寻找的人。");
-        info.add("像我这样孤独的人,像我这样傻的人。");
-        info.add("世界上有多少人");
-        marqueeView.startWithList(info);
+        LinearLayout temp = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.layout_home_banner, null);
+        mConvenientBanner = (ConvenientBanner) temp.findViewById(R.id.convenientBanner);
+        marqueeView = (MarqueeView) temp.findViewById(R.id.marqueeView);
+
+        OkGo.<String>get(Api.ANNUNCIATE)
+                .tag(this)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        if (response != null) {
+                            Annunciate annunciate = JSON.parseObject(response.body(), Annunciate.class);
+                            if (annunciate.getCode() == 200) {
+                                List<Annunciate.InfoBean> beans = annunciate.getInfo();
+                                List<String> info = new ArrayList<>();
+
+                                for (Annunciate.InfoBean s : beans) {
+                                    info.add(s.getContent());
+                                }
+                                if (!beans.isEmpty()) {
+                                    if(info.size()==1){
+                                        marqueeView.startWithText(info.get(0));
+                                    }else {
+                                        marqueeView.startWithList(info);
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                });
 
        /* int bannerWidth = ScreenUtils.getScreenWidth();
         int bannerHeight = bannerWidth * 2 / 5;
         mConvenientBanner.setLayoutParams(new LinearLayout.LayoutParams(bannerWidth, bannerHeight));
 */
+
         mConvenientBanner.setPointViewVisible(true);
         mConvenientBanner.setPages(new CBViewHolderCreator<LocalImageHolderView>() {
             @Override
@@ -240,18 +267,26 @@ public class MainActivity extends BaseActivity {
                 return new LocalImageHolderView();
             }
         }, mBannerData);
-
+        if(mBannerData.size()>1){
+            mConvenientBanner.setCanLoop(true);
+        }else {
+            mConvenientBanner.setCanLoop(false);
+        }
         mConvenientBanner.startTurning(3000);
+
+
+
         mGameAdapter.addHeaderView(temp);
+
         mConvenientBanner.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                if(!" ".equals(mBannerData.get(position).getJump())){
+                if (!" ".equals(mBannerData.get(position).getJump())) {
                     Banner b = mBannerData.get(position);
                     Bundle temp = new Bundle();
-                    temp.putString("title",b.getTitle());
-                    temp.putString("jump",b.getJump());
-                    ActivityUtils.startActivity(temp,WebviewActivity.class);
+                    temp.putString("title", b.getTitle());
+                    temp.putString("jump", b.getJump());
+                    ActivityUtils.startActivity(temp, WebviewActivity.class);
                 }
 
             }
@@ -259,21 +294,21 @@ public class MainActivity extends BaseActivity {
     }
 
 
-    public void checkUpdate(){
+    public void checkUpdate() {
         JSONObject params = new JSONObject();
         try {
             String versionCode = getPackageManager().getPackageInfo(this.getPackageName(), 0).versionName;
-            params.put("ver_num",versionCode);
+            params.put("ver_num", versionCode);
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
 
-        Api.checkUpdate(this,params , new OnRequestDataListener() {
+        Api.checkUpdate(this, params, new OnRequestDataListener() {
             @Override
             public void requestSuccess(int code, JSONObject data) {
                 JSONObject info = data.getJSONObject("data");
-                if(!StringUtils.isEmpty(info.getString("package"))){
-                    checkUpgrade(info.getString("package"),info.getString("description"));
+                if (!StringUtils.isEmpty(info.getString("package"))) {
+                    checkUpgrade(info.getString("package"), info.getString("description"));
                 }
             }
 
@@ -284,7 +319,7 @@ public class MainActivity extends BaseActivity {
     }
 
 
-    private void checkUpgrade(final String downloadUrl,String mes) {
+    private void checkUpgrade(final String downloadUrl, String mes) {
         new MaterialDialog.Builder(this)
                 .title(R.string.set_update)
                 .content(mes)

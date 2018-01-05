@@ -21,6 +21,18 @@
                 android:layout_height="match_parent"
                 android:background="@drawable/living_bg"
                 android:layout_centerInParent="true"/>
+            <com.deerlive.zhuawawa.view.DragerViewLayout
+                android:id="@+id/drager_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_alignParentRight="true"
+                    android:id="@+id/iv_gif"
+                    android:layout_width="75dp"
+                    android:layout_height="90dp" />
+            </com.deerlive.zhuawawa.view.DragerViewLayout>
         </FrameLayout>
         <ImageView
             android:id="@+id/camera_change"

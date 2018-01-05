@@ -167,12 +167,15 @@ public class MarqueeView extends ViewFlipper {
         if (noticeLength <= limit) {
             list.add(notice);
         } else {
+            String s = notice.substring(0, limit) + "...";
+            list.add(s);
+/*
             int size = noticeLength / limit + (noticeLength % limit != 0 ? 1 : 0);
             for (int i = 0; i < size; i++) {
                 int startIndex = i * limit;
                 int endIndex = ((i + 1) * limit >= noticeLength ? noticeLength : (i + 1) * limit);
                 list.add(notice.substring(startIndex, endIndex));
-            }
+            }*/
         }
 
         if (notices == null) notices = new ArrayList<>();

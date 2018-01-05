@@ -134,7 +134,7 @@
             android:layout_centerHorizontal="true">
             <ImageView
                 android:id="@+id/game_status_ing"
-                    android:layout_width="150dp"
+                android:layout_width="150dp"
                 android:layout_height="80dp"
                 android:src="@drawable/game_ok_no"/>
             <LinearLayout

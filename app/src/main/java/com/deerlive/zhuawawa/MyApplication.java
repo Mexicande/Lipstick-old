@@ -4,7 +4,9 @@ import android.app.Application;
 
 import com.blankj.utilcode.util.Utils;
 import com.deerlive.zhuawawa.utils.LogUtils;
+import com.facebook.drawee.backends.pipeline.Fresco;
 import com.hss01248.dialog.StyledDialog;
+import com.lzy.okgo.OkGo;
 import com.meituan.android.walle.WalleChannelReader;
 import com.mob.MobSDK;
 import com.tencent.bugly.crashreport.CrashReport;
@@ -28,9 +30,9 @@ public class MyApplication extends Application {
         instance = this;
 
         Utils.init(this);
-
+        Fresco.initialize(this);
         LogUtils.init(getInstance());
-
+        OkGo.getInstance().init(this);
         StyledDialog.init(this);
         //ShareSDK
         MobSDK.init(this,"22df8db419014","0f69e4d8a099b8426a58a16fccb8e88e");

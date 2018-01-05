@@ -133,6 +133,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener{
                         SPUtils.getInstance().put("avatar", userinfo.getString("avatar"));
                         SPUtils.getInstance().put("user_nicename", userinfo.getString("user_nicename"));
                         SPUtils.getInstance().put("signaling_key", userinfo.getString("signaling_key"));
+
                         SPUtils.getInstance().put("bgm", "1");
                         SPUtils.getInstance().put("yinxiao", "1");
                         ActivityUtils.startActivity(MainActivity.class);

@@ -8,6 +8,8 @@
     android:background="@drawable/bg"
     tools:context="com.deerlive.zhuawawa.MainActivity">
     <include layout="@layout/layout_index_top"/>
+
+
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:id="@+id/refreshLayout"
         android:layout_width="match_parent"

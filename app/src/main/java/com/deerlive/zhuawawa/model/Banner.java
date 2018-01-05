@@ -43,4 +43,14 @@ public class Banner implements Serializable{
     public void setJump(String jump) {
         this.jump = jump;
     }
+
+    @Override
+    public String toString() {
+        return "Banner{" +
+                "pic='" + pic + '\'' +
+                ", title='" + title + '\'' +
+                ", type='" + type + '\'' +
+                ", jump='" + jump + '\'' +
+                '}';
+    }
 }

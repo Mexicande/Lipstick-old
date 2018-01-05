@@ -34,9 +34,12 @@ public class Api {
     public static final String HOST = "http://doll.anwenqianbao.com/";
     private static final String OS = "android";
     public static final String QUDAO = "kuailai-one";
+
+
     private static final String OS_VER = Build.VERSION.RELEASE;
     private static final String KEY = "HZ1lERfDhUqNuUQ42PfX5lALvKlaTQxT";
     private static final String LOGIN = HOST + "Api/SiSi/sendOauthUserInfo";
+    public static final String ANNUNCIATE = HOST + "Api/SiSi/notice";
     private static final String GET_BANNER = HOST + "Api/SiSi/getBanner";
     private static final String GET_GAME = HOST + "Api/SiSi/getLive";
     private static final String GET_CHANNEL_KEY = HOST + "Api/SiSi/getChannelKey";
@@ -191,32 +194,24 @@ public class Api {
         AsyncHttpClient client = new AsyncHttpClient();
         client.setTimeout(30000);
         RequestParams requestParams = getRequestParams(params);
+
         client.post(context, url, requestParams, new AsyncHttpResponseHandler() {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-
-                LogUtils.d("onSuccess===",statusCode);
-
                 try {
                     if (responseBody != null) {
-
                         JSONObject data = getJsonObject(context, statusCode, responseBody, listener);
-
                         if (data != null) {
                             if(200 == data.getIntValue("code")){
-
                                 listener.requestSuccess(statusCode, data);
                             }else {
                                 listener.requestFailure(-1, data.getString("descrp"));
                             }
-
                         }else{
-
                             listener.requestFailure(-1, net_error);
                         }
                     } else {
-
                         if (listener != null) {
                             listener.requestFailure(-1, net_error);
                         }

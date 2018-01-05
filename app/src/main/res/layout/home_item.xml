@@ -88,6 +88,7 @@
             android:layout_marginTop="5dp"
             android:layout_marginLeft="5dp"
             android:src="@mipmap/iv_vip"
+            android:visibility="gone"
             android:layout_gravity="right|bottom"
             android:id="@+id/home_vip" />
 

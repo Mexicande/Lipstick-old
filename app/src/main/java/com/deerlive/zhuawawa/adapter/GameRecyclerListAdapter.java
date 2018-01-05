@@ -137,6 +137,7 @@ public class GameRecyclerListAdapter extends RecyclerView.Adapter<RecyclerView.V
                     .into(temp.mGameIcon);
             temp.mGamePrice.setText(t.getGamePrice());
             setGameStatus(t.getGameStatus(),temp.mGameStatus);
+            setVip(t.getVip_level(),temp.homevip);
             //FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(imageWidth, imageHeight);
             FrameLayout.LayoutParams params1 = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, imageHeight+ SizeUtils.dp2px(40));
             //temp.mGameIcon.setLayoutParams(params);
@@ -170,6 +171,16 @@ public class GameRecyclerListAdapter extends RecyclerView.Adapter<RecyclerView.V
                 v.setText("游戏中");
                 v.setCompoundDrawablePadding(4);
                 //v.setImageResource(R.drawable.game_item_status_ing);
+                break;
+        }
+    }
+    private void setVip(String vip,ImageView v) {
+        switch (vip){
+            case "0"://空闲
+                v.setVisibility(View.GONE);
+                break;
+            case "1": //游戏中
+                v.setVisibility(View.VISIBLE);
                 break;
         }
     }
@@ -210,6 +221,8 @@ public class GameRecyclerListAdapter extends RecyclerView.Adapter<RecyclerView.V
         CardView mContainer;
         @Bind(R.id.game_icon)
         ImageView mGameIcon;
+        @Bind(R.id.home_vip)
+        ImageView homevip;
         @Bind(R.id.item_game_name)
         TextView mGameName;
         @Bind(R.id.game_price)

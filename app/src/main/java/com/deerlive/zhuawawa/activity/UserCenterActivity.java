@@ -33,6 +33,8 @@ public class UserCenterActivity extends BaseActivity {
     TextView mUserId;
     @Bind(R.id.tv_service)
     TextView tvService;
+    @Bind(R.id.iv_vip)
+    ImageView ivVip;
     private String mmUserName;
     private String mmAvator;
     private String mmBalance;
@@ -80,6 +82,10 @@ public class UserCenterActivity extends BaseActivity {
             @Override
             public void requestSuccess(int code, JSONObject data) {
                 JSONObject userinfo = data.getJSONObject("data");
+                String vip_level = userinfo.getString("vip_level");
+                if("1".equals(vip_level)){
+                    ivVip.setVisibility(View.VISIBLE);
+                }
                 SPUtils.getInstance().put("balance", userinfo.getString("balance"));
                 SPUtils.getInstance().put("id", userinfo.getString("id"));
                 SPUtils.getInstance().put("avatar", userinfo.getString("avatar"));
@@ -101,6 +107,7 @@ public class UserCenterActivity extends BaseActivity {
     public void goCharge(View v) {
         ActivityUtils.startActivity(ChargeActivity.class);
     }
+
     public void onCustomer(View v) {
         ActivityUtils.startActivity(WeChatActivity.class);
     }

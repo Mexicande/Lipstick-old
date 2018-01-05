@@ -76,6 +76,8 @@
                     android:textSize="12sp"/>
             </LinearLayout>
             <ImageView
+                android:id="@+id/iv_vip"
+                android:visibility="gone"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_alignParentRight="true"
