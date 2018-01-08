@@ -8,8 +8,11 @@
     android:background="@drawable/promary_drawable"
     >
     <ImageView
-        android:layout_width="23dp"
+        android:layout_marginLeft="10dp"
+        android:layout_width="43dp"
         android:layout_height="23dp"
+        android:paddingRight="20dp"
+        android:foreground = "?attr/selectableItemBackground"
         android:layout_centerVertical="true"
         android:src="@mipmap/player_back"
         android:onClick="goBack"/>
@@ -37,7 +40,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="2dp"
-            android:text="123"
+            android:text="0"
             android:shadowDx="5"
             android:shadowDy="5"
             android:shadowRadius="5"

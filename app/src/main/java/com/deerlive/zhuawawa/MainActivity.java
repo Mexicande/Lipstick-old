@@ -109,6 +109,7 @@ public class MainActivity extends BaseActivity {
         getBannerData();
         getGameData(0);
         checkUpdate();
+        getMarqueeView();
     }
 
     private void getGameData(final int limit_begin) {
@@ -228,6 +229,48 @@ public class MainActivity extends BaseActivity {
         mConvenientBanner = (ConvenientBanner) temp.findViewById(R.id.convenientBanner);
         marqueeView = (MarqueeView) temp.findViewById(R.id.marqueeView);
 
+        getMarqueeView();
+
+       /* int bannerWidth = ScreenUtils.getScreenWidth();
+        int bannerHeight = bannerWidth * 2 / 5;
+        mConvenientBanner.setLayoutParams(new LinearLayout.LayoutParams(bannerWidth, bannerHeight));
+*/
+
+        mConvenientBanner.setPointViewVisible(true);
+        mConvenientBanner.setPages(new CBViewHolderCreator<LocalImageHolderView>() {
+            @Override
+            public LocalImageHolderView createHolder() {
+                return new LocalImageHolderView();
+            }
+        }, mBannerData);
+        if(mBannerData.size()>1){
+            mConvenientBanner.setCanLoop(true);
+        }else {
+            mConvenientBanner.setCanLoop(false);
+        }
+        mConvenientBanner.startTurning(3000);
+
+        mGameAdapter.addHeaderView(temp);
+
+        mConvenientBanner.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                if (!" ".equals(mBannerData.get(position).getJump())) {
+                    Banner b = mBannerData.get(position);
+                    Bundle temp = new Bundle();
+                    temp.putString("title", b.getTitle());
+                    temp.putString("jump", b.getJump());
+                    ActivityUtils.startActivity(temp, WebviewActivity.class);
+                }
+
+            }
+        });
+    }
+
+    /**
+     * 通告
+     */
+    private void getMarqueeView(){
         OkGo.<String>get(Api.ANNUNCIATE)
                 .tag(this)
                 .execute(new StringCallback() {
@@ -254,45 +297,7 @@ public class MainActivity extends BaseActivity {
                     }
 
                 });
-
-       /* int bannerWidth = ScreenUtils.getScreenWidth();
-        int bannerHeight = bannerWidth * 2 / 5;
-        mConvenientBanner.setLayoutParams(new LinearLayout.LayoutParams(bannerWidth, bannerHeight));
-*/
-
-        mConvenientBanner.setPointViewVisible(true);
-        mConvenientBanner.setPages(new CBViewHolderCreator<LocalImageHolderView>() {
-            @Override
-            public LocalImageHolderView createHolder() {
-                return new LocalImageHolderView();
-            }
-        }, mBannerData);
-        if(mBannerData.size()>1){
-            mConvenientBanner.setCanLoop(true);
-        }else {
-            mConvenientBanner.setCanLoop(false);
-        }
-        mConvenientBanner.startTurning(3000);
-
-
-
-        mGameAdapter.addHeaderView(temp);
-
-        mConvenientBanner.setOnItemClickListener(new OnItemClickListener() {
-            @Override
-            public void onItemClick(int position) {
-                if (!" ".equals(mBannerData.get(position).getJump())) {
-                    Banner b = mBannerData.get(position);
-                    Bundle temp = new Bundle();
-                    temp.putString("title", b.getTitle());
-                    temp.putString("jump", b.getJump());
-                    ActivityUtils.startActivity(temp, WebviewActivity.class);
-                }
-
-            }
-        });
     }
-
 
     public void checkUpdate() {
         JSONObject params = new JSONObject();

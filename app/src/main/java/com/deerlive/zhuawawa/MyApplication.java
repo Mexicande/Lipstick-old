@@ -4,11 +4,11 @@ import android.app.Application;
 
 import com.blankj.utilcode.util.Utils;
 import com.deerlive.zhuawawa.utils.LogUtils;
-import com.facebook.drawee.backends.pipeline.Fresco;
 import com.hss01248.dialog.StyledDialog;
 import com.lzy.okgo.OkGo;
 import com.meituan.android.walle.WalleChannelReader;
 import com.mob.MobSDK;
+import com.squareup.leakcanary.LeakCanary;
 import com.tencent.bugly.crashreport.CrashReport;
 import com.umeng.analytics.MobclickAgent;
 
@@ -28,9 +28,9 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         instance = this;
+        LeakCanary.install(this);
 
         Utils.init(this);
-        Fresco.initialize(this);
         LogUtils.init(getInstance());
         OkGo.getInstance().init(this);
         StyledDialog.init(this);
@@ -46,7 +46,7 @@ public class MyApplication extends Application {
                 ,channel));
         //极光推送
         //JPushInterface.setDebugMode(true);
-        JPushInterface.init(this);
+      //  JPushInterface.init(this);
     }
     public static MyApplication getInstance(){
         return instance;

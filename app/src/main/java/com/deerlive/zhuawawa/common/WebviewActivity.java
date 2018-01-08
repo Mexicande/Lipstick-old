@@ -34,18 +34,12 @@ public class WebviewActivity extends BaseActivity implements PlatformActionListe
 
     @Bind(R.id.layout_top_title)
     TextView mTextTopTitle;
-    @Bind(R.id.layout_top_back)
-    ImageView mImageTopBack;
     @Bind(R.id.webview)
     WebView mWebView;
     Dialog mLoadingDialog;
     Platform mPlatFormWeChat;
     Platform mPlatFormMoment;
-    @OnClick(R.id.layout_top_back)
 
-    public void back(View v){
-        finish();
-    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Bundle data = getIntent().getExtras();
@@ -60,9 +54,11 @@ public class WebviewActivity extends BaseActivity implements PlatformActionListe
         WebSettings webSettings = mWebView.getSettings();
         webSettings.setJavaScriptEnabled(true);
         mWebView.setWebViewClient(new myWebClient());
-        mWebView.addJavascriptInterface(new AndroidtoJs(),"Share");
+        mWebView.addJavascriptInterface(new AndroidtoJs(), "Share");
     }
-
+    public void goBack(View v){
+        finish();
+    }
     @Override
     public int getLayoutResource() {
         return R.layout.activity_webview;
@@ -83,6 +79,7 @@ public class WebviewActivity extends BaseActivity implements PlatformActionListe
 
     }
 
+
     public class myWebClient extends WebViewClient {
         @Override
         public void onPageStarted(WebView view, String url, Bitmap favicon) {
@@ -98,9 +95,10 @@ public class WebviewActivity extends BaseActivity implements PlatformActionListe
 
     /**
      * 判断某一个类是否存在任务栈里面
+     *
      * @return
      */
-    private boolean isExsitMianActivity(Class cls){
+    private boolean isExsitMianActivity(Class cls) {
         Intent intent = new Intent(this, cls);
         ComponentName cmpName = intent.resolveActivity(getPackageManager());
         boolean flag = false;
@@ -131,7 +129,7 @@ public class WebviewActivity extends BaseActivity implements PlatformActionListe
         // 定义JS需要调用的方法
         // 被JS调用的方法必须加入@JavascriptInterface注解
         @JavascriptInterface
-        public void shareToFriend(String title,String msg,String url,String imgUrl) {
+        public void shareToFriend(String title, String msg, String url, String imgUrl) {
             Platform.ShareParams sp = new Platform.ShareParams();
             sp.setTitle(title);
             sp.setText(msg);
@@ -141,8 +139,9 @@ public class WebviewActivity extends BaseActivity implements PlatformActionListe
             sp.setUrl(url);
             mPlatFormWeChat.share(sp);
         }
+
         @JavascriptInterface
-        public void shareToMoment(String title,String msg,String url,String imgUrl) {
+        public void shareToMoment(String title, String msg, String url, String imgUrl) {
             Platform.ShareParams sp = new Platform.ShareParams();
             sp.setTitle(title);
             sp.setUrl(url);
@@ -151,7 +150,6 @@ public class WebviewActivity extends BaseActivity implements PlatformActionListe
             sp.setImageUrl(imgUrl);
             sp.setSite(title);
             mPlatFormMoment.share(sp);
-
         }
     }
 }

@@ -1,28 +1,22 @@
 package com.deerlive.zhuawawa.activity;
 
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.SPUtils;
-import com.blankj.utilcode.util.SizeUtils;
 import com.deerlive.zhuawawa.R;
-import com.deerlive.zhuawawa.adapter.GameRecyclerListAdapter;
 import com.deerlive.zhuawawa.adapter.RecordZqRecyclerListAdapter;
 import com.deerlive.zhuawawa.base.BaseActivity;
 import com.deerlive.zhuawawa.common.Api;
 import com.deerlive.zhuawawa.intf.OnRecyclerViewItemClickListener;
 import com.deerlive.zhuawawa.intf.OnRequestDataListener;
 import com.deerlive.zhuawawa.model.DanmuMessage;
-import com.deerlive.zhuawawa.model.Game;
-import com.deerlive.zhuawawa.view.SpaceItemDecoration;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
@@ -37,8 +31,6 @@ public class RecordZhuaListActivity extends BaseActivity implements OnRecyclerVi
 
     @Bind(R.id.layout_top_title)
     TextView mTextTopTitle;
-    @Bind(R.id.layout_top_back)
-    ImageView mImageTopBack;
 
     @Bind(R.id.refreshLayout)
     SmartRefreshLayout mRefreshLayout;
@@ -46,12 +38,8 @@ public class RecordZhuaListActivity extends BaseActivity implements OnRecyclerVi
     RecyclerView mRecyclerView;
     private String mToken;
     private ArrayList<DanmuMessage> mListData = new ArrayList();
-    private RecordZqRecyclerListAdapter mAdapter = new RecordZqRecyclerListAdapter(this,mListData);
+    private RecordZqRecyclerListAdapter mAdapter = new RecordZqRecyclerListAdapter(this, mListData);
 
-    @OnClick(R.id.layout_top_back)
-    public void back(View v){
-        finish();
-    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,19 +72,19 @@ public class RecordZhuaListActivity extends BaseActivity implements OnRecyclerVi
 
     private void getGameData(final int limit_begin) {
         JSONObject params = new JSONObject();
-        params.put("token",mToken);
-        params.put("limit_begin",limit_begin);
-        params.put("limit_num",10);
+        params.put("token", mToken);
+        params.put("limit_begin", limit_begin);
+        params.put("limit_num", 10);
         Api.getZhuaRecord(this, params, new OnRequestDataListener() {
             @Override
             public void requestSuccess(int code, JSONObject data) {
-                if(limit_begin == 0){
+                if (limit_begin == 0) {
                     mListData.clear();
                 }
-                if(mRefreshLayout.isRefreshing()){
+                if (mRefreshLayout.isRefreshing()) {
                     mRefreshLayout.finishRefresh();
                 }
-                if(mRefreshLayout.isLoading()){
+                if (mRefreshLayout.isLoading()) {
                     mRefreshLayout.finishLoadmore();
                 }
                 JSONArray list = data.getJSONArray("info");
@@ -117,10 +105,10 @@ public class RecordZhuaListActivity extends BaseActivity implements OnRecyclerVi
             @Override
             public void requestFailure(int code, String msg) {
                 toast(msg);
-                if(mRefreshLayout.isRefreshing()){
+                if (mRefreshLayout.isRefreshing()) {
                     mRefreshLayout.finishRefresh();
                 }
-                if(mRefreshLayout.isLoading()){
+                if (mRefreshLayout.isLoading()) {
                     mRefreshLayout.finishLoadmore();
                 }
             }
@@ -135,12 +123,17 @@ public class RecordZhuaListActivity extends BaseActivity implements OnRecyclerVi
     @Override
     public void onRecyclerViewItemClick(View view, int position) {
         DanmuMessage t = mListData.get(position);
-        if(t != null && "1".equals(t.getRemoteUid())){
+        if (t != null && "1".equals(t.getRemoteUid())) {
             Bundle d = new Bundle();
-            d.putSerializable("item",t);
-            ActivityUtils.startActivity(d,VideoPlayerActivity.class);
-        }else {
+            d.putSerializable("item", t);
+            ActivityUtils.startActivity(d, VideoPlayerActivity.class);
+        } else {
             toast(getString(R.string.record_error));
         }
+    }
+
+
+    public void goBack(View v){
+        finish();
     }
 }

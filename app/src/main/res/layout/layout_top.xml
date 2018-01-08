@@ -6,13 +6,15 @@
     android:background="@drawable/bg"
     >
     <ImageView
-        android:layout_marginLeft="16dp"
-        android:id="@+id/layout_top_back"
+        android:id="@+id/goback"
+        android:layout_marginLeft="10dp"
         android:layout_width="43dp"
-        android:paddingRight="20dp"
         android:layout_height="23dp"
+        android:paddingRight="20dp"
+        android:foreground = "?attr/selectableItemBackground"
         android:layout_centerVertical="true"
-        android:src="@mipmap/player_back"/>
+        android:src="@mipmap/player_back"
+        android:onClick="goBack"/>
     <TextView
         android:id="@+id/layout_top_title"
         android:layout_width="wrap_content"

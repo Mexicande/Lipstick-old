@@ -132,4 +132,16 @@ public class SharedPreferencesUtil {
             //CommFunc.ToastPromptMsg("XML配置文件初始化操作失败");
         }
     }
+    public static void cleanDate(Context context){
+        File file = new File(FILE_PATH);
+        if(file.exists()){
+            file.delete();
+        }
+        SharedPreferences sharedPreferences = context.getSharedPreferences
+                (FILE_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor edit = sharedPreferences.edit();
+        edit.clear();
+        edit.apply();
+        edit.commit();
+    }
 }

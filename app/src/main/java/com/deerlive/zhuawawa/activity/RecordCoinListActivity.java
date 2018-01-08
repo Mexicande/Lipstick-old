@@ -30,8 +30,6 @@ public class RecordCoinListActivity extends BaseActivity {
 
     @Bind(R.id.layout_top_title)
     TextView mTextTopTitle;
-    @Bind(R.id.layout_top_back)
-    ImageView mImageTopBack;
 
     @Bind(R.id.refreshLayout)
     SmartRefreshLayout mRefreshLayout;
@@ -41,8 +39,8 @@ public class RecordCoinListActivity extends BaseActivity {
     private ArrayList<DanmuMessage> mListData = new ArrayList();
     private RecordCoinRecyclerListAdapter mAdapter = new RecordCoinRecyclerListAdapter(this,mListData);
 
-    @OnClick(R.id.layout_top_back)
-    public void back(View v){
+
+    public void goBack(View v){
         finish();
     }
 

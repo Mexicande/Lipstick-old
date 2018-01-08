@@ -2,17 +2,18 @@ package com.deerlive.zhuawawa.activity;
 
 import android.annotation.TargetApi;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.media.SoundPool;
 import android.media.projection.MediaProjection;
 import android.media.projection.MediaProjectionManager;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Environment;
 import android.os.Handler;
+import android.os.IBinder;
 import android.os.Looper;
 import android.os.Message;
 import android.support.v4.app.FragmentManager;
@@ -27,6 +28,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -40,7 +42,6 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.KeyboardUtils;
-import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.bumptech.glide.Glide;
@@ -57,12 +58,8 @@ import com.deerlive.zhuawawa.intf.OnRequestDataListener;
 import com.deerlive.zhuawawa.model.DanmuMessage;
 import com.deerlive.zhuawawa.model.Game;
 import com.deerlive.zhuawawa.model.MessageType;
+import com.deerlive.zhuawawa.utils.SharedPreferencesUtil;
 import com.deerlive.zhuawawa.view.DragerViewLayout;
-import com.deerlive.zhuawawa.view.StrokeTextView;
-import com.facebook.common.util.UriUtil;
-import com.facebook.drawee.backends.pipeline.Fresco;
-import com.facebook.drawee.interfaces.DraweeController;
-import com.facebook.drawee.view.SimpleDraweeView;
 import com.loopj.android.http.RequestParams;
 import com.tencent.rtmp.TXLivePlayer;
 import com.tencent.rtmp.ui.TXCloudVideoView;
@@ -81,12 +78,17 @@ import io.agora.NativeAgoraAPI;
 import io.agora.rtc.Constants;
 import io.agora.rtc.RtcEngine;
 import io.agora.rtc.video.VideoCanvas;
+import pl.droidsonroids.gif.GifDrawable;
+import pl.droidsonroids.gif.GifImageView;
 
 public class PlayerActivity extends BaseActivity implements View.OnTouchListener {
-    @Bind(R.id.iv_gif)
-    SimpleDraweeView ivGif;
+    @Bind(R.id.gif_view)
+    GifImageView gif_view;
     @Bind(R.id.drager_layout)
     DragerViewLayout dragerLayout;
+    GifDrawable gifDrawable;
+
+
 
     private String mTag = "PlayerActivity";
     private String mIsOnline = "0";
@@ -178,6 +180,20 @@ public class PlayerActivity extends BaseActivity implements View.OnTouchListener
     private MediaProjectionManager mMediaProjectionManager;
     private ScreenRecorder mRecorder;
 
+    private final int AWAIT = 0;
+
+    private final int AFTER_RUN = 1;
+    private final int FROUT_RUN = 2;
+    private final int LFTE_RUN = 3;
+    private final int RIGHT_RUN = 4;
+
+    private final int AFTER_STOP = 5;
+    private final int FROUT_STOP = 6;
+    private final int LFTE_STOP = 7;
+    private final int RIGHT_STOP = 8;
+
+    private int MOVE = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -200,6 +216,8 @@ public class PlayerActivity extends BaseActivity implements View.OnTouchListener
             finish();
             return;
         }
+        SharedPreferencesUtil.cleanDate(this);
+        dragerLayout.isDrager(true);
         initDefalut(data);
         initDanmu();
         enterPlayer();
@@ -305,8 +323,6 @@ public class PlayerActivity extends BaseActivity implements View.OnTouchListener
         JSONObject p = new JSONObject();
         p.put("token", mToken);
         p.put("deviceid", mRemoteUid);
-        LogUtils.d("toke===", mToken);
-        LogUtils.d("deviceid===", mRemoteUid);
         Api.enterPlayer(this, p, new OnRequestDataListener() {
             @Override
             public void requestSuccess(int code, JSONObject data) {
@@ -334,8 +350,6 @@ public class PlayerActivity extends BaseActivity implements View.OnTouchListener
             public void requestFailure(int code, String msg) {
                 toast(msg);
                 // finish();
-                LogUtils.d("code===", code);
-                LogUtils.d("msg===", msg);
 
             }
         });
@@ -462,6 +476,12 @@ public class PlayerActivity extends BaseActivity implements View.OnTouchListener
             mRtcEngine.setVideoProfile(Constants.VIDEO_PROFILE_360P_10, true);
             mRtcEngine.setClientRole(Constants.CLIENT_ROLE_BROADCASTER, "");
             mRtcEngine.setVideoQualityParameters(true);
+
+            mRtcEngine.muteLocalAudioStream(true);
+            mRtcEngine.muteAllRemoteAudioStreams(true);
+            mRtcEngine.disableAudio();
+            mRtcEngine.setEnableSpeakerphone(false);
+
             remoteVideoView = RtcEngine.CreateRendererView(getApplicationContext());
             remoteVideoView.setId(R.id.videoId);
             remoteVideoView.setZOrderOnTop(true);
@@ -470,19 +490,44 @@ public class PlayerActivity extends BaseActivity implements View.OnTouchListener
             //FrameLayout.LayoutParams p = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 1);
             //mPlayerContainer.addView(remoteVideoView,p);
             //mRtcEngine.joinChannel(mChannelKey, mChannleName, null, mLocalUid);
-            dragerLayout.isDrager(true);
-            Uri uri = new Uri.Builder()
-                    .scheme(UriUtil.LOCAL_RESOURCE_SCHEME)
-                    .path(String.valueOf(R.drawable.run_to_right))
-                    .build();
-            DraweeController draweeController =
-                    Fresco.newDraweeControllerBuilder()
-                            .setUri(uri)
-                            .setAutoPlayAnimations(true) // 设置加载图片完成后是否直接进行播放
-                            .build();
-            ivGif.setController(draweeController);
+            gif_view.setImageResource(R.mipmap.gt_await);
+            gifDrawable = (GifDrawable) gif_view.getDrawable();
+
+            //GifDrawable gifFromResource = new GifDrawable( getResources(), R.drawable.after_run );
+            // gif_view.setImageResource( R.drawable.after_run);
+
         } catch (Exception e) {
             throw new RuntimeException("NEED TO check rtc sdk init fatal error\n" + Log.getStackTraceString(e));
+        }
+    }
+
+    /**
+     * gif图变化
+     *
+     * @param acticon
+     */
+    private void setGift(int acticon) {
+        switch (acticon) {
+            case FROUT_RUN:
+                gif_view.setImageResource(R.mipmap.front_run);
+                gifDrawable = (GifDrawable) gif_view.getDrawable();
+                break;
+            case AFTER_RUN:
+                gif_view.setImageResource(R.mipmap.after_run);
+                gifDrawable = (GifDrawable) gif_view.getDrawable();
+
+                break;
+            case LFTE_RUN:
+                gif_view.setImageResource(R.mipmap.right_run);
+                gifDrawable = (GifDrawable) gif_view.getDrawable();
+
+                break;
+            case RIGHT_RUN:
+                gif_view.setImageResource(R.mipmap.left_run);
+                gifDrawable = (GifDrawable) gif_view.getDrawable();
+
+                break;
+
         }
     }
 
@@ -522,6 +567,7 @@ public class PlayerActivity extends BaseActivity implements View.OnTouchListener
                 m.what = IM_MSG_COMING;
                 m.sendToTarget();
                 m_agoraAPI.channelQueryUserNum(chanID);
+
             }
 
             @Override
@@ -638,6 +684,8 @@ public class PlayerActivity extends BaseActivity implements View.OnTouchListener
 
                 String status = data.getString("status");
                 JSONObject j = data.getJSONObject("data");
+
+
                 //成功申请到matchid  准备上机
                 if ("1".equals(status)) {
                     mCurMatchId = j.getString("match_id");
@@ -658,6 +706,10 @@ public class PlayerActivity extends BaseActivity implements View.OnTouchListener
                             .into(mTipsPlayerAvatar);
                     mImageGameStatus.setEnabled(false);
                     mPlayerTipsContainer.setVisibility(View.VISIBLE);
+
+                  /*  gifDrawable.reset();
+                    gifDrawable.start();*/
+
                     //播放器暂停 然后加入视频通信
                     //changeTongXinMode();
                 }
@@ -679,8 +731,12 @@ public class PlayerActivity extends BaseActivity implements View.OnTouchListener
     }
 
     public void showSend(View v) {
-        mMessageContainer.setVisibility(View.VISIBLE);
-        KeyboardUtils.showSoftInput(mMessContent);
+        if (mMessageContainer.getVisibility() == View.VISIBLE) {
+            mMessageContainer.setVisibility(View.GONE);
+        } else {
+            mMessageContainer.setVisibility(View.VISIBLE);
+            KeyboardUtils.showSoftInput(mMessContent);
+        }
     }
 
     RecordZjFragment rf;
@@ -735,7 +791,34 @@ public class PlayerActivity extends BaseActivity implements View.OnTouchListener
         if (null != mPlayerDaoJishi) {
             mPlayerDaoJishi.cancel();
         }
+        switch (MOVE) {
+            case FROUT_RUN:
+                gif_view.setImageResource(R.mipmap.front_stop);
+                GifDrawable gifDrawable1 = (GifDrawable) gif_view.getDrawable();
+                gifDrawable1.setLoopCount(1);
+                break;
+            case AFTER_RUN:
+                gif_view.setImageResource(R.mipmap.after_stop);
+                GifDrawable gifDrawable2 = (GifDrawable) gif_view.getDrawable();
+                gifDrawable2.setLoopCount(1);
+                break;
+            case LFTE_RUN:
+                gif_view.setImageResource(R.mipmap.right_stop);
+                GifDrawable gifDrawable3 = (GifDrawable) gif_view.getDrawable();
+
+                gifDrawable3.setLoopCount(1);
+                break;
+            case RIGHT_RUN:
+                gif_view.setImageResource(R.mipmap.left_stop);
+                GifDrawable gifDrawable4 = (GifDrawable) gif_view.getDrawable();
+
+                gifDrawable4.setLoopCount(1);
+
+                break;
+        }
+
     }
+
 
     public void caozuo_camera(View v) {
         agoraSendP2p(MessageType.GAME_CAMERA);
@@ -768,6 +851,11 @@ public class PlayerActivity extends BaseActivity implements View.OnTouchListener
         if (mMediaPlayer != null) {
             mMediaPlayer.release();
             mMediaPlayer = null;
+        }
+        if (gifDrawable != null) {
+            if (!gifDrawable.isRecycled()) {
+                gifDrawable.recycle();
+            }
         }
         closeRecord();
     }
@@ -822,9 +910,11 @@ public class PlayerActivity extends BaseActivity implements View.OnTouchListener
                                 break;
                             case MessageType.GAME_NO:
                                 meiZhuazhu(j);
+
                                 break;
                             case MessageType.GAME_OK:
                                 zhuaZhu(j);
+
                                 break;
                             case MessageType.GAME_DISCONNECTTED:
                                 mCaozuoContainer.setVisibility(View.GONE);
@@ -902,6 +992,11 @@ public class PlayerActivity extends BaseActivity implements View.OnTouchListener
                     mLookContainer.setVisibility(View.GONE);
                     mImageGameStatus.setEnabled(false);
                     mPlayerTipsContainer.setVisibility(View.GONE);
+
+                    if (gif_view.getVisibility() == View.GONE) {
+                        gif_view.setVisibility(View.VISIBLE);
+                    }
+
                     startTimerPlay();
                     if (StringUtils.isTrimEmpty(mmPlayBalance) || StringUtils.isTrimEmpty(mmPlayPrice)) {
                         toast(getString(R.string.data_error));
@@ -1058,6 +1153,7 @@ public class PlayerActivity extends BaseActivity implements View.OnTouchListener
     }
 
     private void changeVideoMode() {
+
         if (mLivePlayer != null) {
             mLivePlayer.setMute(false);
         }
@@ -1068,6 +1164,8 @@ public class PlayerActivity extends BaseActivity implements View.OnTouchListener
         FrameLayout.LayoutParams p = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 1);
         remoteVideoView.setLayoutParams(p);
         mCameraChange.setVisibility(View.GONE);
+        //gif_view.setVisibility(View.GONE);
+
     }
 
     private void changeTongXinMode() {
@@ -1115,6 +1213,29 @@ public class PlayerActivity extends BaseActivity implements View.OnTouchListener
         return super.onTouchEvent(event);
     }
 
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        if (ev.getAction() == MotionEvent.ACTION_DOWN) {
+            View v = getCurrentFocus();
+            if (isShouldHideKeyboard(v, ev)) {
+                hideKeyboard(v.getWindowToken());
+            }
+        }
+        if (getWindow().superDispatchTouchEvent(ev)) {
+            return true;
+        }
+        return super.dispatchTouchEvent(ev);
+    }
+
+    private void hideKeyboard(IBinder token) {
+        if (token != null) {
+            InputMethodManager im = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            if (im != null) {
+                im.hideSoftInputFromWindow(token, InputMethodManager.HIDE_NOT_ALWAYS);
+            }
+        }
+    }
+
     private boolean isShouldHideKeyboard(View v, MotionEvent event) {
         if (v != null) {
             int[] l = {0, 0};
@@ -1128,6 +1249,7 @@ public class PlayerActivity extends BaseActivity implements View.OnTouchListener
         }
         return false;
     }
+
 
     public void showDanmuAnim(DanmuMessage model) {
         if (active) {
@@ -1205,22 +1327,59 @@ public class PlayerActivity extends BaseActivity implements View.OnTouchListener
                 case R.id.image_caozuo_down:
                     caozuo_down(v);
                     mImageCaozuoDown.setImageResource(R.drawable.caozuo_down_press);
+                    setGift(FROUT_RUN);
+                    //gif_view.setImageResource( R.drawable.front_run);
+                    MOVE = FROUT_RUN;
                     break;
                 case R.id.image_caozuo_up:
                     caozuo_up(v);
                     mImageCaozuoUp.setImageResource(R.drawable.caozuo_up_press);
+                    setGift(AFTER_RUN);
+                    MOVE = AFTER_RUN;
                     break;
                 case R.id.image_caozuo_left:
                     caozuo_left(v);
                     mImageCaozuoLeft.setImageResource(R.drawable.caozuo_left_press);
+                    setGift(LFTE_RUN);
+                    MOVE = LFTE_RUN;
                     break;
                 case R.id.image_caozuo_right:
                     caozuo_right(v);
                     mImageCaozuoRight.setImageResource(R.drawable.caozuo_right_press);
+                    setGift(RIGHT_RUN);
+                    MOVE = RIGHT_RUN;
                     break;
             }
         }
+
         if (event.getAction() == MotionEvent.ACTION_UP) {
+            switch (MOVE) {
+                case FROUT_RUN:
+                    gif_view.setImageResource(R.mipmap.front_stop);
+                    GifDrawable gifDrawable1 = (GifDrawable) gif_view.getDrawable();
+                    gifDrawable1.setLoopCount(1);
+                    break;
+                case AFTER_RUN:
+                    gif_view.setImageResource(R.mipmap.after_stop);
+                    GifDrawable gifDrawable2 = (GifDrawable) gif_view.getDrawable();
+                    gifDrawable2.setLoopCount(1);
+                    break;
+                case LFTE_RUN:
+                    gif_view.setImageResource(R.mipmap.right_stop);
+                    GifDrawable gifDrawable3 = (GifDrawable) gif_view.getDrawable();
+
+                    gifDrawable3.setLoopCount(1);
+                    break;
+                case RIGHT_RUN:
+                    gif_view.setImageResource(R.mipmap.left_stop);
+                    GifDrawable gifDrawable4 = (GifDrawable) gif_view.getDrawable();
+
+                    gifDrawable4.setLoopCount(1);
+
+                    break;
+            }
+
+
             caozuo_stop(v);
             mImageCaozuoDown.setImageResource(R.drawable.caozuo_down);
             mImageCaozuoUp.setImageResource(R.drawable.caozuo_up);
@@ -1230,4 +1389,23 @@ public class PlayerActivity extends BaseActivity implements View.OnTouchListener
         return true;
     }
 
+    @OnClick({R.id.iv_run, R.id.iv_runing})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.iv_run:
+                if(gif_view.getVisibility()==View.VISIBLE){
+                    gif_view.setVisibility(View.GONE);
+                }else {
+                    gif_view.setVisibility(View.VISIBLE);
+                }
+                break;
+            case R.id.iv_runing:
+                if(gif_view.getVisibility()==View.VISIBLE){
+                    gif_view.setVisibility(View.GONE);
+                }else {
+                    gif_view.setVisibility(View.VISIBLE);
+                }
+                break;
+        }
+    }
 }

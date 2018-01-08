@@ -30,8 +30,6 @@ public class MessageActivity extends BaseActivity {
 
     @Bind(R.id.layout_top_title)
     TextView mTextTopTitle;
-    @Bind(R.id.layout_top_back)
-    ImageView mImageTopBack;
 
     @Bind(R.id.refreshLayout)
     SmartRefreshLayout mRefreshLayout;
@@ -42,10 +40,6 @@ public class MessageActivity extends BaseActivity {
     private InfoRecyclerListAdapter mAdapter = new InfoRecyclerListAdapter(this,mListData);
 
 
-    @OnClick(R.id.layout_top_back)
-    public void back(View v){
-        finish();
-    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -117,6 +111,9 @@ public class MessageActivity extends BaseActivity {
         });
     }
 
+    public void goBack(View v){
+        finish();
+    }
     @Override
     public int getLayoutResource() {
         return R.layout.activity_message_list;

@@ -25,7 +25,7 @@ import com.deerlive.zhuawawa.intf.OnRequestDataListener;
 
 import butterknife.Bind;
 
-public class ShouhuoActivity extends BaseActivity implements View.OnClickListener {
+public class ShouhuoActivity extends BaseActivity {
 
     @Bind(R.id.shouhuoren)
     TextView mShouHuoRen;
@@ -142,10 +142,5 @@ public class ShouhuoActivity extends BaseActivity implements View.OnClickListene
         return R.layout.activity_shouhuo;
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()){
 
-        }
-    }
 }

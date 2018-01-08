@@ -1,16 +1,215 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/root_container"
     android:orientation="vertical"
     android:background="@android:color/white">
     <include layout="@layout/player_top"/>
-    <FrameLayout
+<!--
+    <include layout="@layout/player_caozuo"
+        android:id="@+id/play"
+        />-->
+    <RelativeLayout
+        android:id="@+id/play"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_height="140dp"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/bg">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/player_tips_container"
+            android:orientation="horizontal"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="5dp"
+            android:padding="2dp"
+            android:visibility="gone"
+            android:background="@drawable/mess_bg"
+            android:onClick="playerOnClick"
+            >
+            <ImageView
+                android:id="@+id/tips_player_avatar"
+                android:layout_width="15dp"
+                android:layout_height="15dp"/>
+            <TextView
+                android:id="@+id/tips_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textSize="10sp"
+                android:textColor="@color/colorIndexFont"/>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/caozuo_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom"
+            android:orientation="horizontal"
+            android:visibility="gone"
+            >
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+                <LinearLayout
+                    android:layout_marginTop="5dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center">
+                    <ImageView
+                        android:id="@+id/image_caozuo_up"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:src="@drawable/caozuo_up"/>
+                </LinearLayout>
+                <RelativeLayout
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginRight="25dp"
+                    android:layout_marginLeft="25dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center">
+                    <ImageView
+                        android:id="@+id/image_caozuo_left"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:src="@drawable/caozuo_left"/>
+                    <ImageView
+                        android:id="@+id/image_caozuo_right"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/caozuo_right"/>
+                </RelativeLayout>
+                <LinearLayout
+                    android:layout_marginBottom="5dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center">
+                    <ImageView
+                        android:id="@+id/image_caozuo_down"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:src="@drawable/caozuo_down"/>
+                </LinearLayout>
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:id="@+id/iv_run"
+                    android:layout_alignParentRight="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:src="@mipmap/iv_run"/>
+                <ImageView
+                    android:id="@+id/player_go"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/game_btn_ok"
+                    android:onClick="caozuo_ok"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="30dp"
+                    android:id="@+id/go_timer_text"
+                    android:text="30"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp"
+                    android:layout_centerInParent="true"/>
+            </RelativeLayout>
+        </LinearLayout>
+        <RelativeLayout
+            android:id="@+id/look_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom"
+            android:orientation="horizontal"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/caozuo_container"
+            android:layout_toEndOf="@+id/caozuo_container">
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="54dp"
+                android:layout_marginLeft="30dp"
+                android:src="@mipmap/record_jiang"
+                android:onClick="showRecord"
+                android:layout_centerVertical="true"
+                />
+            <ImageView
+                android:id="@+id/iv_runing"
+                android:layout_alignParentRight="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:src="@mipmap/iv_run"/>
+            <RelativeLayout
+                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true">
+                <ImageView
+                    android:id="@+id/game_status_ing"
+                    android:layout_width="150dp"
+                    android:layout_height="80dp"
+                    android:src="@drawable/game_ok_no"/>
+                <LinearLayout
+                    android:layout_below="@id/game_status_ing"
+                    android:layout_centerHorizontal="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:src="@mipmap/iv_satar"/>
+                    <com.deerlive.zhuawawa.view.StrokeTextView
+                        android:id="@+id/play_price"
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="123"
+                        android:shadowDx="5"
+                        android:gravity="center"
+                        android:shadowDy="5"
+                        android:shadowRadius="5"
+                        android:shadowColor="@android:color/black"
+                        android:textSize="14sp"
+                        app:outerColor="@color/colorIndexFont"
+                        app:innnerColor="@android:color/white"/>
+                </LinearLayout>
+            </RelativeLayout>
+
+            <ImageView
+                android:layout_centerVertical="true"
+                android:layout_width="60dp"
+                android:layout_height="54dp"
+                android:layout_marginRight="30dp"
+                android:layout_alignParentRight="true"
+                android:src="@mipmap/player_mess"
+                android:onClick="showSend"/>
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <FrameLayout
+        android:layout_above="@id/play"
+        android:layout_marginTop="50dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
         <FrameLayout
             android:id="@+id/player_container"
             android:layout_width="match_parent"
@@ -21,30 +220,11 @@
                 android:layout_height="match_parent"
                 android:background="@drawable/living_bg"
                 android:layout_centerInParent="true"/>
-            <com.deerlive.zhuawawa.view.DragerViewLayout
-                android:id="@+id/drager_layout"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-                <com.facebook.drawee.view.SimpleDraweeView
-                    android:layout_marginTop="10dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_alignParentRight="true"
-                    android:id="@+id/iv_gif"
-                    android:layout_width="75dp"
-                    android:layout_height="90dp" />
-            </com.deerlive.zhuawawa.view.DragerViewLayout>
         </FrameLayout>
-        <ImageView
-            android:id="@+id/camera_change"
-            android:layout_width="35dp"
-            android:layout_height="45dp"
-            android:src="@drawable/camera_change"
-            android:layout_gravity="right|center"
-            android:onClick="caozuo_camera"
-            android:visibility="gone"/>
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="80dp"
             android:layout_gravity="bottom"
             android:orientation="vertical">
             <android.support.v7.widget.RecyclerView
@@ -58,7 +238,6 @@
             <RelativeLayout
                 android:id="@+id/message_container"
                 android:visibility="gone"
-                android:layout_marginBottom="2dp"
                 android:layout_width="match_parent"
                 android:layout_height="30dp">
                 <EditText
@@ -92,14 +271,7 @@
             android:id="@+id/popup_window_container"
             android:layout_gravity="center"></FrameLayout>
 
-        <FrameLayout
-            android:layout_width="250dp"
-            android:layout_height="260dp"
-            android:id="@+id/popup_window_weizhuazhu_container"
-            android:layout_gravity="center"
-            android:visibility="gone">
-            <include layout="@layout/window_play_weizhuazhong"/>
-        </FrameLayout>
+
         <!--<FrameLayout-->
             <!--android:layout_width="250dp"-->
             <!--android:layout_height="260dp"-->
@@ -134,6 +306,45 @@
         </RelativeLayout>
     </FrameLayout>
 
-    <include layout="@layout/player_caozuo"/>
+    <com.deerlive.zhuawawa.view.DragerViewLayout
+        android:id="@+id/drager_layout"
+        android:layout_above="@id/play"
+        android:layout_marginTop="50dp"
+        android:layout_width="match_parent"
+        android:layout_marginBottom="75dp"
+        android:layout_height="match_parent">
 
-</LinearLayout>
+        <pl.droidsonroids.gif.GifImageView
+            android:id="@+id/gif_view"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="10dp"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+
+    </com.deerlive.zhuawawa.view.DragerViewLayout>
+    <ImageView
+        android:id="@+id/camera_change"
+        android:layout_width="35dp"
+        android:layout_height="45dp"
+        android:visibility="gone"
+        android:layout_marginTop="200dp"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/camera_change"
+        android:layout_gravity="right|center"
+        android:onClick="caozuo_camera"
+        />
+    <FrameLayout
+        android:layout_width="250dp"
+        android:layout_height="260dp"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@id/play"
+        android:layout_marginBottom="80dp"
+        android:visibility="gone"
+        android:id="@+id/popup_window_weizhuazhu_container"
+        android:layout_gravity="center"
+        >
+        <include layout="@layout/window_play_weizhuazhong"/>
+    </FrameLayout>
+</RelativeLayout>
