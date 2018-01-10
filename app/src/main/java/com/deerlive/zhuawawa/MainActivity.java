@@ -1,11 +1,15 @@
 package com.deerlive.zhuawawa;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,6 +33,7 @@ import com.deerlive.zhuawawa.activity.PlayerActivity;
 import com.deerlive.zhuawawa.activity.SettingActivity;
 import com.deerlive.zhuawawa.activity.UserCenterActivity;
 import com.deerlive.zhuawawa.adapter.GameRecyclerListAdapter;
+import com.deerlive.zhuawawa.adapter.MyAdapter;
 import com.deerlive.zhuawawa.base.BaseActivity;
 import com.deerlive.zhuawawa.common.Api;
 import com.deerlive.zhuawawa.common.WebviewActivity;
@@ -86,7 +91,6 @@ public class MainActivity extends BaseActivity {
         initBanner();
         mRefreshLayout.autoRefresh();
         initData();
-
     }
 
   /*  @Override
@@ -110,6 +114,7 @@ public class MainActivity extends BaseActivity {
         getGameData(0);
         checkUpdate();
         getMarqueeView();
+
     }
 
     private void getGameData(final int limit_begin) {
@@ -222,12 +227,12 @@ public class MainActivity extends BaseActivity {
             }
         });
     }
-    private MarqueeView marqueeView;
+    private RecyclerView myRecyclerView;
 
     private void initBanner() {
         LinearLayout temp = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.layout_home_banner, null);
         mConvenientBanner = (ConvenientBanner) temp.findViewById(R.id.convenientBanner);
-        marqueeView = (MarqueeView) temp.findViewById(R.id.marqueeView);
+        myRecyclerView = (RecyclerView) temp.findViewById(R.id.myRecyclerView);
 
         getMarqueeView();
 
@@ -262,7 +267,6 @@ public class MainActivity extends BaseActivity {
                     temp.putString("jump", b.getJump());
                     ActivityUtils.startActivity(temp, WebviewActivity.class);
                 }
-
             }
         });
     }
@@ -270,7 +274,10 @@ public class MainActivity extends BaseActivity {
     /**
      * 通告
      */
+
     private void getMarqueeView(){
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false);
+        myRecyclerView.setLayoutManager(linearLayoutManager);
         OkGo.<String>get(Api.ANNUNCIATE)
                 .tag(this)
                 .execute(new StringCallback() {
@@ -280,24 +287,45 @@ public class MainActivity extends BaseActivity {
                             Annunciate annunciate = JSON.parseObject(response.body(), Annunciate.class);
                             if (annunciate.getCode() == 200) {
                                 List<Annunciate.InfoBean> beans = annunciate.getInfo();
-                                List<String> info = new ArrayList<>();
+                                ArrayList<String> info = new ArrayList<>();
 
                                 for (Annunciate.InfoBean s : beans) {
                                     info.add(s.getContent());
                                 }
-                                if (!beans.isEmpty()) {
-                                    if(info.size()==1){
-                                        marqueeView.startWithText(info.get(0));
-                                    }else {
-                                        marqueeView.startWithList(info);
-                                    }
-                                }
+                                myRecyclerView.setAdapter(new MyAdapter(MainActivity.this,info));
+                                handler.sendEmptyMessageDelayed(0x00,1000);
+
                             }
                         }
                     }
 
                 });
     }
+
+   private boolean flag;
+    @Override
+    protected void onRestart() {
+        flag = false;
+        handler.sendEmptyMessageDelayed(0x00,100);
+        super.onRestart();
+    }
+    @Override
+    protected void onStop() {
+        flag = true;
+        super.onStop();
+    }
+    @SuppressLint("HandlerLeak")
+    private Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            myRecyclerView.scrollBy(myRecyclerView.getScrollX() + 2, myRecyclerView.getScrollY());
+            if (!flag) {
+                handler.sendEmptyMessageDelayed(0x00, 100);
+            }
+
+        }
+
+    };
 
     public void checkUpdate() {
         JSONObject params = new JSONObject();
@@ -322,7 +350,6 @@ public class MainActivity extends BaseActivity {
             }
         });
     }
-
 
     private void checkUpgrade(final String downloadUrl, String mes) {
         new MaterialDialog.Builder(this)

@@ -53,6 +53,7 @@ import com.deerlive.zhuawawa.common.Api;
 import com.deerlive.zhuawawa.common.GlideCircleTransform;
 import com.deerlive.zhuawawa.common.ScreenRecorder;
 import com.deerlive.zhuawawa.common.SoundUtils;
+import com.deerlive.zhuawawa.fragment.RecordFragment;
 import com.deerlive.zhuawawa.fragment.RecordZjFragment;
 import com.deerlive.zhuawawa.intf.OnRequestDataListener;
 import com.deerlive.zhuawawa.model.DanmuMessage;
@@ -481,7 +482,6 @@ public class PlayerActivity extends BaseActivity implements View.OnTouchListener
             mRtcEngine.muteAllRemoteAudioStreams(true);
             mRtcEngine.disableAudio();
             mRtcEngine.setEnableSpeakerphone(false);
-
             remoteVideoView = RtcEngine.CreateRendererView(getApplicationContext());
             remoteVideoView.setId(R.id.videoId);
             remoteVideoView.setZOrderOnTop(true);
@@ -533,6 +533,9 @@ public class PlayerActivity extends BaseActivity implements View.OnTouchListener
 
     private void initAgoraIm() {
         m_agoraAPI = AgoraAPIOnlySignal.getInstance(this, getResources().getString(R.string.agora_appid));
+        int sdkVersion = m_agoraAPI.getSdkVersion();
+
+        log("sdkVersion=="+sdkVersion);
         if (m_agoraAPI.isOnline() == 0) {
             m_agoraAPI.login2(getResources().getString(R.string.agora_appid), mLocalUid + "", mSignalKey, 0, "", 5, 5);
         } else {
@@ -706,7 +709,9 @@ public class PlayerActivity extends BaseActivity implements View.OnTouchListener
                             .into(mTipsPlayerAvatar);
                     mImageGameStatus.setEnabled(false);
                     mPlayerTipsContainer.setVisibility(View.VISIBLE);
-
+                    if(gif_view.getVisibility()==View.VISIBLE){
+                        gif_view.setVisibility(View.GONE);
+                    }
                   /*  gifDrawable.reset();
                     gifDrawable.start();*/
 
@@ -740,9 +745,8 @@ public class PlayerActivity extends BaseActivity implements View.OnTouchListener
     }
 
     RecordZjFragment rf;
-
     public void showRecord(View v) {
-        FragmentManager fm = getSupportFragmentManager();
+      /*  FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction transaction = fm.beginTransaction();
         if (fm.findFragmentById(R.id.popup_window_container) == null) {
             rf = RecordZjFragment.newInstance(mChannleName);
@@ -754,7 +758,12 @@ public class PlayerActivity extends BaseActivity implements View.OnTouchListener
         } else {
             transaction.show(rf);
         }
-        transaction.commit();
+        transaction.commit();*/
+
+        RecordFragment recordFragment = RecordFragment.newInstance(mChannleName);
+
+        recordFragment.show(getFragmentManager(),"recordFragment");
+
     }
 
     public void tryAgain(View v) {
@@ -886,13 +895,13 @@ public class PlayerActivity extends BaseActivity implements View.OnTouchListener
                     initAgoraIm();
                     break;
                 case IM_ONLINE_NUM:
-                    mPlayerNum.setText(mOnlineNum + "");
+                    mPlayerNum.setText(mOnlineNum + getResources().getString(R.string.play_num));
                     break;
                 case IM_ONLINE_LEAVE:
-                    mPlayerNum.setText((mOnlineNum--) + "");
+                    mPlayerNum.setText((mOnlineNum--) + getResources().getString(R.string.play_num));
                     break;
                 case IM_ONLINE_JOIN:
-                    mPlayerNum.setText((mOnlineNum++) + "");
+                    mPlayerNum.setText((mOnlineNum++) + getResources().getString(R.string.play_num));
                     break;
                 case UPLOAD_RECORD:
                     uploadRecord();
@@ -993,9 +1002,9 @@ public class PlayerActivity extends BaseActivity implements View.OnTouchListener
                     mImageGameStatus.setEnabled(false);
                     mPlayerTipsContainer.setVisibility(View.GONE);
 
-                    if (gif_view.getVisibility() == View.GONE) {
+                   /* if (gif_view.getVisibility() == View.GONE) {
                         gif_view.setVisibility(View.VISIBLE);
-                    }
+                    }*/
 
                     startTimerPlay();
                     if (StringUtils.isTrimEmpty(mmPlayBalance) || StringUtils.isTrimEmpty(mmPlayPrice)) {

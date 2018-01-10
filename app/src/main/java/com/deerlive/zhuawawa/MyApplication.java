@@ -28,7 +28,8 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         instance = this;
-        LeakCanary.install(this);
+
+       // LeakCanary.install(this);
 
         Utils.init(this);
         LogUtils.init(getInstance());
@@ -36,7 +37,6 @@ public class MyApplication extends Application {
         StyledDialog.init(this);
         //ShareSDK
         MobSDK.init(this,"22df8db419014","0f69e4d8a099b8426a58a16fccb8e88e");
-
         //Bugly
         CrashReport.initCrashReport(getApplicationContext(), "8063782a38", false);
         //Walle

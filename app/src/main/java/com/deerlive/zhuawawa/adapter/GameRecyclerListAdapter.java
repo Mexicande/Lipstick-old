@@ -46,12 +46,13 @@ public class GameRecyclerListAdapter extends RecyclerView.Adapter<RecyclerView.V
     private int imageWidth;
     private int imageHeight;
     private OnRecyclerViewItemClickListener mOnRecyclerViewItemClickListener;
-
     public GameRecyclerListAdapter(Context mContext, ArrayList<Game> mVideoItems) {
+
         this.mContext = mContext;
         this.mItems = mVideoItems;
         imageHeight = (ScreenUtils.getScreenWidth() - SizeUtils.dp2px(15))/2;
         imageWidth = imageHeight ;
+
     }
 
     public void setOnRecyclerViewItemClickListener(OnRecyclerViewItemClickListener onRecyclerViewItemClickListener) {
@@ -142,6 +143,7 @@ public class GameRecyclerListAdapter extends RecyclerView.Adapter<RecyclerView.V
             FrameLayout.LayoutParams params1 = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, imageHeight+ SizeUtils.dp2px(40));
             //temp.mGameIcon.setLayoutParams(params);
             temp.mContainer.setLayoutParams(params1);
+
             temp.mContainer.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -217,6 +219,7 @@ public class GameRecyclerListAdapter extends RecyclerView.Adapter<RecyclerView.V
     }
 
     class GameViewHolder extends RecyclerView.ViewHolder {
+
         @Bind(R.id.item_game_container)
         CardView mContainer;
         @Bind(R.id.game_icon)

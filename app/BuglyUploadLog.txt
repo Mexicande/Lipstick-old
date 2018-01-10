@@ -16,3 +16,7 @@ E:\android\ZhuaWaWa\app\build\outputs\mapping\release\app-mapping.txt --> 479dc6
 /Users/apple/Documents/Project/zhuawawa/app/build/outputs/mapping/release/app-mapping.txt --> 0b8b4426e464112fc90cb2872764395d8de55d5e
 /Users/apple/Documents/Project/zhuawawa/app/build/outputs/mapping/release/app-mapping.txt --> e24485657ba957a961b31c835cdaaf72fec78e25
 /Users/apple/Documents/Project/zhuawawa/app/build/outputs/mapping/release/app-mapping.txt --> 241d4c5e14a9659b674e42fd11914078bcd5fc43
+/Users/apple/Documents/Project/zhuawawa/app/build/outputs/mapping/release/app-mapping.txt --> e967cee15d0d718f91a5c42496518fd72956c7b2
+/Users/apple/Documents/Project/zhuawawa/app/build/outputs/mapping/release/app-mapping.txt --> 1a5251df2c804b9c5413a61eb619165db67b989b
+/Users/apple/Documents/Project/zhuawawa/app/build/outputs/mapping/release/app-mapping.txt --> 4f6afcc55d653cc5b894a784010c6476b24d2f92
+/Users/apple/Documents/Project/zhuawawa/app/build/outputs/mapping/release/app-mapping.txt --> 9bf97b7b960b0cda7856c0783706de035cb71415

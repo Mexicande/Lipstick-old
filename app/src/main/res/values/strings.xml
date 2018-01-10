@@ -13,6 +13,8 @@
     <string name="yaoqing_input">输入邀请码</string>
     <string name="feadback">问题反馈</string>
     <string name="logout">退出登录</string>
+    <string name="wechat_login">微信登录</string>
+    <string name="play_num">人在房间</string>
     <string name="setting">设置</string>
     <string name="userCenter">个人中心</string>
     <string name="message">消息通知</string>
