@@ -9,9 +9,7 @@ bugly {
 android {
     compileSdkVersion 25
     buildToolsVersion "25.0.1"
-    dexOptions {
-        javaMaxHeapSize "4g"
-    }
+
     defaultConfig {
         applicationId "com.deerlive.zhuawawa"
         minSdkVersion 16
@@ -41,6 +39,9 @@ android {
             keyPassword 'dfsbLPL6wjG4t68kjd'
             storePassword 'dfsbLPL6wjG4t68kjd'
         }
+    }
+    dexOptions {
+        javaMaxHeapSize "4g"
     }
     buildTypes {
         debug {
@@ -98,6 +99,7 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
         exclude group: 'com.android.support', module: 'recyclerview-v7'
     }
+    compile 'com.rong360.sdk.crawler:crawlerlib:1.4.7-06'
 
     compile(name: 'LiteAVSDK_Player', ext: 'aar')
     compile files('libs/alipaySdk-20160516.jar')

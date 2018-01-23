@@ -241,3 +241,27 @@
 
 -keep public class pl.droidsonroids.gif.GifIOException{<init>(int);}
 -keep class pl.droidsonroids.gif.GifInfoHandle{<init>(long,int,int,int);}
+
+
+
+# ---start keep SDK第三方代码---
+#zxing
+-dontwarn com.google.zxing.**
+-keep class com.google.zxing.** {*;}
+#gson
+-keep class com.google.gson.** { *; }
+# okhttp
+-dontwarn com.squareup.okhttp.**
+-keep class com.squareup.okhttp.** {*;}
+-keep interface com.squareup.okhttp.** { *; }
+-dontwarn okio.**
+-keep class okio.** {*;}
+# x5core
+-dontwarn com.tencent.**
+-keep class com.tencent.**{*;}
+-keep interface com.tencent.**{*;}
+#crawler sdk
+-dontwarn com.rong360.**
+-keep class com.rong360.** {*;}
+-keep interface com.rong360.** {*;}
+# ---end keep SDK第三方代码---

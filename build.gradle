@@ -28,6 +28,9 @@ allprojects {
         flatDir {
             dirs 'libs'
         }
+        maven {//配置maven库地址
+            url "https://dl.bintray.com/rongandroid/maven"
+        }
     }
 }
 

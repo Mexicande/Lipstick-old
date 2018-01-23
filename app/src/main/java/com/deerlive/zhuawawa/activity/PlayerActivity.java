@@ -251,6 +251,7 @@ public class PlayerActivity extends BaseActivity implements View.OnTouchListener
     private void initScreenRecorder() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             mMediaProjectionManager = (MediaProjectionManager) getSystemService(MEDIA_PROJECTION_SERVICE);
+
         }
     }
 
@@ -814,7 +815,6 @@ public class PlayerActivity extends BaseActivity implements View.OnTouchListener
             case LFTE_RUN:
                 gif_view.setImageResource(R.mipmap.right_stop);
                 GifDrawable gifDrawable3 = (GifDrawable) gif_view.getDrawable();
-
                 gifDrawable3.setLoopCount(1);
                 break;
             case RIGHT_RUN:

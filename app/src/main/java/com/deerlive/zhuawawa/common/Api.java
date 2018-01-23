@@ -43,12 +43,19 @@ public class Api {
     private static final String GET_BANNER = HOST + "Api/SiSi/getBanner";
     private static final String GET_GAME = HOST + "Api/SiSi/getLive";
     private static final String GET_CHANNEL_KEY = HOST + "Api/SiSi/getChannelKey";
+    //帮助
     public static final String URL_GAME_HELP = HOST + "/portal/appweb/help?qudao="+QUDAO;
+    //邀请
     public static final String URL_GAME_YAOQING = HOST + "/portal/appweb/my_code?qudao="+QUDAO;
+    //邀请码
     public static final String URL_GAME_YAOQINGMA = HOST + "/portal/appweb/input_code?qudao="+QUDAO;
+    //问题反馈
     public static final String URL_GAME_FEEDBACK = HOST + "/portal/appweb/feedback?qudao="+QUDAO;
+    //关于
     public static final String URL_GAME_ABOUT = HOST + "/portal/appweb/about_us?qudao="+QUDAO;
+    //协议
     public static final String URL_GAME_XIEYI = HOST + "portal/page/index/id/2?qudao="+QUDAO;
+
     private static final String CHECK_UPDATE = HOST + "Api/SiSi/checkAndroidVer";
     private static final String ENTER_PLAYER = HOST + "Api/SiSi/enterDeviceRoom";
     private static final String GET_LATEST_DEVICE_RECORD = HOST + "Api/SiSi/getWinLogByDeviceid";
@@ -187,6 +194,7 @@ public class Api {
         params.put("soft_ver", APP_VER);
         params.put("os_ver", OS_VER);
         params.put("qudao",QUDAO);
+
         //String stamp = getTime();
         //params.put("timestamp",stamp);
         //params.put("sign",getMD5(KEY+stamp));

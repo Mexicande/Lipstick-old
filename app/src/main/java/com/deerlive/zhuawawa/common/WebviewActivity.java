@@ -123,7 +123,6 @@ public class WebviewActivity extends BaseActivity implements PlatformActionListe
         return super.onKeyDown(keyCode, event);
 
     }
-
     public class AndroidtoJs extends Object {
 
         // 定义JS需要调用的方法
