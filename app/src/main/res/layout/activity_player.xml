@@ -7,17 +7,93 @@
     android:orientation="vertical"
     android:background="@android:color/white">
     <include layout="@layout/player_top"/>
+
+
 <!--
     <include layout="@layout/player_caozuo"
         android:id="@+id/play"
         />-->
+
+
+    <FrameLayout
+        android:background="@drawable/play_bg"
+        android:layout_marginTop="70dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+        <FrameLayout
+            android:id="@+id/player_container"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <com.tencent.rtmp.ui.TXCloudVideoView
+                android:id="@+id/player_surface"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/living_bg"
+                android:layout_centerInParent="true"/>
+        </FrameLayout>
+
+        <!--<FrameLayout-->
+            <!--android:layout_width="250dp"-->
+            <!--android:layout_height="260dp"-->
+            <!--android:id="@+id/popup_window_zhuazhu_container"-->
+            <!--android:layout_gravity="center"-->
+            <!--android:visibility="gone">-->
+            <!--<include layout="@layout/window_play_zhuazhong"/>-->
+        <!--</FrameLayout>-->
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:padding="2dp"
+                android:background="@drawable/mess_bg">
+                <ImageView
+                    android:layout_marginLeft="5dp"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/people_num"/>
+                <TextView
+                    android:layout_marginRight="5dp"
+                    android:layout_marginLeft="2dp"
+                    android:id="@+id/player_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@android:color/white"
+                    android:text=""/>
+            </LinearLayout>
+        </RelativeLayout>
+    </FrameLayout>
+
+
+    <ImageView
+        android:id="@+id/camera_change"
+        android:layout_width="35dp"
+        android:layout_height="45dp"
+        android:visibility="gone"
+        android:layout_marginTop="200dp"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/camera_change"
+        android:layout_gravity="right|center"
+        android:onClick="caozuo_camera"
+        />
+
+
+
     <RelativeLayout
         android:id="@+id/play"
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="140dp"
+        android:layout_height="130dp"
         android:layout_alignParentBottom="true"
-        android:background="@drawable/bg">
+        >
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -148,39 +224,41 @@
                 android:onClick="showRecord"
                 android:layout_centerVertical="true"
                 />
-            <ImageView
-                android:id="@+id/iv_runing"
-                android:layout_alignParentRight="true"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:src="@mipmap/iv_run"/>
-            <RelativeLayout
-                android:layout_centerVertical="true"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+
+            <LinearLayout
+                android:id="@+id/game_status_ing"
+                android:layout_centerInParent="true"
+                android:layout_width="200dp"
+                android:layout_height="80dp"
+                android:orientation="vertical"
+                android:background="@drawable/game_ok_no"
                 android:layout_centerHorizontal="true">
-                <ImageView
-                    android:id="@+id/game_status_ing"
-                    android:layout_width="150dp"
-                    android:layout_height="80dp"
-                    android:src="@drawable/game_ok_no"/>
-                <LinearLayout
-                    android:layout_below="@id/game_status_ing"
+                <TextView
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="15dp"
                     android:layout_centerHorizontal="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="开始游戏"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
+                    android:textColor="@color/white"
+                    />
+                <LinearLayout
+                    android:layout_gravity="center_horizontal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
                     <ImageView
                         android:layout_gravity="center_vertical"
-                        android:layout_width="16dp"
-                        android:layout_height="16dp"
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
                         android:src="@mipmap/iv_satar"/>
                     <com.deerlive.zhuawawa.view.StrokeTextView
                         android:id="@+id/play_price"
                         android:layout_gravity="center_vertical"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="123"
+                        android:text="x123"
                         android:shadowDx="5"
                         android:gravity="center"
                         android:shadowDy="5"
@@ -190,7 +268,7 @@
                         app:outerColor="@color/colorIndexFont"
                         app:innnerColor="@android:color/white"/>
                 </LinearLayout>
-            </RelativeLayout>
+            </LinearLayout>
 
             <ImageView
                 android:layout_centerVertical="true"
@@ -202,136 +280,50 @@
                 android:onClick="showSend"/>
         </RelativeLayout>
 
-    </RelativeLayout>
 
-    <FrameLayout
+    </RelativeLayout>
+    <LinearLayout
         android:layout_above="@id/play"
-        android:layout_marginTop="50dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
-        <FrameLayout
-            android:id="@+id/player_container"
+        android:layout_height="80dp"
+        android:layout_gravity="bottom"
+        android:orientation="vertical">
+        <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <com.tencent.rtmp.ui.TXCloudVideoView
-                android:id="@+id/player_surface"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:id="@+id/danmu_list"
+            android:background="@null">
+
+        </android.support.v7.widget.RecyclerView>
+        <RelativeLayout
+            android:id="@+id/message_container"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="30dp">
+            <EditText
+                android:id="@+id/mess_content"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/living_bg"
-                android:layout_centerInParent="true"/>
-        </FrameLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:layout_gravity="bottom"
-            android:orientation="vertical">
-            <android.support.v7.widget.RecyclerView
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:id="@+id/danmu_list"
-                android:background="@null">
-
-            </android.support.v7.widget.RecyclerView>
-            <RelativeLayout
-                android:id="@+id/message_container"
-                android:visibility="gone"
-                android:layout_width="match_parent"
-                android:layout_height="30dp">
-                <EditText
-                    android:id="@+id/mess_content"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginRight="48dp"
-                    android:textSize="10sp"
-                    android:padding="5dp"
-                    android:hint="@string/hint_text"
-                    android:gravity="center_vertical"
-                    android:background="@drawable/btn_border"
-                    android:textColorHint="@android:color/white"
-                    android:textColor="@android:color/white"/>
-                <TextView
-                    android:id="@+id/mess_send"
-                    android:layout_width="50dp"
-                    android:layout_height="match_parent"
-                    android:layout_alignParentRight="true"
-                    android:text="@string/send"
-                    android:textColor="@android:color/white"
-                    android:background="@drawable/btn_shape"
-                    android:gravity="center"/>
-            </RelativeLayout>
-        </LinearLayout>
-
-
-
-        <!--<FrameLayout-->
-            <!--android:layout_width="250dp"-->
-            <!--android:layout_height="260dp"-->
-            <!--android:id="@+id/popup_window_zhuazhu_container"-->
-            <!--android:layout_gravity="center"-->
-            <!--android:visibility="gone">-->
-            <!--<include layout="@layout/window_play_zhuazhong"/>-->
-        <!--</FrameLayout>-->
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="5dp">
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:layout_marginRight="48dp"
+                android:textSize="10sp"
+                android:padding="5dp"
+                android:hint="@string/hint_text"
                 android:gravity="center_vertical"
-                android:padding="2dp"
-                android:background="@drawable/mess_bg">
-                <ImageView
-                    android:layout_marginLeft="5dp"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/people_num"/>
-                <TextView
-                    android:layout_marginRight="5dp"
-                    android:layout_marginLeft="2dp"
-                    android:id="@+id/player_num"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@android:color/white"
-                    android:text=""/>
-            </LinearLayout>
+                android:background="@drawable/btn_border"
+                android:textColorHint="@android:color/white"
+                android:textColor="@android:color/white"/>
+            <TextView
+                android:id="@+id/mess_send"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:text="@string/send"
+                android:textColor="@android:color/white"
+                android:background="@drawable/btn_shape"
+                android:gravity="center"/>
         </RelativeLayout>
-    </FrameLayout>
-
-    <com.deerlive.zhuawawa.view.DragerViewLayout
-        android:id="@+id/drager_layout"
-        android:layout_above="@id/play"
-        android:layout_marginTop="50dp"
-        android:layout_width="match_parent"
-        android:layout_marginBottom="75dp"
-        android:layout_height="match_parent">
-
-        <pl.droidsonroids.gif.GifImageView
-            android:id="@+id/gif_view"
-            android:layout_marginTop="5dp"
-            android:layout_marginRight="10dp"
-            android:layout_alignParentRight="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            />
-
-    </com.deerlive.zhuawawa.view.DragerViewLayout>
-    <ImageView
-        android:id="@+id/camera_change"
-        android:layout_width="35dp"
-        android:layout_height="45dp"
-        android:visibility="gone"
-        android:layout_marginTop="200dp"
-        android:layout_alignParentRight="true"
-        android:src="@drawable/camera_change"
-        android:layout_gravity="right|center"
-        android:onClick="caozuo_camera"
-        />
+    </LinearLayout>
     <FrameLayout
         android:layout_width="250dp"
         android:layout_height="260dp"
@@ -344,7 +336,6 @@
         >
         <include layout="@layout/window_play_weizhuazhong"/>
     </FrameLayout>
-
     <FrameLayout
         android:layout_marginBottom="80dp"
         android:layout_centerHorizontal="true"
@@ -354,5 +345,4 @@
         android:id="@+id/popup_window_container"
         android:layout_gravity="center">
     </FrameLayout>
-
 </RelativeLayout>

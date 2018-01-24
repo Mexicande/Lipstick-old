@@ -27,7 +27,8 @@ public class LocalImageHolderView implements Holder<Banner> {
         Glide.with(context)
                 .load(data.getPic())
                 .dontAnimate()
-                .transform(new CenterCrop(context), new GlideRoundTransform(context,10))
+                .centerCrop()
+                //.transform(new CenterCrop(context), new GlideRoundTransform(context,10))
                 .into(imageView);
         //imageView.setImageResource(data);
     }

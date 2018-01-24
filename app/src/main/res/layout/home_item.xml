@@ -2,33 +2,73 @@
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:stv="http://schemas.android.com/tools"
     android:id="@+id/item_game_container"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:foreground="?android:attr/selectableItemBackground"
-    card_view:cardCornerRadius="5dp"
-    card_view:cardElevation="3dp"
+    card_view:cardCornerRadius="10dp"
+    card_view:cardElevation="2dp"
     card_view:cardMaxElevation="2dp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <LinearLayout
+        <RelativeLayout
             android:id="@+id/buttom"
+            android:paddingRight="10dp"
+            android:paddingLeft="10dp"
             android:layout_alignParentBottom="true"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:gravity="center"
-            android:background="@drawable/button_bg"
+            android:layout_height="wrap_content"
             android:orientation="horizontal">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/item_game_name"
-                android:textColor="@color/white"
-                android:text="创意可爱大眼兔"
-                android:textStyle="bold"
-                android:textSize="13sp"/>
-        </LinearLayout>
+            <RelativeLayout
+                android:layout_centerVertical="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_marginTop="7dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/item_game_name"
+                    android:textColor="@color/text_black"
+                    android:text="大眼兔"
+                    android:textSize="13sp"/>
+                <LinearLayout
+                    android:layout_marginBottom="7dp"
+                    android:layout_below="@id/item_game_name"
+                    android:layout_marginTop="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    >
+                    <ImageView
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:src="@drawable/game_icon"/>
+                    <TextView
+                        android:layout_marginLeft="5dp"
+                        android:id="@+id/game_price"
+                        android:textSize="12sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:textColor="@color/text_black_light"
+                        android:text="200币 / 次"/>
+                </LinearLayout>
+                <com.deerlive.zhuawawa.view.supertextview.SuperButton
+                    android:id="@+id/game_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    app:sCornersRadius="15dp"
+                    android:textColor="@color/white"
+                    android:textSize="11sp"
+                    android:text="游戏中"/>
+            </RelativeLayout>
+        </RelativeLayout>
         <RelativeLayout
             android:layout_above="@id/buttom"
             android:layout_width="match_parent"
@@ -40,57 +80,7 @@
                 android:scaleType="centerCrop"
                 android:adjustViewBounds="true"
                 android:src="@mipmap/logo"/>
-            <TextView
-                android:id="@+id/game_status"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentBottom="true"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="#45c0f0"
-                android:textSize="10sp"
-                android:layout_marginBottom="5dp"
-                android:layout_marginRight="5dp"
-                />
         </RelativeLayout>
-        <LinearLayout
-            android:layout_marginRight="5dp"
-            android:layout_marginTop="2dp"
-            android:layout_alignParentRight="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            >
-            <ImageView
-                android:layout_gravity="center_vertical"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@drawable/game_icon"/>
-            <com.deerlive.zhuawawa.view.StrokeTextView
-                android:id="@+id/game_price"
-                android:layout_gravity="center_vertical"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="2dp"
-                android:text="0"
-                android:shadowDx="5"
-                android:shadowDy="5"
-                android:shadowRadius="5"
-                android:shadowColor="@android:color/black"
-                android:textSize="12sp"
-                android:textStyle="bold"
-                app:outerColor="@color/colorIndexFont"
-                app:innnerColor="@android:color/white"
-                />
-        </LinearLayout>
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_marginLeft="5dp"
-            android:src="@mipmap/iv_vip"
-            android:visibility="gone"
-            android:layout_gravity="right|bottom"
-            android:id="@+id/home_vip" />
 
     </RelativeLayout>
 </android.support.v7.widget.CardView>

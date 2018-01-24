@@ -6,37 +6,110 @@
     android:orientation="vertical">
     <com.bigkoo.convenientbanner.ConvenientBanner
         android:id="@+id/convenientBanner"
-        android:layout_width="match_parent"
+            android:layout_width="match_parent"
         android:layout_height="160dp"
         />
-    <RelativeLayout
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
         android:layout_width="match_parent"
-        android:layout_marginTop="18dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:background="@drawable/xml_oval_half_transparent_bg"
-        android:layout_height="28dp">
-        <ImageView
-            android:id="@+id/iv_loudspeaker4"
-            android:layout_marginLeft="5dp"
-            android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_weight="1"
+            android:id="@+id/layout_all"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:src="@mipmap/iv_trumpet"/>
-
-        <com.deerlive.zhuawawa.view.ForbidMoveLinearLayout
-            android:layout_marginLeft="8dp"
-            android:layout_toRightOf="@id/iv_loudspeaker4"
-            android:layout_centerVertical="true"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/myRecyclerView"
-                android:layout_centerVertical="true"
-                android:layout_width="match_parent"
+            android:orientation="vertical">
+            <ImageView
+                android:layout_gravity="center_horizontal"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                >
-            </android.support.v7.widget.RecyclerView>
-        </com.deerlive.zhuawawa.view.ForbidMoveLinearLayout>
-    </RelativeLayout>
+                android:src="@mipmap/iv_room"
+                />
+            <LinearLayout
+                android:layout_marginRight="5dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/blue"
+                    android:text="•"
+                    android:textSize="15sp"
+                    />
+                <TextView
+                    android:textSize="@dimen/home_textsize"
+                    android:layout_marginLeft="1dp"
+                    android:textColor="@color/text_black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tv_all"/>
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_weight="1"
+
+            android:id="@+id/layout_invite"
+            android:gravity="center_horizontal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <ImageView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/iv_invite"
+                />
+            <TextView
+                android:textSize="@dimen/home_textsize"
+                android:textColor="@color/text_gray"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tv_invite"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_weight="1"
+
+            android:id="@+id/layout_integral"
+            android:gravity="center_horizontal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/iv_integral"
+                />
+            <TextView
+                android:textSize="@dimen/home_textsize"
+
+                android:textColor="@color/text_gray"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tv_integral"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_weight="1"
+
+            android:id="@+id/layout_charge"
+            android:gravity="center_horizontal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/iv_charge"
+                />
+            <TextView
+                android:textSize="@dimen/home_textsize"
+
+                android:textColor="@color/text_gray"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tv_charge"/>
+        </LinearLayout>
+    </LinearLayout>
 </LinearLayout>

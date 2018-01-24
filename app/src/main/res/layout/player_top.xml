@@ -3,53 +3,60 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="50dp"
+    android:layout_height="70dp"
     android:gravity="center_vertical"
-    android:background="@drawable/promary_drawable"
+    android:background="@drawable/shape_toolbar"
     >
-    <ImageView
-        android:layout_marginLeft="10dp"
-        android:layout_width="43dp"
-        android:layout_height="23dp"
-        android:paddingRight="20dp"
-        android:foreground = "?attr/selectableItemBackground"
-        android:layout_centerVertical="true"
-        android:src="@mipmap/player_back"
-        android:onClick="goBack"/>
-    <ImageView
-        android:layout_gravity="center_horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:layout_centerInParent="true"
-        android:src="@mipmap/index_top"
-        />
     <RelativeLayout
-        android:layout_gravity="right"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="10dp"
-        android:onClick="goCharge">
+        android:layout_marginTop="20dp"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
         <ImageView
-            android:id="@+id/index_top_set"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
+            android:layout_width="43dp"
+            android:layout_height="43dp"
+            android:paddingRight="20dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:foreground = "?attr/selectableItemBackground"
             android:layout_centerVertical="true"
-            android:src="@mipmap/player_balance"/>
-        <com.deerlive.zhuawawa.view.StrokeTextView
-            android:id="@+id/play_balance"
+            android:src="@mipmap/player_back"
+            android:onClick="goBack"/>
+        <ImageView
+            android:layout_gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_centerInParent="true"
+            android:src="@mipmap/index_top"
+            />
+        <RelativeLayout
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="2dp"
-            android:text="0"
-            android:shadowDx="5"
-            android:shadowDy="5"
-            android:shadowRadius="5"
-            android:shadowColor="@android:color/black"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            app:outerColor="@color/colorIndexFont"
-            app:innnerColor="@android:color/white"
-            android:layout_centerInParent="true"/>
+            android:onClick="goCharge">
+            <ImageView
+                android:id="@+id/index_top_set"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/player_balance"/>
+            <com.deerlive.zhuawawa.view.StrokeTextView
+                android:id="@+id/play_balance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="2dp"
+                android:text="0"
+                android:shadowDx="5"
+                android:shadowDy="5"
+                android:shadowRadius="5"
+                android:shadowColor="@android:color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:outerColor="@color/colorIndexFont"
+                app:innnerColor="@android:color/white"
+                android:layout_centerInParent="true"/>
+        </RelativeLayout>
     </RelativeLayout>
 
 

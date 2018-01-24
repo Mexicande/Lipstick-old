@@ -1,29 +1,24 @@
 package com.deerlive.zhuawawa.adapter;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.ScreenUtils;
 import com.blankj.utilcode.util.SizeUtils;
-import com.blankj.utilcode.util.StringUtils;
 import com.bumptech.glide.Glide;
 import com.deerlive.zhuawawa.R;
-import com.deerlive.zhuawawa.common.GlideCircleTransform;
 import com.deerlive.zhuawawa.intf.OnRecyclerViewItemClickListener;
 import com.deerlive.zhuawawa.model.Game;
+import com.deerlive.zhuawawa.view.supertextview.SuperButton;
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -136,9 +131,8 @@ public class GameRecyclerListAdapter extends RecyclerView.Adapter<RecyclerView.V
             Glide.with(mContext).load(t.getGameUrl())
                     .error(R.mipmap.logo)
                     .into(temp.mGameIcon);
-            temp.mGamePrice.setText(t.getGamePrice());
+            temp.mGamePrice.setText(t.getGamePrice()+"币 / 次");
             setGameStatus(t.getGameStatus(),temp.mGameStatus);
-            setVip(t.getVip_level(),temp.homevip);
             //FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(imageWidth, imageHeight);
             FrameLayout.LayoutParams params1 = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, imageHeight+ SizeUtils.dp2px(40));
             //temp.mGameIcon.setLayoutParams(params);
@@ -156,36 +150,27 @@ public class GameRecyclerListAdapter extends RecyclerView.Adapter<RecyclerView.V
         }
     }
 
-    private void setGameStatus(String mGameStatus,TextView v) {
+    private void setGameStatus(String mGameStatus,SuperButton v) {
         switch (mGameStatus){
             case "2"://空闲
-                Drawable drawableLeft1 = mContext.getResources().getDrawable(
-                        R.drawable.iv_blue_dot);
-                v.setCompoundDrawablesWithIntrinsicBounds(drawableLeft1,null,null,null);
-                v.setCompoundDrawablePadding(4);
-                v.setText("空闲中");
-                //v.setImageResource(R.drawable.game_item_status_waiting);
+                v.setVisibility(View.VISIBLE);
+                v .setText(mContext.getResources().getString(R.string.tv_free));
+                v.setShapeType(SuperButton.RECTANGLE)
+                        .setShapeSolidColor(mContext.getResources().getColor(R.color.blue))
+                        .setUseShape();
                 break;
             case "3": //游戏中
-                Drawable drawableLeft2 = mContext.getResources().getDrawable(
-                        R.drawable.iv_red_dot);
-                v.setCompoundDrawablesWithIntrinsicBounds(drawableLeft2,null,null,null);
-                v.setText("游戏中");
-                v.setCompoundDrawablePadding(4);
-                //v.setImageResource(R.drawable.game_item_status_ing);
-                break;
-        }
-    }
-    private void setVip(String vip,ImageView v) {
-        switch (vip){
-            case "0"://空闲
-                v.setVisibility(View.GONE);
-                break;
-            case "1": //游戏中
                 v.setVisibility(View.VISIBLE);
+                v.setText(mContext.getResources().getString(R.string.tv_playing));
+                v.setShapeType(SuperButton.RECTANGLE).
+                    setShapeSolidColor(mContext.getResources().getColor(R.color.colorPrimary))
+                        .setUseShape();
                 break;
+            default:
+                v.setVisibility(View.GONE);
         }
     }
+
 
     private int getHeadViewSize() {
         return mHeaderView == null ? 0 : 1;
@@ -224,14 +209,12 @@ public class GameRecyclerListAdapter extends RecyclerView.Adapter<RecyclerView.V
         CardView mContainer;
         @Bind(R.id.game_icon)
         ImageView mGameIcon;
-        @Bind(R.id.home_vip)
-        ImageView homevip;
         @Bind(R.id.item_game_name)
         TextView mGameName;
         @Bind(R.id.game_price)
         TextView mGamePrice;
         @Bind(R.id.game_status)
-        TextView mGameStatus;
+        SuperButton mGameStatus;
         public GameViewHolder(View inflate) {
             super(inflate);
             ButterKnife.bind(this, inflate);

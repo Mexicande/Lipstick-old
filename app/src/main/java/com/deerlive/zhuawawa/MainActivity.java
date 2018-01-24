@@ -1,25 +1,20 @@
 package com.deerlive.zhuawawa;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.bigkoo.convenientbanner.ConvenientBanner;
@@ -28,45 +23,35 @@ import com.bigkoo.convenientbanner.listener.OnItemClickListener;
 import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.SizeUtils;
 import com.blankj.utilcode.util.StringUtils;
-import com.bumptech.glide.Glide;
 import com.deerlive.zhuawawa.activity.PlayerActivity;
 import com.deerlive.zhuawawa.activity.SettingActivity;
 import com.deerlive.zhuawawa.activity.UserCenterActivity;
 import com.deerlive.zhuawawa.adapter.GameRecyclerListAdapter;
-import com.deerlive.zhuawawa.adapter.MyAdapter;
 import com.deerlive.zhuawawa.base.BaseActivity;
 import com.deerlive.zhuawawa.common.Api;
 import com.deerlive.zhuawawa.common.WebviewActivity;
 import com.deerlive.zhuawawa.intf.OnRecyclerViewItemClickListener;
 import com.deerlive.zhuawawa.intf.OnRequestDataListener;
-import com.deerlive.zhuawawa.model.Annunciate;
 import com.deerlive.zhuawawa.model.Banner;
 import com.deerlive.zhuawawa.model.Game;
 import com.deerlive.zhuawawa.utils.LocalImageHolderView;
-import com.deerlive.zhuawawa.utils.LogUtils;
 import com.deerlive.zhuawawa.view.SpaceItemDecoration;
-import com.deerlive.zhuawawa.view.marquee.MarqueeView;
-import com.lzy.okgo.OkGo;
-import com.lzy.okgo.callback.AbsCallback;
-import com.lzy.okgo.callback.StringCallback;
-import com.lzy.okgo.model.Response;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 import butterknife.Bind;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements View.OnClickListener{
 
     @Bind(R.id.refreshLayout)
     SmartRefreshLayout mRefreshLayout;
     @Bind(R.id.recyclerview)
     RecyclerView mRecyclerView;
+
     private ArrayList<Game> mGameData = new ArrayList();
     private ArrayList<Banner> mBannerData = new ArrayList();
     private ConvenientBanner mConvenientBanner;
@@ -87,6 +72,19 @@ public class MainActivity extends BaseActivity {
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.setStatusBarColor(Color.TRANSPARENT);
         }*/
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+
+            View decorView = getWindow().getDecorView();
+
+            int option = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+
+                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
+
+            decorView.setSystemUiVisibility(option);
+
+            this.getWindow().setStatusBarColor(Color.TRANSPARENT);
+
+        }
         initGameList();
         initBanner();
         mRefreshLayout.autoRefresh();
@@ -113,7 +111,6 @@ public class MainActivity extends BaseActivity {
         getBannerData();
         getGameData(0);
         checkUpdate();
-        getMarqueeView();
 
     }
 
@@ -227,19 +224,18 @@ public class MainActivity extends BaseActivity {
             }
         });
     }
-    private RecyclerView myRecyclerView;
+
+    LinearLayout layoutInvite;
+    LinearLayout layoutIntegral;
+    LinearLayout layoutCharge;
 
     private void initBanner() {
         LinearLayout temp = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.layout_home_banner, null);
         mConvenientBanner = (ConvenientBanner) temp.findViewById(R.id.convenientBanner);
-        myRecyclerView = (RecyclerView) temp.findViewById(R.id.myRecyclerView);
+        layoutInvite = (LinearLayout) temp.findViewById(R.id.layout_invite);
+        layoutIntegral = (LinearLayout) temp.findViewById(R.id.layout_integral);
+        layoutCharge = (LinearLayout) temp.findViewById(R.id.layout_charge);
 
-        getMarqueeView();
-
-       /* int bannerWidth = ScreenUtils.getScreenWidth();
-        int bannerHeight = bannerWidth * 2 / 5;
-        mConvenientBanner.setLayoutParams(new LinearLayout.LayoutParams(bannerWidth, bannerHeight));
-*/
 
         mConvenientBanner.setPointViewVisible(true);
         mConvenientBanner.setPages(new CBViewHolderCreator<LocalImageHolderView>() {
@@ -248,9 +244,9 @@ public class MainActivity extends BaseActivity {
                 return new LocalImageHolderView();
             }
         }, mBannerData);
-        if(mBannerData.size()>1){
+        if (mBannerData.size() > 1) {
             mConvenientBanner.setCanLoop(true);
-        }else {
+        } else {
             mConvenientBanner.setCanLoop(false);
         }
         mConvenientBanner.startTurning(3000);
@@ -269,63 +265,41 @@ public class MainActivity extends BaseActivity {
                 }
             }
         });
+       // setHeaderListener();
+        layoutInvite.setOnClickListener(this);
+        layoutIntegral.setOnClickListener(this);
+        layoutCharge.setOnClickListener(this);
+    }
+
+    private void setHeaderListener() {
+        //邀请
+        layoutInvite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+        //积分商城
+        layoutIntegral.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+        //充值
+        layoutCharge.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
     }
 
     /**
      * 通告
      */
 
-    private void getMarqueeView(){
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false);
-        myRecyclerView.setLayoutManager(linearLayoutManager);
-        OkGo.<String>get(Api.ANNUNCIATE)
-                .tag(this)
-                .execute(new StringCallback() {
-                    @Override
-                    public void onSuccess(Response<String> response) {
-                        if (response != null) {
-                            Annunciate annunciate = JSON.parseObject(response.body(), Annunciate.class);
-                            if (annunciate.getCode() == 200) {
-                                List<Annunciate.InfoBean> beans = annunciate.getInfo();
-                                ArrayList<String> info = new ArrayList<>();
-
-                                for (Annunciate.InfoBean s : beans) {
-                                    info.add(s.getContent());
-                                }
-                                myRecyclerView.setAdapter(new MyAdapter(MainActivity.this,info));
-                                handler.sendEmptyMessageDelayed(0x00,1000);
-
-                            }
-                        }
-                    }
-
-                });
-    }
-
-   private boolean flag;
-    @Override
-    protected void onRestart() {
-        flag = false;
-        handler.sendEmptyMessageDelayed(0x00,100);
-        super.onRestart();
-    }
-    @Override
-    protected void onStop() {
-        flag = true;
-        super.onStop();
-    }
-    @SuppressLint("HandlerLeak")
-    private Handler handler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            myRecyclerView.scrollBy(myRecyclerView.getScrollX() + 2, myRecyclerView.getScrollY());
-            if (!flag) {
-                handler.sendEmptyMessageDelayed(0x00, 100);
-            }
-
-        }
-
-    };
 
     public void checkUpdate() {
         JSONObject params = new JSONObject();
@@ -373,5 +347,23 @@ public class MainActivity extends BaseActivity {
     @Override
     public int getLayoutResource() {
         return R.layout.activity_main;
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case  R.id.layout_invite:
+
+                break;
+            case  R.id.layout_integral:
+
+                break;
+            case  R.id.layout_charge:
+
+                break;
+            default:
+                break;
+
+        }
     }
 }

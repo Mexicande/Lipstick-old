@@ -8,12 +8,9 @@ import com.hss01248.dialog.StyledDialog;
 import com.lzy.okgo.OkGo;
 import com.meituan.android.walle.WalleChannelReader;
 import com.mob.MobSDK;
-import com.rong360.app.crawler.CrawlerManager;
-import com.squareup.leakcanary.LeakCanary;
 import com.tencent.bugly.crashreport.CrashReport;
 import com.umeng.analytics.MobclickAgent;
 
-import cn.jpush.android.api.JPushInterface;
 
 
 /**
@@ -29,7 +26,6 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         instance = this;
-        CrawlerManager.initSDK(this);
 
         // LeakCanary.install(this);
 

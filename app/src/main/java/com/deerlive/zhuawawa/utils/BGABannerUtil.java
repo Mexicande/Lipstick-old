@@ -39,7 +39,8 @@ public class BGABannerUtil {
         //imageView.setImageResource(placeholderResId);
         Glide.with(context)
                 .load(placeholderResId)
-                .transform(new CenterCrop(context), new GlideRoundTransform(context,30))
+                .centerCrop()
+                //.transform(new CenterCrop(context), new GlideRoundTransform(context,30))
                 .into(imageView);
 
         imageView.setClickable(true);

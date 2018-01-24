@@ -21,7 +21,7 @@ import com.deerlive.zhuawawa.adapter.RecordZjRecyclerListAdapter;
 import com.deerlive.zhuawawa.common.Api;
 import com.deerlive.zhuawawa.intf.OnRequestDataListener;
 import com.deerlive.zhuawawa.model.DanmuMessage;
-import com.deerlive.zhuawawa.view.marquee.Utils;
+import com.deerlive.zhuawawa.utils.Utils;
 
 import java.util.ArrayList;
 

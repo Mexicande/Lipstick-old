@@ -1,4 +1,4 @@
-package com.deerlive.zhuawawa.view.marquee;
+package com.deerlive.zhuawawa.utils;
 
 import android.app.Activity;
 import android.content.Context;

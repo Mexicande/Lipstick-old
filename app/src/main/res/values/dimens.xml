@@ -5,4 +5,5 @@
     <dimen name="divider">0.6dp</dimen>
     <dimen name="divider_big">6dp</dimen>
     <dimen name="btn_border_width">1dp</dimen>
+    <dimen name="home_textsize">14sp</dimen>
 </resources>

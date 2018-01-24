@@ -64,4 +64,10 @@
     <!-- <string name="agora_appid">f4b66e7837934e7aaaecd05cb38926da</string>-->
     <string name="agora_appid">33825c2e79934e2791c4e5ff53714b81</string>
     <string name="wechat_qr">扫一扫上面的二维码图案, 加我微信\n\n客服时间: 周一到周五早上10点-晚7点</string>
+    <string name="tv_all">全部</string>
+    <string name="tv_invite">邀请</string>
+    <string name="tv_integral">积分商城</string>
+    <string name="tv_charge">充值</string>
+    <string name="tv_playing">游戏中</string>
+    <string name="tv_free">空闲中</string>
 </resources>

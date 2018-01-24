@@ -4,6 +4,7 @@ import android.annotation.TargetApi;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.media.SoundPool;
 import android.media.projection.MediaProjection;
@@ -83,10 +84,6 @@ import pl.droidsonroids.gif.GifDrawable;
 import pl.droidsonroids.gif.GifImageView;
 
 public class PlayerActivity extends BaseActivity implements View.OnTouchListener {
-    @Bind(R.id.gif_view)
-    GifImageView gif_view;
-    @Bind(R.id.drager_layout)
-    DragerViewLayout dragerLayout;
     GifDrawable gifDrawable;
 
 
@@ -132,7 +129,7 @@ public class PlayerActivity extends BaseActivity implements View.OnTouchListener
     @Bind(R.id.look_container)
     RelativeLayout mLookContainer;
     @Bind(R.id.game_status_ing)
-    ImageView mImageGameStatus;
+    LinearLayout mImageGameStatus;
     @Bind(R.id.danmu_list)
     RecyclerView mDanmuList;
     @Bind(R.id.mess_content)
@@ -211,6 +208,19 @@ public class PlayerActivity extends BaseActivity implements View.OnTouchListener
             window.setStatusBarColor(Color.TRANSPARENT);
         }*/
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+
+            View decorView = getWindow().getDecorView();
+
+            int option = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+
+                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
+
+            decorView.setSystemUiVisibility(option);
+
+            this.getWindow().setStatusBarColor(Color.TRANSPARENT);
+
+        }
         Bundle data = getIntent().getExtras();
         if (data == null) {
             toast(getString(R.string.net_error));
@@ -218,7 +228,6 @@ public class PlayerActivity extends BaseActivity implements View.OnTouchListener
             return;
         }
         SharedPreferencesUtil.cleanDate(this);
-        dragerLayout.isDrager(true);
         initDefalut(data);
         initDanmu();
         enterPlayer();
@@ -332,7 +341,7 @@ public class PlayerActivity extends BaseActivity implements View.OnTouchListener
                 JSONArray dm = data.getJSONArray("msg");
                 mChannelStatus = d.getString("channel_status");
                 mmPlayPrice = d.getString("price");
-                mPlayPrice.setText(mmPlayPrice);
+                mPlayPrice.setText("x"+mmPlayPrice);
                 mCurPlayerId = d.getString("uid");
                 mCurPlayerName = d.getString("user_nicename");
                 mCurPlayerAvatar = d.getString("avatar");
@@ -491,46 +500,14 @@ public class PlayerActivity extends BaseActivity implements View.OnTouchListener
             //FrameLayout.LayoutParams p = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 1);
             //mPlayerContainer.addView(remoteVideoView,p);
             //mRtcEngine.joinChannel(mChannelKey, mChannleName, null, mLocalUid);
-            gif_view.setImageResource(R.mipmap.gt_await);
-            gifDrawable = (GifDrawable) gif_view.getDrawable();
 
-            //GifDrawable gifFromResource = new GifDrawable( getResources(), R.drawable.after_run );
-            // gif_view.setImageResource( R.drawable.after_run);
 
         } catch (Exception e) {
             throw new RuntimeException("NEED TO check rtc sdk init fatal error\n" + Log.getStackTraceString(e));
         }
     }
 
-    /**
-     * gif图变化
-     *
-     * @param acticon
-     */
-    private void setGift(int acticon) {
-        switch (acticon) {
-            case FROUT_RUN:
-                gif_view.setImageResource(R.mipmap.front_run);
-                gifDrawable = (GifDrawable) gif_view.getDrawable();
-                break;
-            case AFTER_RUN:
-                gif_view.setImageResource(R.mipmap.after_run);
-                gifDrawable = (GifDrawable) gif_view.getDrawable();
 
-                break;
-            case LFTE_RUN:
-                gif_view.setImageResource(R.mipmap.right_run);
-                gifDrawable = (GifDrawable) gif_view.getDrawable();
-
-                break;
-            case RIGHT_RUN:
-                gif_view.setImageResource(R.mipmap.left_run);
-                gifDrawable = (GifDrawable) gif_view.getDrawable();
-
-                break;
-
-        }
-    }
 
     private void initAgoraIm() {
         m_agoraAPI = AgoraAPIOnlySignal.getInstance(this, getResources().getString(R.string.agora_appid));
@@ -710,9 +687,6 @@ public class PlayerActivity extends BaseActivity implements View.OnTouchListener
                             .into(mTipsPlayerAvatar);
                     mImageGameStatus.setEnabled(false);
                     mPlayerTipsContainer.setVisibility(View.VISIBLE);
-                    if(gif_view.getVisibility()==View.VISIBLE){
-                        gif_view.setVisibility(View.GONE);
-                    }
                   /*  gifDrawable.reset();
                     gifDrawable.start();*/
 
@@ -801,30 +775,7 @@ public class PlayerActivity extends BaseActivity implements View.OnTouchListener
         if (null != mPlayerDaoJishi) {
             mPlayerDaoJishi.cancel();
         }
-        switch (MOVE) {
-            case FROUT_RUN:
-                gif_view.setImageResource(R.mipmap.front_stop);
-                GifDrawable gifDrawable1 = (GifDrawable) gif_view.getDrawable();
-                gifDrawable1.setLoopCount(1);
-                break;
-            case AFTER_RUN:
-                gif_view.setImageResource(R.mipmap.after_stop);
-                GifDrawable gifDrawable2 = (GifDrawable) gif_view.getDrawable();
-                gifDrawable2.setLoopCount(1);
-                break;
-            case LFTE_RUN:
-                gif_view.setImageResource(R.mipmap.right_stop);
-                GifDrawable gifDrawable3 = (GifDrawable) gif_view.getDrawable();
-                gifDrawable3.setLoopCount(1);
-                break;
-            case RIGHT_RUN:
-                gif_view.setImageResource(R.mipmap.left_stop);
-                GifDrawable gifDrawable4 = (GifDrawable) gif_view.getDrawable();
 
-                gifDrawable4.setLoopCount(1);
-
-                break;
-        }
 
     }
 
@@ -1336,59 +1287,23 @@ public class PlayerActivity extends BaseActivity implements View.OnTouchListener
                 case R.id.image_caozuo_down:
                     caozuo_down(v);
                     mImageCaozuoDown.setImageResource(R.drawable.caozuo_down_press);
-                    setGift(FROUT_RUN);
-                    //gif_view.setImageResource( R.drawable.front_run);
-                    MOVE = FROUT_RUN;
                     break;
                 case R.id.image_caozuo_up:
                     caozuo_up(v);
                     mImageCaozuoUp.setImageResource(R.drawable.caozuo_up_press);
-                    setGift(AFTER_RUN);
-                    MOVE = AFTER_RUN;
                     break;
                 case R.id.image_caozuo_left:
                     caozuo_left(v);
                     mImageCaozuoLeft.setImageResource(R.drawable.caozuo_left_press);
-                    setGift(LFTE_RUN);
-                    MOVE = LFTE_RUN;
                     break;
                 case R.id.image_caozuo_right:
                     caozuo_right(v);
                     mImageCaozuoRight.setImageResource(R.drawable.caozuo_right_press);
-                    setGift(RIGHT_RUN);
-                    MOVE = RIGHT_RUN;
                     break;
             }
         }
 
         if (event.getAction() == MotionEvent.ACTION_UP) {
-            switch (MOVE) {
-                case FROUT_RUN:
-                    gif_view.setImageResource(R.mipmap.front_stop);
-                    GifDrawable gifDrawable1 = (GifDrawable) gif_view.getDrawable();
-                    gifDrawable1.setLoopCount(1);
-                    break;
-                case AFTER_RUN:
-                    gif_view.setImageResource(R.mipmap.after_stop);
-                    GifDrawable gifDrawable2 = (GifDrawable) gif_view.getDrawable();
-                    gifDrawable2.setLoopCount(1);
-                    break;
-                case LFTE_RUN:
-                    gif_view.setImageResource(R.mipmap.right_stop);
-                    GifDrawable gifDrawable3 = (GifDrawable) gif_view.getDrawable();
-
-                    gifDrawable3.setLoopCount(1);
-                    break;
-                case RIGHT_RUN:
-                    gif_view.setImageResource(R.mipmap.left_stop);
-                    GifDrawable gifDrawable4 = (GifDrawable) gif_view.getDrawable();
-
-                    gifDrawable4.setLoopCount(1);
-
-                    break;
-            }
-
-
             caozuo_stop(v);
             mImageCaozuoDown.setImageResource(R.drawable.caozuo_down);
             mImageCaozuoUp.setImageResource(R.drawable.caozuo_up);
@@ -1398,23 +1313,5 @@ public class PlayerActivity extends BaseActivity implements View.OnTouchListener
         return true;
     }
 
-    @OnClick({R.id.iv_run, R.id.iv_runing})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.iv_run:
-                if(gif_view.getVisibility()==View.VISIBLE){
-                    gif_view.setVisibility(View.GONE);
-                }else {
-                    gif_view.setVisibility(View.VISIBLE);
-                }
-                break;
-            case R.id.iv_runing:
-                if(gif_view.getVisibility()==View.VISIBLE){
-                    gif_view.setVisibility(View.GONE);
-                }else {
-                    gif_view.setVisibility(View.VISIBLE);
-                }
-                break;
-        }
-    }
+
 }
