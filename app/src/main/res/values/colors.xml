@@ -3,6 +3,8 @@
     <color name="colorPrimary">#FA97C1</color>
     <color name="colorPrimaryDark">#FCB5D5</color>
     <color name="colorAccent">#FFFF4081</color>
+    <color name="itemText_black">#0D3015</color>
+    <color name="itemText_red">#ED5796</color>
     <color name="blue">#45C0F0</color>
     <color name="colorDivider">#cacaca</color>
     <color name="bg_color">#F8F8F8</color>
@@ -26,7 +28,7 @@
     <color name="soild_color">#D6FED1</color>
     <color name="green_lion">#9FDF97</color>
     <color name="green_press">#9FDF97</color>
-
+    <color name="e_white">#EEEEEE</color>
     <color name="black_666">#666666</color>
     <color name="product_limit">#999999</color>
     

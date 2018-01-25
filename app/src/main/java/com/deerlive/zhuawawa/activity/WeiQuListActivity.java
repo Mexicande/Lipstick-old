@@ -52,7 +52,7 @@ public class WeiQuListActivity extends BaseActivity implements OnRecyclerViewIte
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        tvTitle.setText("金币记录");
+        tvTitle.setText(getResources().getString(R.string.wuqu_title));
         mToken = SPUtils.getInstance().getString("token");
         mRefreshLayout.autoRefresh();
         initGameList();
@@ -107,6 +107,8 @@ public class WeiQuListActivity extends BaseActivity implements OnRecyclerViewIte
                     g.setMessageContent(t.getString("exchange_price"));
                     g.setId(t.getString("doll_id"));
                     g.setRemoteUid("0");
+                    g.setChange(t.getInteger("change"));
+                    g.setGift_id(t.getString("gift_id"));
                     mListData.add(g);
                 }
                 mAdapter.notifyDataSetChanged();
@@ -216,24 +218,7 @@ public class WeiQuListActivity extends BaseActivity implements OnRecyclerViewIte
     private void tiquDuihuan(String type, String doll_id) {
         JSONObject p = new JSONObject();
         p.put("token", mToken);
-      /*  String doll_id = "";
-        for(int i =0;i<mListData.size();i++){
-            if("1".equals(mListData.get(i).getRemoteUid())){
-                doll_id += mListData.get(i).getId();
-                    doll_id += ",";
-            }
-        }
-        if(doll_id.length()>0){
-            doll_id = doll_id.substring(0,doll_id.length()-1);
-        }
-
-        if(StringUtils.isTrimEmpty(doll_id)){
-            toast(getString(R.string.data_empty_error));
-            return;
-        }*/
         p.put("doll_id", doll_id);
-        LogUtils.i("提取===", doll_id);
-
         p.put("type", type);
         Api.applyPostOrDuiHuanWaWa(this, p, new OnRequestDataListener() {
             @Override

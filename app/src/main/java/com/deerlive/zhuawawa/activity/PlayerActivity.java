@@ -36,6 +36,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.alibaba.fastjson.JSON;
@@ -45,6 +46,7 @@ import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.KeyboardUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.StringUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
 import com.deerlive.zhuawawa.R;
 import com.deerlive.zhuawawa.adapter.MessageRecyclerListAdapter;
@@ -60,9 +62,11 @@ import com.deerlive.zhuawawa.intf.OnRequestDataListener;
 import com.deerlive.zhuawawa.model.DanmuMessage;
 import com.deerlive.zhuawawa.model.Game;
 import com.deerlive.zhuawawa.model.MessageType;
+import com.deerlive.zhuawawa.utils.LogUtils;
 import com.deerlive.zhuawawa.utils.SharedPreferencesUtil;
 import com.deerlive.zhuawawa.view.DragerViewLayout;
 import com.loopj.android.http.RequestParams;
+import com.tencent.rtmp.ITXLivePlayListener;
 import com.tencent.rtmp.TXLivePlayer;
 import com.tencent.rtmp.ui.TXCloudVideoView;
 
@@ -84,7 +88,6 @@ import pl.droidsonroids.gif.GifDrawable;
 import pl.droidsonroids.gif.GifImageView;
 
 public class PlayerActivity extends BaseActivity implements View.OnTouchListener {
-    GifDrawable gifDrawable;
 
 
 
@@ -159,7 +162,7 @@ public class PlayerActivity extends BaseActivity implements View.OnTouchListener
     @Bind(R.id.go_timer_text)
     TextView mGoTimerText;
     @Bind(R.id.camera_change)
-    ImageView mCameraChange;
+    RelativeLayout mCameraChange;
     @Bind(R.id.player_go)
     ImageView mPlayerGo;
     @Bind(R.id.image_caozuo_down)
@@ -178,19 +181,7 @@ public class PlayerActivity extends BaseActivity implements View.OnTouchListener
     private MediaProjectionManager mMediaProjectionManager;
     private ScreenRecorder mRecorder;
 
-    private final int AWAIT = 0;
 
-    private final int AFTER_RUN = 1;
-    private final int FROUT_RUN = 2;
-    private final int LFTE_RUN = 3;
-    private final int RIGHT_RUN = 4;
-
-    private final int AFTER_STOP = 5;
-    private final int FROUT_STOP = 6;
-    private final int LFTE_STOP = 7;
-    private final int RIGHT_STOP = 8;
-
-    private int MOVE = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -328,6 +319,20 @@ public class PlayerActivity extends BaseActivity implements View.OnTouchListener
         //关键player对象与界面view
         mLivePlayer.setPlayerView(mPlayView);
         mLivePlayer.startPlay(mChannelStream, TXLivePlayer.PLAY_TYPE_LIVE_RTMP);
+        mLivePlayer.setPlayListener(new ITXLivePlayListener() {
+            @Override
+            public void onPlayEvent(int i, Bundle bundle) {
+
+                LogUtils.i("TXLiveConstants==",i+"");
+
+            }
+
+            @Override
+            public void onNetStatus(Bundle bundle) {
+
+            }
+        });
+
     }
 
     private void enterPlayer() {
@@ -721,19 +726,7 @@ public class PlayerActivity extends BaseActivity implements View.OnTouchListener
 
     RecordZjFragment rf;
     public void showRecord(View v) {
-      /*  FragmentManager fm = getSupportFragmentManager();
-        FragmentTransaction transaction = fm.beginTransaction();
-        if (fm.findFragmentById(R.id.popup_window_container) == null) {
-            rf = RecordZjFragment.newInstance(mChannleName);
-            transaction.addToBackStack(null);
-            transaction.add(R.id.popup_window_container, rf);
-        }
-        if (rf.isVisible()) {
-            transaction.hide(rf);
-        } else {
-            transaction.show(rf);
-        }
-        transaction.commit();*/
+
 
         RecordFragment recordFragment = RecordFragment.newInstance(mChannleName);
 
@@ -811,11 +804,6 @@ public class PlayerActivity extends BaseActivity implements View.OnTouchListener
         if (mMediaPlayer != null) {
             mMediaPlayer.release();
             mMediaPlayer = null;
-        }
-        if (gifDrawable != null) {
-            if (!gifDrawable.isRecycled()) {
-                gifDrawable.recycle();
-            }
         }
         closeRecord();
     }
@@ -1286,29 +1274,29 @@ public class PlayerActivity extends BaseActivity implements View.OnTouchListener
             switch (v.getId()) {
                 case R.id.image_caozuo_down:
                     caozuo_down(v);
-                    mImageCaozuoDown.setImageResource(R.drawable.caozuo_down_press);
+                    mImageCaozuoDown.setImageResource(R.mipmap.iv_down_press);
                     break;
                 case R.id.image_caozuo_up:
                     caozuo_up(v);
-                    mImageCaozuoUp.setImageResource(R.drawable.caozuo_up_press);
+                    mImageCaozuoUp.setImageResource(R.mipmap.iv_up_press);
                     break;
                 case R.id.image_caozuo_left:
                     caozuo_left(v);
-                    mImageCaozuoLeft.setImageResource(R.drawable.caozuo_left_press);
+                    mImageCaozuoLeft.setImageResource(R.mipmap.iv_left_press);
                     break;
                 case R.id.image_caozuo_right:
                     caozuo_right(v);
-                    mImageCaozuoRight.setImageResource(R.drawable.caozuo_right_press);
+                    mImageCaozuoRight.setImageResource(R.mipmap.iv_right_press);
                     break;
             }
         }
 
         if (event.getAction() == MotionEvent.ACTION_UP) {
             caozuo_stop(v);
-            mImageCaozuoDown.setImageResource(R.drawable.caozuo_down);
-            mImageCaozuoUp.setImageResource(R.drawable.caozuo_up);
-            mImageCaozuoLeft.setImageResource(R.drawable.caozuo_left);
-            mImageCaozuoRight.setImageResource(R.drawable.caozuo_right);
+            mImageCaozuoDown.setImageResource(R.mipmap.iv_down_default);
+            mImageCaozuoUp.setImageResource(R.mipmap.iv_up_default);
+            mImageCaozuoLeft.setImageResource(R.mipmap.iv_left_default);
+            mImageCaozuoRight.setImageResource(R.mipmap.iv_right_default);
         }
         return true;
     }

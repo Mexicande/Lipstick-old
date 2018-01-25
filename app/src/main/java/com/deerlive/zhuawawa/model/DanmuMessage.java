@@ -15,6 +15,24 @@ public class DanmuMessage implements Serializable{
     private String remoteUid;
     private String avator;
     private String id;
+    private String gift_id;
+    private  int change;
+
+    public String getGift_id() {
+        return gift_id;
+    }
+
+    public void setGift_id(String gift_id) {
+        this.gift_id = gift_id;
+    }
+
+    public int getChange() {
+        return change;
+    }
+
+    public void setChange(int change) {
+        this.change = change;
+    }
 
     public String getId() {
         return id;

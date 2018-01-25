@@ -121,7 +121,6 @@ public class WeiQuRecyclerListAdapter extends RecyclerView.Adapter<RecyclerView.
             final MessageViewHolder temp = (MessageViewHolder)holder;
             DanmuMessage t = mItems.get(position);
             temp.zq_name.setText(t.getUserName());
-            temp.zq_result.setText(t.getMessageContent());
             temp.zq_time.setText(t.getUid());
             if("1".equals(t.getRemoteUid())){
                 temp.mCheckBoxSelect.setChecked(true);
@@ -132,6 +131,8 @@ public class WeiQuRecyclerListAdapter extends RecyclerView.Adapter<RecyclerView.
                     .error(R.mipmap.logo)
                     .transform(new GlideCircleTransform(mContext))
                     .into(temp.zq_avator);
+
+            setGetWay(temp.mImageWay,t.getChange());
             temp.mContainer.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -142,6 +143,15 @@ public class WeiQuRecyclerListAdapter extends RecyclerView.Adapter<RecyclerView.
             });
 
         }
+    }
+
+    private void setGetWay(ImageView imageView,int type) {
+            if(type==0){
+                imageView.setImageResource(R.mipmap.iv_claw);
+            }else {
+                imageView.setImageResource(R.mipmap.iv_exchange);
+            }
+
     }
 
     private int getHeadViewSize() {
@@ -180,14 +190,14 @@ public class WeiQuRecyclerListAdapter extends RecyclerView.Adapter<RecyclerView.
         CardView mContainer;
         @Bind(R.id.zq_name)
         TextView zq_name;
-        @Bind(R.id.zq_result)
-        TextView zq_result;
         @Bind(R.id.zq_avator)
         ImageView zq_avator;
         @Bind(R.id.zq_time)
         TextView zq_time;
         @Bind(R.id.checkbox_select)
         CheckBox mCheckBoxSelect;
+        @Bind(R.id.iv_getWay)
+        ImageView mImageWay;
         public MessageViewHolder(View inflate) {
             super(inflate);
             ButterKnife.bind(this, inflate);
