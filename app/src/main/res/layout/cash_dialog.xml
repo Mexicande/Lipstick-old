@@ -17,7 +17,6 @@
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
         android:layout_gravity="center"
-        android:elevation="10dp"
         android:foreground="?android:attr/selectableItemBackground"
         card_view:cardBackgroundColor="@color/white"
         card_view:cardCornerRadius="10dp"

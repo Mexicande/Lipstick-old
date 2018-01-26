@@ -1,5 +1,7 @@
 package com.deerlive.zhuawawa.activity;
 
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -19,22 +21,16 @@ import butterknife.Bind;
 
 public class UserCenterActivity extends BaseActivity {
 
-    @Bind(R.id.user_balance)
-    TextView mUserbalance;
     @Bind(R.id.user_avator)
     ImageView mUserAvator;
     @Bind(R.id.user_name)
     TextView mUserName;
     @Bind(R.id.user_wqnum)
     TextView mUserWqnum;
-    @Bind(R.id.user_all_num)
-    TextView mUserAllNum;
     @Bind(R.id.user_id)
     TextView mUserId;
     @Bind(R.id.tv_service)
     TextView tvService;
-    @Bind(R.id.iv_vip)
-    ImageView ivVip;
     private String mmUserName;
     private String mmAvator;
     private String mmBalance;
@@ -49,6 +45,19 @@ public class UserCenterActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+
+            View decorView = getWindow().getDecorView();
+
+            int option = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+
+                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
+
+            decorView.setSystemUiVisibility(option);
+
+            this.getWindow().setStatusBarColor(Color.TRANSPARENT);
+
+        }
         initData();
     }
 
@@ -66,7 +75,6 @@ public class UserCenterActivity extends BaseActivity {
         mToken = SPUtils.getInstance().getString("token");
         mId = SPUtils.getInstance().getString("id");
         mUserName.setText(mmUserName);
-        mUserbalance.setText(mmBalance);
         Glide.with(this).load(mmAvator)
                 .error(R.mipmap.logo)
                 .transform(new GlideCircleTransform(this))
@@ -82,17 +90,12 @@ public class UserCenterActivity extends BaseActivity {
             @Override
             public void requestSuccess(int code, JSONObject data) {
                 JSONObject userinfo = data.getJSONObject("data");
-                String vip_level = userinfo.getString("vip_level");
-                if("1".equals(vip_level)){
-                    ivVip.setVisibility(View.VISIBLE);
-                }
                 SPUtils.getInstance().put("balance", userinfo.getString("balance"));
                 SPUtils.getInstance().put("id", userinfo.getString("id"));
                 SPUtils.getInstance().put("avatar", userinfo.getString("avatar"));
                 SPUtils.getInstance().put("user_nicename", userinfo.getString("user_nicename"));
                 SPUtils.getInstance().put("signaling_key", userinfo.getString("signaling_key"));
                 mUserWqnum.setText(userinfo.getString("not_token_num"));
-                mUserAllNum.setText(getResources().getString(R.string.zq_all_num) + userinfo.getString("all_num"));
                 initData();
             }
 
@@ -104,9 +107,9 @@ public class UserCenterActivity extends BaseActivity {
         });
     }
 
-    public void goCharge(View v) {
+   /* public void goCharge(View v) {
         ActivityUtils.startActivity(ChargeActivity.class);
-    }
+    }*/
 
     public void onCustomer(View v) {
         ActivityUtils.startActivity(WeChatActivity.class);
@@ -121,15 +124,36 @@ public class UserCenterActivity extends BaseActivity {
         ActivityUtils.startActivity(MessageActivity.class);
     }
 
+    /**
+     * 收货地址
+     * @param v
+     */
     public void shouHuo(View v) {
         ActivityUtils.startActivity(ShouhuoActivity.class);
     }
 
+    /**
+     * 抓取记录
+     * @param v
+     */
     public void zhuaRecord(View v) {
         ActivityUtils.startActivity(RecordZhuaListActivity.class);
     }
 
+    /**
+     * 金币记录
+     * @param v
+     */
     public void coinRecord(View v) {
+        ActivityUtils.startActivity(RecordCoinListActivity.class);
+    }
+
+    /**
+     * 积分记录
+     * @param v
+     */
+    public void intager_record(View v) {
+
         ActivityUtils.startActivity(RecordCoinListActivity.class);
     }
 

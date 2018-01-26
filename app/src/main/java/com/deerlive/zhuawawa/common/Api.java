@@ -14,6 +14,9 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.loopj.android.http.ResponseHandlerInterface;
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -31,7 +34,7 @@ import cz.msebera.android.httpclient.HttpResponse;
 public class Api {
     public static final String APP_VER = "1.0.0";
     //public static final String HOST = "http://kuailai.deerlive.com/";
-    public static final String HOST = "http://doll.anwenqianbao.com/";
+    public static final String HOST = "http://test.doll.anwenqianbao.com/";
     private static final String OS = "android";
     public static final String QUDAO = "kuailai-one";
 
@@ -69,9 +72,12 @@ public class Api {
 
     private static final String BEGIN_PAY = HOST + "/Api/Pay/begin_pay";
     private static final String REQUEST_CONNECT_DEVICE = HOST + "Api/SiSi/connDeviceControl";
-    private static final String GET_NOTAKEN_WAWA = HOST + "Api/SiSi/getNotTakenWawaByUid";
+   // private static final String GET_NOTAKEN_WAWA = HOST + "Api/SiSi/getNotTakenWawaByUid";
+    private static final String GET_NOTAKEN_WAWA = HOST + "Api/SiSi/getNotTakenWawaByToken";
     private static final String GET_MESSAGE = HOST + "Api/SiSi/get_message";
-    private static final String APPLY_POST_DUIHUAN_WAWA = HOST + "Api/SiSi/applyPostWawa";
+    //private static final String APPLY_POST_DUIHUAN_WAWA = HOST + "Api/SiSi/applyPostWawa";
+
+    private static final String APPLY_POST_DUIHUAN_WAWA = HOST + "Api/SiSi/getPostConvert";
     public static String GET_PAY_TYPE = HOST + "/Api/Appconfig/getPayType";
     private static final String GET_LAUNCH_SCREEN = HOST + "Api/SiSi/getLaunchScreen";
     public static final String UPLOAD_RECORD = HOST + "/Api/SiSi/userUploadPlayVideo";
@@ -83,7 +89,7 @@ public class Api {
         excutePost(GET_PAY_TYPE, context, params,listener);
     }
     public static void applyPostOrDuiHuanWaWa(final Context context, JSONObject params, final OnRequestDataListener listener) {
-        excutePost(APPLY_POST_DUIHUAN_WAWA, context, params,listener);
+        newExcutePost(APPLY_POST_DUIHUAN_WAWA, context, params,listener);
     }
     public static void getNoTakenWawa(final Context context, JSONObject params, final OnRequestDataListener listener) {
         excutePost(GET_NOTAKEN_WAWA, context, params,listener);
@@ -155,9 +161,6 @@ public class Api {
 
     public static JSONObject getJsonObject(Context context, int statusCode, byte[] responseBody, OnRequestDataListener listener) {
 
-
-
-
         final String net_error = context.getString(R.string.net_error);
         if (statusCode == 200) {
             String response = null;
@@ -189,6 +192,44 @@ public class Api {
         return requestParams;
     }
 
+    protected static void newExcutePost(String url, final Context context, JSONObject params, final OnRequestDataListener listener){
+        final String net_error = context.getString(R.string.net_error);
+
+        params.put("os", OS);
+        params.put("soft_ver", APP_VER);
+        params.put("os_ver", OS_VER);
+        params.put("qudao",QUDAO);
+        String s = JSON.toJSONString(params);
+        OkGo.<String>post(url)
+                .tag(context)
+                .upJson(s)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        if(response.body()!=null){
+                            JSONObject jsonObject = JSON.parseObject(response.body());
+                            Integer code = jsonObject.getInteger("code");
+                            if(code==200){
+                                listener.requestSuccess(0, jsonObject);
+                            }else {
+                                listener.requestFailure(-1, jsonObject.getString("descrp"));
+                            }
+                        }else {
+                            listener.requestFailure(-1, net_error);
+
+                        }
+                    }
+
+                    @Override
+                    public void onError(Response<String> response) {
+                        super.onError(response);
+                        listener.requestFailure(-1, net_error);
+                    }
+                });
+
+
+    }
+
     protected static void excutePost(String url, final Context context, JSONObject params, final OnRequestDataListener listener) {
         params.put("os", OS);
         params.put("soft_ver", APP_VER);
@@ -204,7 +245,7 @@ public class Api {
         RequestParams requestParams = getRequestParams(params);
 
         client.post(context, url, requestParams, new AsyncHttpResponseHandler() {
-
+            
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 try {

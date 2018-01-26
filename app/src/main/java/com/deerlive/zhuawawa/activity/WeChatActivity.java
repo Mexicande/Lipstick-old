@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.deerlive.zhuawawa.R;
+import com.deerlive.zhuawawa.base.BaseActivity;
 import com.deerlive.zhuawawa.view.popup.EasyPopup;
 import com.deerlive.zhuawawa.view.popup.HorizontalGravity;
 import com.deerlive.zhuawawa.view.popup.VerticalGravity;
@@ -26,7 +27,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class WeChatActivity extends AppCompatActivity {
+public class WeChatActivity extends BaseActivity {
 
     @Bind(R.id.iv_back)
     ImageView ivBack;
@@ -39,10 +40,14 @@ public class WeChatActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_we_chat);
         ButterKnife.bind(this);
         tvTitle.setText("客服小抓来帮您");
         setListener();
+    }
+
+    @Override
+    public int getLayoutResource() {
+        return R.layout.activity_we_chat;
     }
 
     private void setListener() {

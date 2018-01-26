@@ -1,48 +1,46 @@
 package com.deerlive.zhuawawa.activity;
 
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.TextView;
 
-import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
-import com.blankj.utilcode.util.StringUtils;
 import com.deerlive.zhuawawa.R;
 import com.deerlive.zhuawawa.adapter.WeiQuRecyclerListAdapter;
 import com.deerlive.zhuawawa.base.BaseActivity;
 import com.deerlive.zhuawawa.common.Api;
 import com.deerlive.zhuawawa.intf.OnRecyclerViewItemClickListener;
 import com.deerlive.zhuawawa.intf.OnRequestDataListener;
-import com.deerlive.zhuawawa.model.DanmuMessage;
+import com.deerlive.zhuawawa.model.GrabBean;
 import com.deerlive.zhuawawa.view.dialog.CashDialog;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
+
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.Bind;
 
-public class WeiQuListActivity extends BaseActivity implements OnRecyclerViewItemClickListener, CompoundButton.OnCheckedChangeListener {
+public class WeiQuListActivity extends BaseActivity implements OnRecyclerViewItemClickListener{
 
     @Bind(R.id.refreshLayout)
     SmartRefreshLayout mRefreshLayout;
     @Bind(R.id.recyclerview)
     RecyclerView mRecyclerView;
-    @Bind(R.id.checkbox_all)
-    CheckBox mCheckBoxAll;
     @Bind(R.id.tv_title)
     TextView tvTitle;
     private String mToken;
     private CashDialog cashDialog;
-    private ArrayList<DanmuMessage> mListData = new ArrayList();
+    private ArrayList<GrabBean.InfoBean> mListData = new ArrayList();
     private WeiQuRecyclerListAdapter mAdapter = new WeiQuRecyclerListAdapter(this, mListData);
 
     public void goBack(View v) {
@@ -52,11 +50,23 @@ public class WeiQuListActivity extends BaseActivity implements OnRecyclerViewIte
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+
+            View decorView = getWindow().getDecorView();
+
+            int option = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+
+                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
+
+            decorView.setSystemUiVisibility(option);
+
+            this.getWindow().setStatusBarColor(Color.TRANSPARENT);
+
+        }
         tvTitle.setText(getResources().getString(R.string.wuqu_title));
         mToken = SPUtils.getInstance().getString("token");
         mRefreshLayout.autoRefresh();
         initGameList();
-        mCheckBoxAll.setOnCheckedChangeListener(this);
     }
 
     private void initGameList() {
@@ -97,20 +107,8 @@ public class WeiQuListActivity extends BaseActivity implements OnRecyclerViewIte
                 if (mRefreshLayout.isLoading()) {
                     mRefreshLayout.finishLoadmore();
                 }
-                JSONArray list = data.getJSONArray("info");
-                for (int i = 0; i < list.size(); i++) {
-                    DanmuMessage g = new DanmuMessage();
-                    JSONObject t = list.getJSONObject(i);
-                    g.setUserName(t.getString("name"));
-                    g.setAvator(t.getString("img"));
-                    g.setUid(t.getString("play_time"));
-                    g.setMessageContent(t.getString("exchange_price"));
-                    g.setId(t.getString("doll_id"));
-                    g.setRemoteUid("0");
-                    g.setChange(t.getInteger("change"));
-                    g.setGift_id(t.getString("gift_id"));
-                    mListData.add(g);
-                }
+                GrabBean grabBean = JSON.parseObject(data.toString(), GrabBean.class);
+                mListData.addAll(grabBean.getInfo());
                 mAdapter.notifyDataSetChanged();
             }
 
@@ -138,52 +136,34 @@ public class WeiQuListActivity extends BaseActivity implements OnRecyclerViewIte
 
     @Override
     public void onRecyclerViewItemClick(View view, int position) {
-        String s = mListData.get(position).getRemoteUid();
-        if ("1".equals(s)) {
-            mListData.get(position).setRemoteUid("0");
+        int s = mListData.get(position).getRemoteUid();
+        if (s==1) {
+            mListData.get(position).setRemoteUid(0);
         }
-        if ("0".equals(s)) {
-            mListData.get(position).setRemoteUid("1");
+        if (s==0) {
+            mListData.get(position).setRemoteUid(1);
         }
         mAdapter.notifyItemChanged(position);
     }
 
-    @Override
-    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        if (isChecked) {
-            for (int i = 0; i < mListData.size(); i++) {
-                mListData.get(i).setRemoteUid("1");
-            }
-        } else {
-            for (int i = 0; i < mListData.size(); i++) {
-                mListData.get(i).setRemoteUid("0");
-            }
-        }
-        mAdapter.notifyDataSetChanged();
-    }
-
-    private String doll_id = "";
-
+    /**
+     * 提取
+     * @param v
+     */
     public void tiqu(View v) {
-        doll_id = "";
-        for (int i = 0; i < mListData.size(); i++) {
-            if ("1".equals(mListData.get(i).getRemoteUid())) {
-                doll_id += mListData.get(i).getId();
-                doll_id += ",";
+        final List<GrabBean.InfoBean> list=new ArrayList<>();
+        for(GrabBean.InfoBean mgrab:mListData){
+            if(mgrab.getRemoteUid()==1){
+                list.add(mgrab);
             }
         }
-        if (doll_id.length() > 0) {
-            doll_id = doll_id.substring(0, doll_id.length() - 1);
-        }
-        if (StringUtils.isTrimEmpty(doll_id)) {
-            toast(getString(R.string.data_empty_error));
-        } else {
+        if(!list.isEmpty()){
             cashDialog = new CashDialog(this);
             cashDialog.setYesOnclickListener("是", new CashDialog.onYesOnclickListener() {
                 @Override
                 public void onYesClick() {
                     cashDialog.dismiss();
-                    tiquDuihuan("1", doll_id);
+                    tiquDuihuan("1",list);
                 }
             });
             cashDialog.setNoOnclickListener("否", new CashDialog.onNoOnclickListener() {
@@ -193,34 +173,42 @@ public class WeiQuListActivity extends BaseActivity implements OnRecyclerViewIte
                 }
             });
             cashDialog.show();
+        }else if(mListData.size()!=0){
+            toast(getResources().getString(R.string.data_empty_error));
         }
     }
 
+    /**
+     * 兑换
+     * @param v
+     */
     public void duihuan(View v) {
-        doll_id = "";
-        for (int i = 0; i < mListData.size(); i++) {
-            if ("1".equals(mListData.get(i).getRemoteUid())) {
-                doll_id += mListData.get(i).getId();
-                doll_id += ",";
+
+        List<GrabBean.InfoBean> list=new ArrayList<>();
+        for(GrabBean.InfoBean mgrab:mListData){
+            if(mgrab.getRemoteUid()==1){
+                list.add(mgrab);
             }
         }
-        if (doll_id.length() > 0) {
-            doll_id = doll_id.substring(0, doll_id.length() - 1);
-        }
-        if (StringUtils.isTrimEmpty(doll_id)) {
-            toast(getString(R.string.data_empty_error));
-        } else {
-
-            tiquDuihuan("0", doll_id);
+        if(!list.isEmpty()){
+            tiquDuihuan("0",list);
+        }else if(mListData.size()!=0){
+            toast(getResources().getString(R.string.data_empty_error));
         }
     }
 
-    private void tiquDuihuan(String type, String doll_id) {
-        JSONObject p = new JSONObject();
-        p.put("token", mToken);
-        p.put("doll_id", doll_id);
-        p.put("type", type);
-        Api.applyPostOrDuiHuanWaWa(this, p, new OnRequestDataListener() {
+    private void tiquDuihuan(String type,List<GrabBean.InfoBean> list) {
+
+
+
+        GrabBean grabBean=new GrabBean();
+        grabBean.setInfo(list);
+        grabBean.setToken(mToken);
+        grabBean.setType(type);
+        String s = JSON.toJSONString(grabBean);
+        JSONObject jsonObject = JSON.parseObject(s);
+
+        Api.applyPostOrDuiHuanWaWa(this, jsonObject, new OnRequestDataListener() {
             @Override
             public void requestSuccess(int code, JSONObject data) {
                 toast(data.getString("descrp"));
@@ -234,4 +222,6 @@ public class WeiQuListActivity extends BaseActivity implements OnRecyclerViewIte
             }
         });
     }
+
+
 }

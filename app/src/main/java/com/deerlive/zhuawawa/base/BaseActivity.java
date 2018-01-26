@@ -1,7 +1,10 @@
 package com.deerlive.zhuawawa.base;
 
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 
 import com.blankj.utilcode.util.SnackbarUtils;
 import com.blankj.utilcode.util.ToastUtils;
@@ -25,6 +28,19 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(getLayoutResource());
         ButterKnife.bind(this);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+
+            View decorView = getWindow().getDecorView();
+
+            int option = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+
+                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
+
+            decorView.setSystemUiVisibility(option);
+
+            this.getWindow().setStatusBarColor(Color.TRANSPARENT);
+
+        }
     }
     protected void initImmersionBar() {
         //在BaseActivity里初始化

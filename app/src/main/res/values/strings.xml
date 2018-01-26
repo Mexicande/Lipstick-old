@@ -37,6 +37,10 @@
     <string name="lianxifangshi">联系方式</string>
     <string name="keduihuan">可兑换金币</string>
     <string name="zhuaqu_record">抓取记录</string>
+    <string name="intager_record">积分记录</string>
+    <string name="tv_extract">提取</string>
+    <string name="tv_exchange">兑换</string>
+
     <string name="jinbi_record">金币记录</string>
     <string name="jinbi_balance">金币余额</string>
     <string name="zhuazhong_num">抓中次数</string>

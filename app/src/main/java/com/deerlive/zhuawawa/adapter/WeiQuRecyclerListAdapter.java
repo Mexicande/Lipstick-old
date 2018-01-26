@@ -16,8 +16,10 @@ import com.deerlive.zhuawawa.R;
 import com.deerlive.zhuawawa.common.GlideCircleTransform;
 import com.deerlive.zhuawawa.intf.OnRecyclerViewItemClickListener;
 import com.deerlive.zhuawawa.model.DanmuMessage;
+import com.deerlive.zhuawawa.model.GrabBean;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -36,10 +38,10 @@ public class WeiQuRecyclerListAdapter extends RecyclerView.Adapter<RecyclerView.
     private View mFooterView;
 
     private Context mContext;
-    private ArrayList<DanmuMessage> mItems;
+    private List<GrabBean.InfoBean> mItems;
     private OnRecyclerViewItemClickListener mOnRecyclerViewItemClickListener;
 
-    public WeiQuRecyclerListAdapter(Context mContext, ArrayList<DanmuMessage> mVideoItems) {
+    public WeiQuRecyclerListAdapter(Context mContext, List<GrabBean.InfoBean> mVideoItems) {
         this.mContext = mContext;
         this.mItems = mVideoItems;
     }
@@ -119,19 +121,18 @@ public class WeiQuRecyclerListAdapter extends RecyclerView.Adapter<RecyclerView.
 
         } else {
             final MessageViewHolder temp = (MessageViewHolder)holder;
-            DanmuMessage t = mItems.get(position);
-            temp.zq_name.setText(t.getUserName());
-            temp.zq_time.setText(t.getUid());
-            if("1".equals(t.getRemoteUid())){
+            GrabBean.InfoBean t = mItems.get(position);
+            temp.zq_name.setText(t.getName());
+            temp.zq_time.setText(t.getPlay_time());
+            if(t.getRemoteUid()==1){
                 temp.mCheckBoxSelect.setChecked(true);
             }else {
                 temp.mCheckBoxSelect.setChecked(false);
             }
-            Glide.with(mContext).load(t.getAvator())
+            Glide.with(mContext).load(t.getImg())
                     .error(R.mipmap.logo)
                     .transform(new GlideCircleTransform(mContext))
                     .into(temp.zq_avator);
-
             setGetWay(temp.mImageWay,t.getChange());
             temp.mContainer.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -147,8 +148,16 @@ public class WeiQuRecyclerListAdapter extends RecyclerView.Adapter<RecyclerView.
 
     private void setGetWay(ImageView imageView,int type) {
             if(type==0){
+               /* Glide.with(mContext).load(R.mipmap.iv_claw)
+                        .error(R.mipmap.logo)
+                        .centerCrop()
+                        .into(imageView);*/
                 imageView.setImageResource(R.mipmap.iv_claw);
             }else {
+               /* Glide.with(mContext).load(R.mipmap.iv_exchange)
+                        .error(R.mipmap.logo)
+                        .transform(new GlideCircleTransform(mContext))
+                        .into(imageView);*/
                 imageView.setImageResource(R.mipmap.iv_exchange);
             }
 

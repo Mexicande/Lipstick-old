@@ -5,159 +5,49 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-    <LinearLayout
-        android:orientation="vertical"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:background="@drawable/user_center_bg"
         android:layout_height="wrap_content">
         <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp">
-            <ImageView
-                android:layout_marginLeft="16dp"
-                android:id="@+id/layout_top_back"
-                android:layout_width="23dp"
-                android:layout_height="23dp"
-                android:onClick="goBack"
-                android:layout_centerVertical="true"
-                android:src="@mipmap/player_back"/>
-            <ImageView
-                android:layout_width="131dp"
-                android:layout_height="35dp"
-                android:layout_centerInParent="true"
-                android:src="@drawable/index_top"
-                />
-        </RelativeLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="170dp"
             android:orientation="vertical"
-            android:padding="10dp"
-            android:layout_margin="20dp"
-            android:background="@drawable/pay_bg_off">
+            android:layout_width="match_parent"
+            android:background="@drawable/user_center_bg"
+            android:layout_height="190dp">
             <RelativeLayout
+                android:id="@+id/toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                >
-                <ImageView
-                    android:id="@+id/user_avator"
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
-                    android:layout_margin="10dp"
-                    android:src="@mipmap/iv_logo"/>
-
-                <LinearLayout
-                    android:layout_toRightOf="@id/user_avator"
-                    android:layout_width="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                android:layout_height="70dp">
+                <RelativeLayout
+                    android:layout_marginTop="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp">
+                    <ImageView
+                        android:layout_marginLeft="16dp"
+                        android:id="@+id/layout_top_back"
+                        android:layout_width="23dp"
+                        android:layout_height="23dp"
+                        android:onClick="goBack"
+                        android:layout_centerVertical="true"
+                        android:src="@mipmap/player_back"/>
                     <TextView
-                        android:id="@+id/user_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="昵称"
+                        android:layout_centerInParent="true"
+                        android:text="快抓娃娃机"
                         android:textStyle="bold"
-                        android:textColor="@color/text_color"
-                        android:textSize="16sp"/>
-                    <TextView
-                        android:id="@+id/user_id"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text=""
-                        android:layout_marginTop="2dp"
-                        android:textColor="@color/black_666"
-                        android:textSize="12sp"/>
-                </LinearLayout>
+                        android:layout_centerVertical="true"
+                        android:textColor="@color/white"
+                        android:textSize="22sp"
+                        />
+                </RelativeLayout>
             </RelativeLayout>
+        </RelativeLayout>
 
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="5dp"
-                android:gravity="center_vertical">
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:layout_height="wrap_content">
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:orientation="vertical">
-                        <ImageView
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
-                            android:layout_gravity="center_horizontal"
-                            android:src="@drawable/user_coin"/>
-                    </LinearLayout>
-                    <RelativeLayout
-                        android:layout_width="95dp"
-                        android:layout_height="50dp"
-                        android:layout_marginLeft="5dp"
-                        android:background="@drawable/user_coin_bg"
-                        android:onClick="goCharge">
-                        <com.deerlive.zhuawawa.view.StrokeTextView
-                            android:id="@+id/user_balance"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:layout_marginLeft="10dp"
-                            android:text=""
-                            android:textSize="11sp"
-                            app:innnerColor="@android:color/white"/>
-                    </RelativeLayout>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:layout_height="wrap_content">
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:orientation="vertical">
-                        <ImageView
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
-                            android:layout_gravity="center_horizontal"
-                            android:src="@drawable/user_zhua_num"/>
-                    </LinearLayout>
-                    <RelativeLayout
-                        android:layout_width="95dp"
-                        android:layout_height="50dp"
-                        android:layout_marginLeft="5dp"
-                        android:onClick="goWaWa"
-                        android:background="@drawable/user_zhuazhu_bg">
-                        <com.deerlive.zhuawawa.view.StrokeTextView
-                            android:id="@+id/user_wqnum"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:layout_marginLeft="10dp"
-                            android:text="2"
-                            android:textSize="11sp"
-                            android:gravity="center"
-                            app:innnerColor="@android:color/white"/>
-                    </RelativeLayout>
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-
-        </LinearLayout>
-    </LinearLayout>
-
-
+        <include layout="@layout/center_head_item"
+            />
+    </RelativeLayout>
     <LinearLayout
+        android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -172,8 +62,8 @@
             android:paddingLeft="14dp"
             android:onClick="onCustomer">
             <ImageView
-                android:layout_width="25dp"
-                android:layout_height="25dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:src="@mipmap/iv_service"/>
             <TextView
                 android:layout_width="0dp"
@@ -196,7 +86,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="@dimen/divider"
-            android:background="@color/user_center_lion"/>
+            android:background="@color/e_white"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="52dp"
@@ -205,9 +95,9 @@
             android:paddingLeft="14dp"
             android:onClick="mesgList">
             <ImageView
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:src="@drawable/user_info"/>
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@mipmap/user_info"/>
 
             <TextView
                 android:layout_width="0dp"
@@ -230,7 +120,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="@dimen/divider"
-            android:background="@color/user_center_lion"/>
+            android:background="@color/e_white"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -240,9 +130,9 @@
             android:paddingLeft="14dp"
             android:onClick="shouHuo">
             <ImageView
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:src="@drawable/user_shouhuo"/>
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@mipmap/user_shouhuo"/>
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -262,39 +152,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="@dimen/divider"
-            android:background="@color/user_center_lion"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="52dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingLeft="14dp"
-            android:onClick="zhuaRecord">
-            <ImageView
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:src="@drawable/user_record_zhua"/>
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="6dp"
-                android:layout_weight="1"
-                android:text="@string/zhuaqu_record"
-                android:textColor="@color/text_black"
-                android:textSize="14sp"/>
-            <ImageView
-                android:layout_marginRight="10dp"
-                android:layout_gravity="center_vertical"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/iv_right_arrow"/>
-        </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/divider"
-            android:background="@color/user_center_lion"/>
+            android:background="@color/e_white"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -304,9 +162,9 @@
             android:paddingLeft="14dp"
             android:onClick="coinRecord">
             <ImageView
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:src="@drawable/user_record_coin"/>
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@mipmap/user_record_coin"/>
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -325,7 +183,70 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="@dimen/divider"
-            android:background="@color/user_center_lion"/>
+            android:background="@color/e_white"/>
+
+        <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="14dp"
+        android:onClick="zhuaRecord">
+            <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@mipmap/user_record_zhua"/>
+            <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="6dp"
+            android:layout_weight="1"
+            android:text="@string/zhuaqu_record"
+            android:textColor="@color/text_black"
+            android:textSize="14sp"/>
+            <ImageView
+            android:layout_marginRight="10dp"
+            android:layout_gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/iv_right_arrow"/>
+        </LinearLayout>
+
+        <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider"
+        android:background="@color/e_white"/>
+        <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="14dp"
+        android:onClick="intager_record">
+            <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@mipmap/user_intager_record"/>
+            <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="6dp"
+            android:layout_weight="1"
+            android:text="@string/intager_record"
+            android:textColor="@color/text_black"
+            android:textSize="14sp"/>
+            <ImageView
+            android:layout_marginRight="10dp"
+            android:layout_gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/iv_right_arrow"/>
+        </LinearLayout>
+
+        <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider"
+        android:background="@color/e_white"/>
     </LinearLayout>
 
 

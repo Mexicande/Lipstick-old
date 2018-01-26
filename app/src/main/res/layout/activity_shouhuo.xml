@@ -4,11 +4,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg"
     android:orientation="vertical">
-    <RelativeLayout
+    <android.support.v7.widget.Toolbar
+        android:background="@drawable/shape_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="50dp">
+        android:layout_height="70dp">
+        <RelativeLayout
+            android:layout_marginTop="20dp"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content">
+
+        </RelativeLayout>
         <ImageView
             android:layout_marginLeft="16dp"
             android:id="@+id/layout_top_back"
@@ -24,7 +30,7 @@
             android:layout_centerInParent="true"
             android:src="@drawable/index_top"
             />
-    </RelativeLayout>
+    </android.support.v7.widget.Toolbar>
 
     <LinearLayout
         android:layout_width="match_parent"
