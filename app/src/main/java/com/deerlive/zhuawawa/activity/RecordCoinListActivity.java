@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSONArray;
@@ -24,30 +23,29 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import java.util.ArrayList;
 
 import butterknife.Bind;
-import butterknife.OnClick;
 
 public class RecordCoinListActivity extends BaseActivity {
 
-    @Bind(R.id.layout_top_title)
-    TextView mTextTopTitle;
 
     @Bind(R.id.refreshLayout)
     SmartRefreshLayout mRefreshLayout;
     @Bind(R.id.recyclerview)
     RecyclerView mRecyclerView;
+    @Bind(R.id.tv_title)
+    TextView tvTitle;
     private String mToken;
     private ArrayList<DanmuMessage> mListData = new ArrayList();
-    private RecordCoinRecyclerListAdapter mAdapter = new RecordCoinRecyclerListAdapter(this,mListData);
+    private RecordCoinRecyclerListAdapter mAdapter = new RecordCoinRecyclerListAdapter(this, mListData);
 
 
-    public void goBack(View v){
+    public void goBack(View v) {
         finish();
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mTextTopTitle.setText(getResources().getString(R.string.jinbi_record));
+        tvTitle.setText(getResources().getString(R.string.jinbi_record));
         mToken = SPUtils.getInstance().getString("token");
         mRefreshLayout.autoRefresh();
         initGameList();
@@ -75,19 +73,19 @@ public class RecordCoinListActivity extends BaseActivity {
 
     private void getGameData(final int limit_begin) {
         JSONObject params = new JSONObject();
-        params.put("token",mToken);
-        params.put("limit_begin",limit_begin);
-        params.put("limit_num",10);
+        params.put("token", mToken);
+        params.put("limit_begin", limit_begin);
+        params.put("limit_num", 10);
         Api.getCoinRecord(this, params, new OnRequestDataListener() {
             @Override
             public void requestSuccess(int code, JSONObject data) {
-                if(limit_begin == 0){
+                if (limit_begin == 0) {
                     mListData.clear();
                 }
-                if(mRefreshLayout.isRefreshing()){
+                if (mRefreshLayout.isRefreshing()) {
                     mRefreshLayout.finishRefresh();
                 }
-                if(mRefreshLayout.isLoading()){
+                if (mRefreshLayout.isLoading()) {
                     mRefreshLayout.finishLoadmore();
                 }
                 JSONArray list = data.getJSONArray("info");
@@ -105,10 +103,10 @@ public class RecordCoinListActivity extends BaseActivity {
             @Override
             public void requestFailure(int code, String msg) {
                 toast(msg);
-                if(mRefreshLayout.isRefreshing()){
+                if (mRefreshLayout.isRefreshing()) {
                     mRefreshLayout.finishRefresh();
                 }
-                if(mRefreshLayout.isLoading()){
+                if (mRefreshLayout.isLoading()) {
                     mRefreshLayout.finishLoadmore();
                 }
             }

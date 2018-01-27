@@ -5,11 +5,9 @@
     android:id="@+id/item_danmu_container"
     android:layout_width="match_parent"
     android:layout_height="80dp"
-    android:layout_margin="5dp"
-    app:cardBackgroundColor="@color/shallow_red"
-    app:cardCornerRadius="6dp"
+    android:layout_marginTop="10dp"
+    app:cardBackgroundColor="@color/white"
     app:cardElevation="1dp"
-    app:contentPadding="5dp"
     >
     <LinearLayout
         android:layout_gravity="center_vertical"
@@ -41,10 +39,10 @@
         android:id="@+id/coin_result"
         android:layout_width="wrap_content"
         android:textSize="10sp"
-        android:text="123"
+        android:text=""
         android:layout_marginRight="20dp"
         android:layout_centerVertical="true"
-        android:textColor="@color/green_text"
+        android:textColor="@color/colorPrimary"
         android:layout_height="wrap_content"
         />
 </android.support.v7.widget.CardView>
