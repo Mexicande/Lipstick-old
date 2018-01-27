@@ -3,13 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg"
+    android:background="@color/bg_color"
     android:orientation="vertical">
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <include layout="@layout/charge_top"/>
+        <include layout="@layout/toolbar_item"/>
 
         <LinearLayout
             android:adjustViewBounds="true"
@@ -17,22 +17,15 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_marginTop="10dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginLeft="20dp"
             >
             <com.deerlive.zhuawawa.view.supertextview.SuperTextView
                 android:id="@+id/invite"
-                app:sShapeSelectorPressedColor="@color/select_red"
                 android:onClick="gamehelp"
-                android:elevation="2dp"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:textSize="16sp"
                 app:sLeftTextColor="@color/text_color"
-                app:sUseShape="true"
-                app:sShapeCornersRadius="5dp"
-                app:sShapeSelectorNormalColor="@color/shallow_red"
-                app:sRightIconRes="@mipmap/iv_arrow"
+                app:sRightIconRes="@mipmap/iv_right_arrow"
                 app:sRightIconHeight="12dp"
                 app:sRightIconWidth="10dp"
                 app:sLeftTextSize="13dp"
@@ -40,187 +33,132 @@
             <com.deerlive.zhuawawa.view.supertextview.SuperTextView
                 android:onClick="yaoqing"
                 android:layout_marginTop="20dp"
-                android:elevation="2dp"
                 app:sDividerLineType="bottom"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:textSize="16sp"
+                app:sDividerLineHeight="1dp"
                 app:sLeftTextColor="@color/text_color"
-                app:sDividerLineColor="@color/red_lion"
-                app:sShapeCornersTopLeftRadius="5dp"
-                app:sShapeCornersTopRightRadius="5dp"
-                app:sUseShape="true"
-                app:sShapeSelectorNormalColor="@color/shallow_red"
-                app:sRightIconRes="@mipmap/iv_arrow"
+                app:sDividerLineColor="@color/e_white"
+                app:sBottomDividerLineMarginLR="10dp"
+                app:sRightIconRes="@mipmap/iv_right_arrow"
                 app:sRightIconHeight="12dp"
                 app:sRightIconWidth="10dp"
                 app:sLeftTextSize="13dp"
-                app:sShapeSelectorPressedColor="@color/select_red"
                 app:sLeftTextString="@string/set_yaoqing" />
-            <View
-                android:background="@color/red_lion"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"/>
             <com.deerlive.zhuawawa.view.supertextview.SuperTextView
                 android:onClick="yaoqingma"
-                android:elevation="2dp"
-                app:sDividerLineType="top"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                app:sTopDividerLineMarginLR="10dp"
                 android:textSize="16sp"
-                app:sDividerLineColor="@color/red_lion"
+                app:sDividerLineColor="@color/e_white"
                 app:sLeftTextColor="@color/text_color"
-                app:sShapeCornersBottomLeftRadius="5dp"
-                app:sShapeCornersBottomRightRadius="5dp"
-                app:sUseShape="true"
-                app:sShapeSelectorNormalColor="@color/shallow_red"
-                app:sRightIconRes="@mipmap/iv_arrow"
+                app:sBottomDividerLineMarginLR="10dp"
+                app:sRightIconRes="@mipmap/iv_right_arrow"
                 app:sRightIconHeight="12dp"
                 app:sRightIconWidth="10dp"
                 app:sLeftTextSize="13dp"
-                app:sShapeSelectorPressedColor="@color/select_red"
-
                 app:sLeftTextString="@string/set_yaoqingma" />
-
 
             <com.deerlive.zhuawawa.view.supertextview.SuperTextView
                 android:id="@+id/checkbox_bgm"
-
                 android:layout_marginTop="20dp"
-                android:elevation="2dp"
                 app:sDividerLineType="bottom"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:textSize="16sp"
+                app:sDividerLineHeight="1dp"
+
                 app:sLeftTextColor="@color/text_color"
-                app:sDividerLineColor="@color/red_lion"
-                app:sShapeCornersTopLeftRadius="5dp"
-                app:sShapeCornersTopRightRadius="5dp"
-                app:sUseShape="true"
+                app:sDividerLineColor="@color/e_white"
+                app:sBottomDividerLineMarginLR="10dp"
                 app:sRightViewType="switchBtn"
                 app:sSwitchIsChecked="true"
                 app:sThumbResource="@drawable/thumb"
                 app:sTrackResource="@drawable/track"
-                app:sShapeSelectorNormalColor="@color/shallow_red"
                 app:sLeftTextSize="13dp"
-                app:sShapeSelectorPressedColor="@color/select_red"
-
                 app:sLeftTextString="@string/set_bg_music" />
 
-            <View
-                android:background="@color/red_lion"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"/>
             <com.deerlive.zhuawawa.view.supertextview.SuperTextView
                 android:id="@+id/checkbox_yinxiao"
-                android:elevation="2dp"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                app:sTopDividerLineMarginLR="10dp"
                 app:sDividerLineHeight="1dp"
                 android:textSize="16sp"
-                app:sDividerLineColor="@color/red_lion"
-                app:sDividerLineType="top"
+                app:sDividerLineType="none"
                 app:sLeftTextColor="@color/text_color"
                 app:sRightViewType="switchBtn"
                 app:sSwitchIsChecked="true"
                 app:sThumbResource="@drawable/thumb"
                 app:sTrackResource="@drawable/track"
-                app:sShapeCornersBottomLeftRadius="5dp"
-                app:sShapeCornersBottomRightRadius="5dp"
-                app:sUseShape="true"
-                app:sShapeSelectorNormalColor="@color/shallow_red"
                 app:sLeftTextSize="13dp"
-                app:sShapeSelectorPressedColor="@color/select_red"
-
                 app:sLeftTextString="@string/set_bg_yinxiao" />
 
 
             <com.deerlive.zhuawawa.view.supertextview.SuperTextView
                 android:onClick="feedback"
                 android:layout_marginTop="20dp"
-                android:elevation="2dp"
                 app:sDividerLineType="bottom"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:textSize="16sp"
-                app:sLeftTextColor="@color/text_color"
-                app:sDividerLineColor="@color/red_lion"
-                app:sShapeCornersTopLeftRadius="5dp"
-                app:sShapeCornersTopRightRadius="5dp"
-                app:sUseShape="true"
-                app:sShapeSelectorPressedColor="@color/select_red"
+                app:sDividerLineHeight="1dp"
 
-                app:sShapeSelectorNormalColor="@color/shallow_red"
-                app:sRightIconRes="@mipmap/iv_arrow"
+                android:textSize="16sp"
+                app:sBottomDividerLineMarginLR="10dp"
+                app:sLeftTextColor="@color/text_color"
+                app:sDividerLineColor="@color/e_white"
+                app:sRightIconRes="@mipmap/iv_right_arrow"
                 app:sRightIconHeight="12dp"
                 app:sRightIconWidth="10dp"
                 app:sLeftTextSize="13dp"
                 app:sLeftTextString="@string/set_feedback" />
-            <View
-                android:background="@color/red_lion"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"/>
             <com.deerlive.zhuawawa.view.supertextview.SuperTextView
                 android:id="@+id/bt_version"
                 android:onClick="checkUpdate"
-                android:elevation="2dp"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                app:sTopDividerLineMarginLR="10dp"
-                app:sDividerLineHeight="1dp"
+                app:sBottomDividerLineMarginLR="10dp"
                 android:textSize="16sp"
-                app:sDividerLineColor="@color/red_lion"
-                app:sDividerLineType="top"
+                app:sDividerLineColor="@color/e_white"
+                app:sDividerLineType="bottom"
+                app:sRightTextString="v1.3.0"
+                app:sDividerLineHeight="1dp"
+                app:sRightTextColor="@color/black_666"
                 app:sLeftTextColor="@color/text_color"
-                app:sUseShape="true"
-                app:sShapeSelectorPressedColor="@color/select_red"
-
-                app:sShapeSelectorNormalColor="@color/shallow_red"
-                app:sRightIconRes="@mipmap/iv_arrow"
-                app:sRightIconHeight="12dp"
-                app:sRightIconWidth="10dp"
                 app:sLeftTextSize="13dp"
                 app:sLeftTextString="@string/set_update" />
-            <View
-                android:background="@color/red_lion"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"/>
             <com.deerlive.zhuawawa.view.supertextview.SuperTextView
                 android:onClick="aboutUs"
-                android:elevation="2dp"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 app:sTopDividerLineMarginLR="10dp"
-                app:sDividerLineHeight="1dp"
                 android:textSize="16sp"
-                app:sDividerLineColor="@color/red_lion"
-                app:sDividerLineType="top"
+                app:sDividerLineColor="@color/e_white"
+                app:sDividerLineType="none"
                 app:sLeftTextColor="@color/text_color"
-                app:sShapeCornersBottomLeftRadius="5dp"
-                app:sShapeCornersBottomRightRadius="5dp"
-                app:sUseShape="true"
-                app:sShapeSelectorPressedColor="@color/select_red"
-                app:sShapeSelectorNormalColor="@color/shallow_red"
-                app:sRightIconRes="@mipmap/iv_arrow"
+                app:sRightIconRes="@mipmap/iv_right_arrow"
                 app:sRightIconHeight="12dp"
                 app:sRightIconWidth="10dp"
                 app:sLeftTextSize="13dp"
                 app:sLeftTextString="@string/set_about" />
         </LinearLayout>
 
-        <Button
+        <com.deerlive.zhuawawa.view.supertextview.SuperButton
             android:onClick="logout"
-            android:elevation="1dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:text="@string/logout"
-            android:textColor="@color/text_color"
-            android:background="@drawable/exit_button"
+            app:sCornersRadius="20dp"
+            app:sSolidColor="@color/bg_color"
+            app:sStrokeWidth="1dp"
+            app:sSelectorNormalColor="@color/bg_color"
+            app:sSelectorPressedColor="@color/e_white"
+            android:layout_marginBottom="50dp"
+            app:sStrokeColor="@color/text_gray"
+            android:textColor="@color/text_gray"
             />
     </LinearLayout>
 
