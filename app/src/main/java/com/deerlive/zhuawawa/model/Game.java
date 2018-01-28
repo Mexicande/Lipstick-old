@@ -17,7 +17,7 @@ public class Game implements Serializable{
     private String GameStatus;
     private String GamePlayUrl;
     private String vip_level;
-
+    
     public String getVip_level() {
         return vip_level;
     }

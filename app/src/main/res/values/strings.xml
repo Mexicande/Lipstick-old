@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">快抓娃娃机</string>
+    <string name="user_address">收货地址</string>
+    <string name="integar_store">积分商城</string>
     <string name="net_error">网络请求失败</string>
     <string name="device_error">机器出现故障</string>
     <string name="login_weixin">微信登录</string>
@@ -25,7 +27,7 @@
     <string name="set_bg_music">背景音乐</string>
     <string name="set_bg_yinxiao">背景音效</string>
     <string name="set_feedback">问题反馈</string>
-    <string name="set_update">检查更新(1.0.0)</string>
+    <string name="set_update">当前版本</string>
     <string name="set_about">关于我们</string>
     <string name="coming">来了</string>
     <string name="agree">确定</string>
@@ -75,4 +77,7 @@
     <string name="tv_playing">游戏中</string>
     <string name="tv_free">空闲中</string>
     <string name="wuqu_title">奖品兑换</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

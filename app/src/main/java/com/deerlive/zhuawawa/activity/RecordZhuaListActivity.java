@@ -25,17 +25,16 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import java.util.ArrayList;
 
 import butterknife.Bind;
-import butterknife.OnClick;
 
 public class RecordZhuaListActivity extends BaseActivity implements OnRecyclerViewItemClickListener {
 
-    @Bind(R.id.layout_top_title)
-    TextView mTextTopTitle;
 
     @Bind(R.id.refreshLayout)
     SmartRefreshLayout mRefreshLayout;
     @Bind(R.id.recyclerview)
     RecyclerView mRecyclerView;
+    @Bind(R.id.tv_title)
+    TextView tvTitle;
     private String mToken;
     private ArrayList<DanmuMessage> mListData = new ArrayList();
     private RecordZqRecyclerListAdapter mAdapter = new RecordZqRecyclerListAdapter(this, mListData);
@@ -43,7 +42,7 @@ public class RecordZhuaListActivity extends BaseActivity implements OnRecyclerVi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mTextTopTitle.setText(getResources().getString(R.string.zhuaqu_record));
+        tvTitle.setText(getResources().getString(R.string.zhuaqu_record));
         mToken = SPUtils.getInstance().getString("token");
         mRefreshLayout.autoRefresh();
         initGameList();
@@ -133,7 +132,7 @@ public class RecordZhuaListActivity extends BaseActivity implements OnRecyclerVi
     }
 
 
-    public void goBack(View v){
+    public void goBack(View v) {
         finish();
     }
 }

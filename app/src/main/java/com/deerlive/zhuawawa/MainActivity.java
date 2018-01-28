@@ -24,6 +24,7 @@ import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.SizeUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.deerlive.zhuawawa.activity.PlayerActivity;
+import com.deerlive.zhuawawa.activity.RecordStoreActivity;
 import com.deerlive.zhuawawa.activity.SettingActivity;
 import com.deerlive.zhuawawa.activity.UserCenterActivity;
 import com.deerlive.zhuawawa.adapter.GameRecyclerListAdapter;
@@ -60,18 +61,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Window window = getWindow();
-            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS |
-                    WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-            window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN |
-                    View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.setStatusBarColor(Color.TRANSPARENT);
-        }*/
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 
             View decorView = getWindow().getDecorView();
@@ -91,13 +81,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         initData();
     }
 
-  /*  @Override
-    protected void initImmersionBar() {
-        super.initImmersionBar();
-        mImmersionBar.titleBar(R.id.toolbar)
-                .navigationBarColor(R.color.shape2)
-                .init();
-    }*/
+
 
     public void userCenter(View v) {
         ActivityUtils.startActivity(UserCenterActivity.class);
@@ -356,7 +340,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
 
                 break;
             case  R.id.layout_integral:
-
+                RecordStoreActivity.launch(this);
                 break;
             case  R.id.layout_charge:
 

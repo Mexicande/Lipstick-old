@@ -5,33 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-    <android.support.v7.widget.Toolbar
-        android:background="@drawable/shape_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="70dp">
-        <RelativeLayout
-            android:layout_marginTop="20dp"
-            android:layout_width="50dp"
-            android:layout_height="wrap_content">
-
-        </RelativeLayout>
-        <ImageView
-            android:layout_marginLeft="16dp"
-            android:id="@+id/layout_top_back"
-            android:layout_width="43dp"
-            android:layout_height="23dp"
-            android:paddingRight="20dp"
-            android:onClick="goBack"
-            android:layout_centerVertical="true"
-            android:src="@mipmap/player_back"/>
-        <ImageView
-            android:layout_width="131dp"
-            android:layout_height="35dp"
-            android:layout_centerInParent="true"
-            android:src="@drawable/index_top"
-            />
-    </android.support.v7.widget.Toolbar>
-
+    <include layout="@layout/toolbar_item"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"

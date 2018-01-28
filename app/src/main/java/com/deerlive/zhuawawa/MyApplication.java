@@ -3,14 +3,20 @@ package com.deerlive.zhuawawa;
 import android.app.Application;
 
 import com.blankj.utilcode.util.Utils;
+import com.deerlive.zhuawawa.common.Api;
 import com.deerlive.zhuawawa.utils.LogUtils;
 import com.hss01248.dialog.StyledDialog;
 import com.lzy.okgo.OkGo;
+import com.lzy.okgo.model.HttpParams;
 import com.meituan.android.walle.WalleChannelReader;
 import com.mob.MobSDK;
 import com.tencent.bugly.crashreport.CrashReport;
 import com.umeng.analytics.MobclickAgent;
 
+import static com.deerlive.zhuawawa.common.Api.APP_VER;
+import static com.deerlive.zhuawawa.common.Api.OS;
+import static com.deerlive.zhuawawa.common.Api.OS_VER;
+import static com.deerlive.zhuawawa.common.Api.QUDAO;
 
 
 /**
@@ -31,7 +37,11 @@ public class MyApplication extends Application {
 
         Utils.init(this);
         LogUtils.init(getInstance());
-        OkGo.getInstance().init(this);
+
+        initOkGo();
+
+
+
         StyledDialog.init(this);
         //ShareSDK
         MobSDK.init(this,"22df8db419014","0f69e4d8a099b8426a58a16fccb8e88e");
@@ -46,6 +56,19 @@ public class MyApplication extends Application {
         //JPushInterface.setDebugMode(true);
       //  JPushInterface.init(this);
     }
+
+    private void initOkGo() {
+        HttpParams params=new HttpParams();
+
+        params.put("os", OS);
+        params.put("soft_ver", APP_VER);
+        params.put("os_ver", OS_VER);
+        params.put("qudao",QUDAO);
+
+        OkGo.getInstance().init(this)
+                .addCommonParams(params);
+    }
+
     public static MyApplication getInstance(){
         return instance;
     }

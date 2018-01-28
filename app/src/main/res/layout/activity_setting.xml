@@ -159,6 +159,7 @@
             android:layout_marginBottom="50dp"
             app:sStrokeColor="@color/text_gray"
             android:textColor="@color/text_gray"
+            app:sUseSelector="true"
             />
     </LinearLayout>
 

@@ -2,6 +2,7 @@ package com.deerlive.zhuawawa.common;
 
 import android.content.Context;
 import android.os.Build;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 
 import com.alibaba.fastjson.JSON;
@@ -23,6 +24,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.security.MessageDigest;
 import java.util.Iterator;
+import java.util.Map;
 
 import cz.msebera.android.httpclient.Header;
 import cz.msebera.android.httpclient.HttpResponse;
@@ -35,11 +37,11 @@ public class Api {
     public static final String APP_VER = "1.0.0";
     //public static final String HOST = "http://kuailai.deerlive.com/";
     public static final String HOST = "http://test.doll.anwenqianbao.com/";
-    private static final String OS = "android";
+    public static final String OS = "android";
     public static final String QUDAO = "kuailai-one";
 
 
-    private static final String OS_VER = Build.VERSION.RELEASE;
+    public static final String OS_VER = Build.VERSION.RELEASE;
     private static final String KEY = "HZ1lERfDhUqNuUQ42PfX5lALvKlaTQxT";
     private static final String LOGIN = HOST + "Api/SiSi/sendOauthUserInfo";
     public static final String ANNUNCIATE = HOST + "Api/SiSi/notice";
@@ -63,14 +65,14 @@ public class Api {
     private static final String ENTER_PLAYER = HOST + "Api/SiSi/enterDeviceRoom";
     private static final String GET_LATEST_DEVICE_RECORD = HOST + "Api/SiSi/getWinLogByDeviceid";
     private static final String GET_SHOUHUO_LOCATION = HOST + "Api/SiSi/get_delivery_addr";
-    private static final String SET_SHOUHUO_LOCATION = HOST + "/Api/SiSi/change_userinfo";
+    private static final String SET_SHOUHUO_LOCATION = HOST + "Api/SiSi/change_userinfo";
     private static final String GET_ZHUA_RECORD = HOST + "Api/SiSi/getPlayLogByUid";
-    private static final String GET_COIN_RECORD = HOST + "/Api/SiSi/getMoneylog";
+    private static final String GET_COIN_RECORD = HOST + "Api/SiSi/getMoneylog";
     private static final String GET_USER_INFO = HOST + "Api/SiSi/getUserInfo";
-
     private static final String GET_PAY_METHOD = HOST + "Api/SiSi/get_recharge_package";
-
-    private static final String BEGIN_PAY = HOST + "/Api/Pay/begin_pay";
+    //积分商城  积分
+    private static final String STORE_INTEGAR=HOST+"Api/SiSi/convertList";
+    private static final String BEGIN_PAY = HOST + "Api/Pay/begin_pay";
     private static final String REQUEST_CONNECT_DEVICE = HOST + "Api/SiSi/connDeviceControl";
    // private static final String GET_NOTAKEN_WAWA = HOST + "Api/SiSi/getNotTakenWawaByUid";
     private static final String GET_NOTAKEN_WAWA = HOST + "Api/SiSi/getNotTakenWawaByToken";
@@ -78,9 +80,9 @@ public class Api {
     //private static final String APPLY_POST_DUIHUAN_WAWA = HOST + "Api/SiSi/applyPostWawa";
 
     private static final String APPLY_POST_DUIHUAN_WAWA = HOST + "Api/SiSi/getPostConvert";
-    public static String GET_PAY_TYPE = HOST + "/Api/Appconfig/getPayType";
+    public static String GET_PAY_TYPE = HOST + "Api/Appconfig/getPayType";
     private static final String GET_LAUNCH_SCREEN = HOST + "Api/SiSi/getLaunchScreen";
-    public static final String UPLOAD_RECORD = HOST + "/Api/SiSi/userUploadPlayVideo";
+    public static final String UPLOAD_RECORD = HOST + "Api/SiSi/userUploadPlayVideo";
     public static void doLogin(final Context context, JSONObject params, final OnRequestDataListener listener) {
         excutePost(LOGIN, context, params,listener);
     }
@@ -103,6 +105,13 @@ public class Api {
     public static void beginPay(final Context context, JSONObject params, final OnRequestDataListener listener) {
         excutePost(BEGIN_PAY, context, params,listener);
     }
+
+    public static void getStoreIntegar(FragmentActivity context,  Map<String,String> params , OnRequestDataListener listener) {
+        newExcuteMapPost(STORE_INTEGAR, context, params,listener);
+    }
+
+
+
 
     public static void getPayMethod(final Context context, JSONObject params, final OnRequestDataListener listener) {
         excutePost(GET_PAY_METHOD, context, params,listener);
@@ -192,13 +201,43 @@ public class Api {
         return requestParams;
     }
 
+    private static void newExcuteMapPost(String storeIntegar, FragmentActivity context, Map<String,String> params, final OnRequestDataListener listener) {
+        final String net_error = context.getString(R.string.net_error);
+
+        OkGo.<String>post(storeIntegar)
+                .tag(context)
+                .params(params,false)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        if(response.body()!=null){
+                            JSONObject jsonObject = JSON.parseObject(response.body());
+                            Integer code = jsonObject.getInteger("code");
+                            if(code==200){
+                                listener.requestSuccess(0, jsonObject);
+                            }else {
+                                listener.requestFailure(-1, jsonObject.getString("descrp"));
+                            }
+                        }else {
+                            listener.requestFailure(-1, net_error);
+
+                        }
+                    }
+
+                    @Override
+                    public void onError(Response<String> response) {
+                        super.onError(response);
+                        listener.requestFailure(-1, net_error);
+                    }
+                });
+
+
+    }
+
+
     protected static void newExcutePost(String url, final Context context, JSONObject params, final OnRequestDataListener listener){
         final String net_error = context.getString(R.string.net_error);
 
-        params.put("os", OS);
-        params.put("soft_ver", APP_VER);
-        params.put("os_ver", OS_VER);
-        params.put("qudao",QUDAO);
         String s = JSON.toJSONString(params);
         OkGo.<String>post(url)
                 .tag(context)
@@ -387,5 +426,6 @@ public class Api {
         return str;
 
     }
+
 
 }

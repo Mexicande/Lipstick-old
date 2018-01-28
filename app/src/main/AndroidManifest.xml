@@ -3,13 +3,15 @@
     xmlns:meta-dataandroid="http://schemas.android.com/apk/res-auto"
     package="com.deerlive.zhuawawa">
 
-<!--    &lt;!&ndash; Required &ndash;&gt;
+    <!--
+        &lt;!&ndash; Required &ndash;&gt;
     <permission
         android:name="com.deerlive.zhuawawa.permission.JPUSH_MESSAGE"
         android:protectionLevel="signature" />
 
     &lt;!&ndash; Required  一些系统要求的权限，如访问网络等 &ndash;&gt;
-    <uses-permission android:name="com.deerlive.zhuawawa.permission.JPUSH_MESSAGE" />-->
+    <uses-permission android:name="com.deerlive.zhuawawa.permission.JPUSH_MESSAGE" />
+    -->
     <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
@@ -126,7 +128,7 @@
             android:exported="false"
             android:screenOrientation="behind"
             android:windowSoftInputMode="adjustResize|stateHidden" />
-<!--
+        <!--
          Rich push 核心功能 since 2.0.6
         <activity
             android:name="cn.jpush.android.ui.PopWinActivity"
@@ -217,8 +219,10 @@
          </>值来自开发者平台取得的AppKey
         <meta-data
             android:name="JPUSH_APPKEY"
-            android:value="3f41585a44f8cc5a3b8aeb5b" />  </>值来自开发者平台取得的AppKey -->
-        <activity android:name=".activity.WeChatActivity"></activity>
+            android:value="3f41585a44f8cc5a3b8aeb5b" />  </>值来自开发者平台取得的AppKey
+        -->
+        <activity android:name=".activity.WeChatActivity" />
+        <activity android:name=".activity.RecordStoreActivity"></activity>
     </application>
 
 </manifest>

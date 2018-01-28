@@ -135,11 +135,6 @@ public class RecordZqRecyclerListAdapter extends RecyclerView.Adapter<RecyclerVi
                     }
                 }
             });
-            if("1".equals(t.getRemoteUid())){
-                temp.mVideoRecord.setVisibility(View.VISIBLE);
-            }else {
-                temp.mVideoRecord.setVisibility(View.GONE);
-            }
 
         }
     }
@@ -186,8 +181,6 @@ public class RecordZqRecyclerListAdapter extends RecyclerView.Adapter<RecyclerVi
         ImageView zq_avator;
         @Bind(R.id.zq_time)
         TextView zq_time;
-        @Bind(R.id.video_record)
-        ImageView mVideoRecord;
         public MessageViewHolder(View inflate) {
             super(inflate);
             ButterKnife.bind(this, inflate);

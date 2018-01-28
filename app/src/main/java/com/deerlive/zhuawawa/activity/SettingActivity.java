@@ -62,7 +62,7 @@ public class SettingActivity extends BaseActivity {
 
     private void setListener() {
         String versionName = AppUtils.getAppVersionName();
-        btVersion.setLeftString("检测更新（"+versionName+"）");
+        btVersion.setRightString("v"+versionName);
 
         checkboxBgm.setSwitchCheckedChangeListener(new SuperTextView.OnSwitchCheckedChangeListener() {
             @Override

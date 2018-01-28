@@ -12,7 +12,6 @@ import android.webkit.JavascriptInterface;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.deerlive.zhuawawa.R;
@@ -23,7 +22,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import butterknife.Bind;
-import butterknife.OnClick;
 import cn.sharesdk.framework.Platform;
 import cn.sharesdk.framework.PlatformActionListener;
 import cn.sharesdk.framework.ShareSDK;
@@ -32,13 +30,13 @@ import cn.sharesdk.wechat.moments.WechatMoments;
 
 public class WebviewActivity extends BaseActivity implements PlatformActionListener {
 
-    @Bind(R.id.layout_top_title)
-    TextView mTextTopTitle;
     @Bind(R.id.webview)
     WebView mWebView;
     Dialog mLoadingDialog;
     Platform mPlatFormWeChat;
     Platform mPlatFormMoment;
+    @Bind(R.id.tv_title)
+    TextView tvTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +46,7 @@ public class WebviewActivity extends BaseActivity implements PlatformActionListe
         mPlatFormMoment = ShareSDK.getPlatform(WechatMoments.NAME);
         mPlatFormWeChat.setPlatformActionListener(this);
         mPlatFormMoment.setPlatformActionListener(this);
-        mTextTopTitle.setText(data.getString("title"));
+        tvTitle.setText(data.getString("title"));
         mWebView.loadUrl(data.getString("jump"));
         mLoadingDialog = StyledDialog.buildLoading().setActivity(this).show();
         WebSettings webSettings = mWebView.getSettings();
@@ -56,9 +54,11 @@ public class WebviewActivity extends BaseActivity implements PlatformActionListe
         mWebView.setWebViewClient(new myWebClient());
         mWebView.addJavascriptInterface(new AndroidtoJs(), "Share");
     }
-    public void goBack(View v){
+
+    public void goBack(View v) {
         finish();
     }
+
     @Override
     public int getLayoutResource() {
         return R.layout.activity_webview;
@@ -123,6 +123,7 @@ public class WebviewActivity extends BaseActivity implements PlatformActionListe
         return super.onKeyDown(keyCode, event);
 
     }
+
     public class AndroidtoJs extends Object {
 
         // 定义JS需要调用的方法

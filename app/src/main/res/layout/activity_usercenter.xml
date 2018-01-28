@@ -22,11 +22,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="50dp">
                     <ImageView
-                        android:layout_marginLeft="16dp"
+                        android:gravity="right"
                         android:id="@+id/layout_top_back"
-                        android:layout_width="23dp"
-                        android:layout_height="23dp"
+                        android:layout_width="43dp"
+                        android:layout_height="33dp"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp"
                         android:onClick="goBack"
+                        android:paddingRight="10dp"
                         android:layout_centerVertical="true"
                         android:src="@mipmap/player_back"/>
                     <TextView

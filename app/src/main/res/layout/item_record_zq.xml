@@ -4,13 +4,13 @@
     android:id="@+id/item_danmu_container"
     android:layout_width="match_parent"
     android:layout_height="80dp"
-    android:layout_margin="5dp"
     android:foreground="?android:attr/selectableItemBackground"
-    app:cardBackgroundColor="@color/shallow_red"
-    app:cardCornerRadius="6dp"
+    app:cardBackgroundColor="@color/white"
     app:cardElevation="1dp"
-    app:contentPadding="15dp">
+    android:layout_marginTop="10dp"
+    >
     <RelativeLayout
+        android:layout_gravity="center_vertical"
         android:layout_marginLeft="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -25,13 +25,13 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="30dp"
             android:layout_toRightOf="@+id/zq_avator">
             <TextView
                 android:id="@+id/zq_name"
                 android:layout_width="wrap_content"
                 android:textSize="16sp"
-                android:text=""
+                android:text="11111"
                 android:textColor="#0B2F15"
                 android:layout_height="wrap_content" />
             <TextView
@@ -40,32 +40,19 @@
                 android:textSize="11sp"
                 android:layout_marginTop="3dp"
                 android:text=""
-                android:textColor="@color/shape2"
+                android:textColor="@color/itemText_red"
                 android:layout_height="wrap_content" />
         </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:padding="5dp"
-            android:layout_alignParentRight="true"
-            android:gravity="center">
-            <ImageView
-                android:id="@+id/video_record"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@drawable/record_video"/>
             <TextView
                 android:id="@+id/zq_result"
                 android:layout_width="wrap_content"
                 android:textSize="16sp"
-                android:text=""
+                android:layout_marginRight="20dp"
+                android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:textColor="@color/shape3"
+                android:textColor="@color/itemText_red"
                 android:layout_marginTop="5dp"
                 android:layout_height="wrap_content"/>
-        </LinearLayout>
     </RelativeLayout>
 
 </android.support.v7.widget.CardView>
