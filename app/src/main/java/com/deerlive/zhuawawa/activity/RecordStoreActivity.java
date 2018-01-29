@@ -17,6 +17,7 @@ import com.deerlive.zhuawawa.base.BaseActivity;
 import com.deerlive.zhuawawa.fragment.IntegarFragment;
 import com.deerlive.zhuawawa.fragment.StoreDuiHuanFragment;
 import com.deerlive.zhuawawa.intf.User_integration;
+import com.deerlive.zhuawawa.model.eventbean.IntegarStore;
 
 import net.lucode.hackware.magicindicator.FragmentContainerHelper;
 import net.lucode.hackware.magicindicator.MagicIndicator;
@@ -30,12 +31,17 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.ColorT
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.SimplePagerTitleView;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.badge.BadgePagerTitleView;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
 
-public class RecordStoreActivity extends BaseActivity implements User_integration {
+import static org.greenrobot.eventbus.EventBus.getDefault;
+
+public class RecordStoreActivity extends BaseActivity  {
 
     @Bind(R.id.tv_title)
     TextView tvTitle;
@@ -46,9 +52,10 @@ public class RecordStoreActivity extends BaseActivity implements User_integratio
     @Bind(R.id.view_pager)
     ViewPager viewPager;
 
+    String integra="";
     private MyViewPagerAdapter myViewPagerAdapter;
     private FragmentContainerHelper mFragmentContainerHelper = new FragmentContainerHelper();
-
+    private  CommonNavigator commonNavigator;
     public void goBack(View v) {
         finish();
     }
@@ -59,7 +66,11 @@ public class RecordStoreActivity extends BaseActivity implements User_integratio
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         tvTitle.setText(R.string.integar_store);
+        getDefault().register(this);
+        mDataList.add("积分: "+0);
+        mDataList.add("兑换记录");
         initFragment();
+        mFragmentContainerHelper.attachMagicIndicator(magicIndicator);
 
     }
 
@@ -69,7 +80,7 @@ public class RecordStoreActivity extends BaseActivity implements User_integratio
         list.add(new StoreDuiHuanFragment());
         myViewPagerAdapter = new MyViewPagerAdapter(getSupportFragmentManager(), list);
         viewPager.setAdapter(myViewPagerAdapter);
-        CommonNavigator commonNavigator = new CommonNavigator(this);
+        commonNavigator = new CommonNavigator(this);
         commonNavigator.setAdjustMode(true);
         commonNavigator.setAdapter(new CommonNavigatorAdapter() {
             @Override
@@ -83,8 +94,8 @@ public class RecordStoreActivity extends BaseActivity implements User_integratio
 
                 SimplePagerTitleView simplePagerTitleView = new ColorTransitionPagerTitleView(context);
                 simplePagerTitleView.setText(mDataList.get(i));
-                simplePagerTitleView.setNormalColor(Color.parseColor("#333333"));
-                simplePagerTitleView.setSelectedColor(Color.parseColor("#fb5a5b"));
+                simplePagerTitleView.setNormalColor(Color.parseColor("#999999"));
+                simplePagerTitleView.setSelectedColor(Color.parseColor("#ED5796"));
                 simplePagerTitleView.setTextSize(16);
                 simplePagerTitleView.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -100,7 +111,7 @@ public class RecordStoreActivity extends BaseActivity implements User_integratio
             public IPagerIndicator getIndicator(Context context) {
                 LinePagerIndicator indicator = new LinePagerIndicator(context);
                 indicator.setMode(LinePagerIndicator.MODE_EXACTLY);
-                indicator.setColors(Color.parseColor("#fb5a5b"));
+                indicator.setColors(Color.parseColor("#ED5796"));
                 indicator.setLineWidth(UIUtil.dip2px(context, 100));
                 return indicator;
             }
@@ -128,11 +139,19 @@ public class RecordStoreActivity extends BaseActivity implements User_integratio
         return R.layout.activity_record_store;
     }
 
+    @Subscribe
+    public void updateEvent(IntegarStore msg) {
+        if (msg.message != 0) {
+            mDataList.clear();
+            mDataList.add("积分: " + msg.message);
+            mDataList.add("兑换记录");
+            commonNavigator.notifyDataSetChanged();
+            myViewPagerAdapter.notifyDataSetChanged();
+        }
+    }
     @Override
-    public void requestSuccess(String integra) {
-
-        mDataList.add("积分: " + integra);
-        mDataList.add("积分记录");
-
+    protected void onDestroy() {
+        super.onDestroy();
+        getDefault().unregister(this);
     }
 }

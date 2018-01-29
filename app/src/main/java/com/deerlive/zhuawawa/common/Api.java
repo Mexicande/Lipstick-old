@@ -9,6 +9,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.blankj.utilcode.util.LogUtils;
 import com.deerlive.zhuawawa.R;
+import com.deerlive.zhuawawa.activity.IntegarlCoinListActivity;
 import com.deerlive.zhuawawa.intf.OnRequestDataListener;
 import com.hss01248.dialog.StyledDialog;
 import com.loopj.android.http.AsyncHttpClient;
@@ -66,10 +67,17 @@ public class Api {
     private static final String GET_LATEST_DEVICE_RECORD = HOST + "Api/SiSi/getWinLogByDeviceid";
     private static final String GET_SHOUHUO_LOCATION = HOST + "Api/SiSi/get_delivery_addr";
     private static final String SET_SHOUHUO_LOCATION = HOST + "Api/SiSi/change_userinfo";
+    //抓取记录
     private static final String GET_ZHUA_RECORD = HOST + "Api/SiSi/getPlayLogByUid";
+    //积分商城-兑换记录
+    private static final String GET_DUI_RECORD = HOST + "Api/SiSi/convertLog";
+    //用户心中-积分记录
+    private static final String GET_INTERGATION_COIN = HOST + "Api/SiSi/intergationLog";
+
     private static final String GET_COIN_RECORD = HOST + "Api/SiSi/getMoneylog";
     private static final String GET_USER_INFO = HOST + "Api/SiSi/getUserInfo";
-    private static final String GET_PAY_METHOD = HOST + "Api/SiSi/get_recharge_package";
+    //充值
+    private static final String GET_PAY_METHOD = HOST + "Api/SiSi/get_recharge";
     //积分商城  积分
     private static final String STORE_INTEGAR=HOST+"Api/SiSi/convertList";
     private static final String BEGIN_PAY = HOST + "Api/Pay/begin_pay";
@@ -106,6 +114,7 @@ public class Api {
         excutePost(BEGIN_PAY, context, params,listener);
     }
 
+    //积分商城商品
     public static void getStoreIntegar(FragmentActivity context,  Map<String,String> params , OnRequestDataListener listener) {
         newExcuteMapPost(STORE_INTEGAR, context, params,listener);
     }
@@ -113,8 +122,8 @@ public class Api {
 
 
 
-    public static void getPayMethod(final Context context, JSONObject params, final OnRequestDataListener listener) {
-        excutePost(GET_PAY_METHOD, context, params,listener);
+    public static void getPayMethod(final Context context, Map<String,String> params, final OnRequestDataListener listener) {
+        newExcuteMapPost(GET_PAY_METHOD, context, params,listener);
     }
     public static void getLaunchScreen(final Context context, JSONObject params, final OnRequestDataListener listener) {
         excutePost(GET_LAUNCH_SCREEN, context, params, listener);
@@ -126,7 +135,15 @@ public class Api {
     public static void getZhuaRecord(final Context context, JSONObject params, final OnRequestDataListener listener) {
         excutePost(GET_ZHUA_RECORD, context, params,listener);
     }
+    //积分商城兑换记录
+    public static void getDuiRecord(FragmentActivity context,Map<String,String> params, OnRequestDataListener listener) {
+        newExcuteMapPost(GET_DUI_RECORD, context, params,listener);
+    }
+    // UserCenter 积分记录
 
+    public static void getIntegarlCoinRecord(IntegarlCoinListActivity context, Map<String, String> params, OnRequestDataListener listener) {
+        newExcuteMapPost(GET_INTERGATION_COIN, context, params,listener);
+    }
     public static void getCoinRecord(final Context context, JSONObject params, final OnRequestDataListener listener) {
         excutePost(GET_COIN_RECORD, context, params,listener);
     }
@@ -201,7 +218,7 @@ public class Api {
         return requestParams;
     }
 
-    private static void newExcuteMapPost(String storeIntegar, FragmentActivity context, Map<String,String> params, final OnRequestDataListener listener) {
+    private static void newExcuteMapPost(String storeIntegar, Context context, Map<String,String> params, final OnRequestDataListener listener) {
         final String net_error = context.getString(R.string.net_error);
 
         OkGo.<String>post(storeIntegar)
@@ -426,6 +443,7 @@ public class Api {
         return str;
 
     }
+
 
 
 }

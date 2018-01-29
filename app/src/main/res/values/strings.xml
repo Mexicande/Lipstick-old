@@ -18,6 +18,8 @@
     <string name="wechat_login">微信登录</string>
     <string name="play_num">人在房间</string>
     <string name="setting">设置</string>
+    <string name="charge">充值</string>
+    <string name="select_payway">请选择支付方式</string>
     <string name="userCenter">个人中心</string>
     <string name="message">消息通知</string>
     <string name="customer_service">客服小爪来帮助您</string>
@@ -39,6 +41,7 @@
     <string name="lianxifangshi">联系方式</string>
     <string name="keduihuan">可兑换金币</string>
     <string name="zhuaqu_record">抓取记录</string>
+    <string name="duihuan_record">兑换记录</string>
     <string name="intager_record">积分记录</string>
     <string name="tv_extract">提取</string>
     <string name="tv_exchange">兑换</string>

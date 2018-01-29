@@ -1,30 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    app:cardCornerRadius="5dp"
+    app:cardUseCompatPadding="true"
+    android:layout_marginTop="10dp"
     android:gravity="center">
-
-    <FrameLayout
+    <LinearLayout
         android:id="@+id/item_payMethod_container"
         android:layout_width="160dp"
-        android:layout_height="70dp"
-        android:layout_marginTop="5dp">
-        <CheckBox
-            android:id="@+id/pay_method_checkbox"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/check_pay"
-            android:button="@null"
-            android:checked="true"/>
-
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/white"
+        >
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:layout_gravity="center_horizontal"
             android:orientation="horizontal"
-            android:layout_marginTop="15dp">
+            android:layout_marginTop="5dp">
             <ImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
@@ -41,22 +37,24 @@
                 android:layout_height="wrap_content"
                 android:text="@string/game_coin"
                 android:textSize="16sp"
-                android:textColor="@color/colorIndexFont"/>
+                android:textColor="@color/text_black"/>
         </LinearLayout>
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|center_horizontal"
+        <com.deerlive.zhuawawa.view.supertextview.SuperButton
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="15dp"
+            app:sCornersRadius="5dp"
+            android:text="$15.00"
+            android:textStyle="bold"
+            android:id="@+id/super_price"
+            android:textColor="@color/white"
+            android:layout_marginRight="5dp"
+            android:layout_marginLeft="5dp"
+            app:sSolidColor="@color/colorPrimary"
             android:layout_marginBottom="10dp">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/price"
-                android:text="售价20元"
-                android:textSize="12sp"
-                android:textColor="@color/colorDanmu"
-                />
-        </LinearLayout>
 
-    </FrameLayout>
-</RelativeLayout>
+        </com.deerlive.zhuawawa.view.supertextview.SuperButton>
+
+    </LinearLayout>
+</android.support.v7.widget.CardView>

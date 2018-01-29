@@ -1,26 +1,20 @@
-package com.deerlive.zhuawawa.fragment;
-
+package com.deerlive.zhuawawa.activity;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
+import android.widget.TextView;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.blankj.utilcode.util.SPUtils;
-import com.blankj.utilcode.util.ToastUtils;
 import com.deerlive.zhuawawa.R;
-import com.deerlive.zhuawawa.adapter.RecordZqRecyclerListAdapter;
-import com.deerlive.zhuawawa.adapter.ZhuaRecordAdapter;
+import com.deerlive.zhuawawa.adapter.RecordCoinRecyclerListAdapter;
+import com.deerlive.zhuawawa.base.BaseActivity;
 import com.deerlive.zhuawawa.common.Api;
 import com.deerlive.zhuawawa.intf.OnRequestDataListener;
 import com.deerlive.zhuawawa.model.DanmuMessage;
-import com.deerlive.zhuawawa.model.ZhuaRecordBean;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
@@ -31,41 +25,35 @@ import java.util.HashMap;
 import java.util.Map;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 
-/**
- * A simple {@link Fragment} subclass.
- */
-public class StoreDuiHuanFragment extends Fragment {
+public class IntegarlCoinListActivity extends BaseActivity {
 
-
+    @Bind(R.id.tv_title)
+    TextView tvTitle;
     @Bind(R.id.recyclerview)
     RecyclerView mRecyclerView;
     @Bind(R.id.refreshLayout)
     SmartRefreshLayout mRefreshLayout;
+    private String mToken;
+    private ArrayList<DanmuMessage> mListData = new ArrayList();
+    private RecordCoinRecyclerListAdapter mAdapter = new RecordCoinRecyclerListAdapter(this, mListData);
 
-    public StoreDuiHuanFragment() {
-        // Required empty public constructor
+
+    public void goBack(View v) {
+        finish();
     }
 
-    private String mToken;
-    private ArrayList<ZhuaRecordBean.InfoBean> mListData = new ArrayList();
-    private ZhuaRecordAdapter mAdapter = new ZhuaRecordAdapter( mListData);
-
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_store_dui_huan, container, false);
-        ButterKnife.bind(this, view);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        tvTitle.setText(getResources().getString(R.string.intager_record));
         mToken = SPUtils.getInstance().getString("token");
         mRefreshLayout.autoRefresh();
         initGameList();
-        return view;
     }
 
     private void initGameList() {
-        final LinearLayoutManager manager = new LinearLayoutManager(getActivity());
+        final LinearLayoutManager manager = new LinearLayoutManager(this);
         manager.setOrientation(LinearLayoutManager.VERTICAL);
         //mRecyclerView.addItemDecoration(new SpaceItemDecoration(SizeUtils.dp2px(10)));
         mRecyclerView.setLayoutManager(manager);
@@ -85,28 +73,16 @@ public class StoreDuiHuanFragment extends Fragment {
     }
 
     private void getGameData(final int limit_begin) {
-
-        Map<String ,String> params=new HashMap<>();
+        Map<String,String> params = new HashMap<>();
         params.put("token", mToken);
         params.put("limit_begin", String.valueOf(limit_begin));
-        params.put("limit_num", String.valueOf(10));
+        params.put("limit_num", 10+"");
 
-        Api.getDuiRecord(getActivity(), params, new OnRequestDataListener() {
+        Api.getIntegarlCoinRecord(this, params, new OnRequestDataListener() {
             @Override
             public void requestSuccess(int code, JSONObject data) {
-
-                ZhuaRecordBean recordBean = JSON.parseObject(data.toString(), ZhuaRecordBean.class);
-
-                switch (limit_begin){
-                    case 0:
-                        mListData.clear();
-                        mListData.addAll(recordBean.getInfo());
-                        mAdapter.setNewData(mListData);
-                        break;
-                     default:
-                         mListData.addAll(recordBean.getInfo());
-                         mAdapter.addData(mListData);
-                         break;
+                if (limit_begin == 0) {
+                    mListData.clear();
                 }
                 if (mRefreshLayout.isRefreshing()) {
                     mRefreshLayout.finishRefresh();
@@ -114,11 +90,21 @@ public class StoreDuiHuanFragment extends Fragment {
                 if (mRefreshLayout.isLoading()) {
                     mRefreshLayout.finishLoadmore();
                 }
+                JSONArray list = data.getJSONArray("info");
+                for (int i = 0; i < list.size(); i++) {
+                    DanmuMessage g = new DanmuMessage();
+                    JSONObject t = list.getJSONObject(i);
+                    g.setUserName(t.getString("memo"));
+                    g.setUid(t.getString("create_time"));
+                    g.setMessageContent(t.getString("update_integration"));
+                    mListData.add(g);
+                }
+                mAdapter.notifyDataSetChanged();
             }
 
             @Override
             public void requestFailure(int code, String msg) {
-                ToastUtils.showShort(msg);
+                toast(msg);
                 if (mRefreshLayout.isRefreshing()) {
                     mRefreshLayout.finishRefresh();
                 }
@@ -129,9 +115,9 @@ public class StoreDuiHuanFragment extends Fragment {
         });
     }
 
+
     @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        ButterKnife.unbind(this);
+    public int getLayoutResource() {
+        return R.layout.activity_record_coin_list;
     }
 }

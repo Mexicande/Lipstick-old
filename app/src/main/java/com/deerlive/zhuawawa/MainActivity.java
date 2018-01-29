@@ -23,6 +23,7 @@ import com.bigkoo.convenientbanner.listener.OnItemClickListener;
 import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.SizeUtils;
 import com.blankj.utilcode.util.StringUtils;
+import com.deerlive.zhuawawa.activity.ChargeActivity;
 import com.deerlive.zhuawawa.activity.PlayerActivity;
 import com.deerlive.zhuawawa.activity.RecordStoreActivity;
 import com.deerlive.zhuawawa.activity.SettingActivity;
@@ -220,7 +221,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         layoutIntegral = (LinearLayout) temp.findViewById(R.id.layout_integral);
         layoutCharge = (LinearLayout) temp.findViewById(R.id.layout_charge);
 
-
         mConvenientBanner.setPointViewVisible(true);
         mConvenientBanner.setPages(new CBViewHolderCreator<LocalImageHolderView>() {
             @Override
@@ -343,7 +343,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                 RecordStoreActivity.launch(this);
                 break;
             case  R.id.layout_charge:
-
+                ChargeActivity.launch(this);
                 break;
             default:
                 break;

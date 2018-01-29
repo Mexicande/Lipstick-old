@@ -3,96 +3,55 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg"
     android:orientation="vertical">
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp">
-    <ImageView
-        android:layout_marginLeft="10dp"
-        android:layout_width="43dp"
-        android:layout_height="23dp"
-        android:paddingRight="20dp"
-        android:foreground = "?attr/selectableItemBackground"
-        android:layout_centerVertical="true"
-        android:src="@mipmap/player_back"
-        android:onClick="goBack"/>
+    <include layout="@layout/charge_toolbar"/>
+
+    <!--    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
         <ImageView
-            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="10dp"
+            android:layout_width="43dp"
+            android:layout_height="23dp"
+            android:paddingRight="20dp"
+            android:foreground = "?attr/selectableItemBackground"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/player_back"
+            android:onClick="goBack"/>
+            <ImageView
+                android:layout_gravity="center_horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="22dp"
+                android:layout_centerInParent="true"
+                android:src="@drawable/index_top"
+                />
+        <TextView
+            android:id="@+id/tv_title"
             android:layout_width="wrap_content"
-            android:layout_height="22dp"
+            android:layout_height="20dp"
             android:layout_centerInParent="true"
-            android:src="@drawable/index_top"
+            android:text=""
+            android:textColor="@color/white"
+            android:textSize="17sp"
             />
-    <TextView
-        android:id="@+id/tv_title"
-        android:layout_width="wrap_content"
-        android:layout_height="20dp"
-        android:layout_centerInParent="true"
-        android:text=""
-        android:textColor="@color/white"
-        android:textSize="17sp"
-        />
-    </RelativeLayout>
+        </RelativeLayout>-->
 
     <ScrollView
+        android:background="@color/bg_color"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
         android:scrollbars="none">
         <LinearLayout
+            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="15dp"
-                android:background="@drawable/mess_bg"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:padding="5dp">
-
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/my_balance"
-                    android:textColor="@android:color/white"
-                    android:textSize="12sp" />
-
-                <ImageView
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
-                    android:layout_marginLeft="2dp"
-                    android:layout_marginRight="2dp"
-                    android:src="@drawable/game_icon" />
-
-                <com.deerlive.zhuawawa.view.StrokeTextView
-                    android:id="@+id/my_balance_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:layout_marginLeft="2dp"
-                    android:shadowColor="@android:color/black"
-                    android:shadowDx="5"
-                    android:shadowDy="5"
-                    android:shadowRadius="5"
-                    android:text="123"
-                    android:textSize="12sp"
-                    android:textStyle="bold"
-                    app:innnerColor="@android:color/white"
-                    app:outerColor="@color/colorIndexFont" />
-            </LinearLayout>
-
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/pay_method_list"
+                android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
+                android:layout_height="wrap_content">
+            </android.support.v7.widget.RecyclerView>
 
             <LinearLayout
                 android:id="@+id/pay_container"
@@ -190,18 +149,6 @@
             </LinearLayout>
 
 
-            <Button
-                android:id="@+id/beigin_pay"
-                android:onClick="beigin_pay"
-                android:elevation="1dp"
-                android:layout_marginTop="20dp"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:text="确认支付"
-                android:textSize="20sp"
-                android:textColor="@color/text_color"
-                android:background="@drawable/exit_button"
-                />
         </LinearLayout>
 
     </ScrollView>

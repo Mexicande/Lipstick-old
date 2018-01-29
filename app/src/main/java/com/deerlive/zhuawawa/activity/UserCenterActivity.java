@@ -154,7 +154,7 @@ public class UserCenterActivity extends BaseActivity {
      */
     public void intager_record(View v) {
 
-        ActivityUtils.startActivity(RecordCoinListActivity.class);
+        ActivityUtils.startActivity(IntegarlCoinListActivity.class);
     }
 
     @Override

@@ -10,6 +10,8 @@
             android:id="@+id/iv_banner1"
             android:layout_weight="1"
             android:layout_width="0dp"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
             android:layout_height="150dp" />
         <View
             android:layout_width="1dp"
@@ -17,6 +19,8 @@
         <ImageView
             android:id="@+id/iv_banner2"
             android:layout_weight="1"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
             android:layout_width="0dp"
             android:layout_height="150dp" />
     </LinearLayout>

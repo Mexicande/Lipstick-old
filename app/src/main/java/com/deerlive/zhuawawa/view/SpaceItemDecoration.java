@@ -18,7 +18,7 @@ public class SpaceItemDecoration extends RecyclerView.ItemDecoration {
     @Override
     public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
         //不是第一个的格子都设一个左边和底部的间距
-        outRect.left = space;
+        outRect.left = 0;
         outRect.top = 0;
         outRect.bottom = 20;
         outRect.right = 0;
@@ -39,5 +39,15 @@ public class SpaceItemDecoration extends RecyclerView.ItemDecoration {
             outRect.right = 0;
             outRect.top = 0;
         }
+
+
+      /*  if(space!=0){
+            if (parent.getChildLayoutPosition(view) == 0) {
+                outRect.left = 0;
+                outRect.bottom = 20;
+                outRect.right = 0;
+                outRect.top = 0;
+            }
+        }*/
     }
 }

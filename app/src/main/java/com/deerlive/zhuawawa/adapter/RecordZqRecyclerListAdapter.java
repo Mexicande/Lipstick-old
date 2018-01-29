@@ -127,15 +127,14 @@ public class RecordZqRecyclerListAdapter extends RecyclerView.Adapter<RecyclerVi
                     .error(R.mipmap.logo)
                     .transform(new GlideCircleTransform(mContext))
                     .into(temp.zq_avator);
-            temp.mContainer.setOnClickListener(new View.OnClickListener() {
+         /*   temp.mContainer.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if(mOnRecyclerViewItemClickListener!= null){
                         mOnRecyclerViewItemClickListener.onRecyclerViewItemClick(v,position);
                     }
                 }
-            });
-
+            });*/
         }
     }
 

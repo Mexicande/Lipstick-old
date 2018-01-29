@@ -26,11 +26,14 @@ import com.deerlive.zhuawawa.intf.OnRequestDataListener;
 import com.deerlive.zhuawawa.intf.User_integration;
 import com.deerlive.zhuawawa.model.GiftStoreBean;
 import com.deerlive.zhuawawa.model.GrabBean;
+import com.deerlive.zhuawawa.model.eventbean.IntegarStore;
 import com.deerlive.zhuawawa.view.SpaceItemDecoration;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -53,16 +56,9 @@ public class IntegarFragment extends Fragment {
     private IntegarStoreAdapter integarStoreAdapter;
     private String mToken;
 
-    private User_integration mCallback;
 
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context != null) {
-            mCallback = (User_integration) context;
-        }
-    }
+
 
     public IntegarFragment() {
         // Required empty public constructor
@@ -124,34 +120,45 @@ public class IntegarFragment extends Fragment {
                 if (limit_begin == 0) {
                     mDateList.clear();
                 }
+
+                GiftStoreBean grabBean = JSON.parseObject(data.toString(), GiftStoreBean.class);
+
+                switch (limit_begin){
+                    case 0:
+                        mDateList.clear();
+                        mDateList.addAll(grabBean.getInfo().getGift());
+                        integarStoreAdapter.setNewData(mDateList);
+                        break;
+                    default:
+                        mDateList.addAll(grabBean.getInfo().getGift());
+                        integarStoreAdapter.addData(mDateList);
+                        break;
+
+                }
                 if (refreshLayout.isRefreshing()) {
                     refreshLayout.finishRefresh();
                 }
                 if (refreshLayout.isLoading()) {
                     refreshLayout.finishLoadmore();
                 }
-                GiftStoreBean grabBean = JSON.parseObject(data.toString(), GiftStoreBean.class);
-                mDateList.addAll(grabBean.getInfo().getGift());
-                integarStoreAdapter.addData(grabBean.getInfo().getGift());
-                mCallback.requestSuccess(String.valueOf(grabBean.getIntegrations().getUser_integration()));
+                EventBus.getDefault().post(new IntegarStore(grabBean.getIntegrations().getUser_integration()));
                 if(grabBean.getBanner().getPic()!=null){
                     if(grabBean.getBanner().getPic().size()==1){
                         getHead();
-                        Glide.with(getActivity()).load(grabBean.getBanner().getPic().get(0))
+                        Glide.with(getActivity()).load(grabBean.getBanner().getPic().get(0).getImg())
                                 .error(R.mipmap.logo)
                                 .into(banner1);
                     }else if(grabBean.getBanner().getPic().size()==2){
                         getHead();
-                        Glide.with(getActivity()).load(grabBean.getBanner().getPic().get(0))
+                        Glide.with(getActivity()).load(grabBean.getBanner().getPic().get(0).getImg())
                                 .error(R.mipmap.logo)
                                 .into(banner1);
-                        Glide.with(getActivity()).load(grabBean.getBanner().getPic().get(1))
+                        Glide.with(getActivity()).load(grabBean.getBanner().getPic().get(1).getImg())
                                 .error(R.mipmap.logo)
                                 .into(banner2);
                     }
                 }
 
-                integarStoreAdapter.notifyDataSetChanged();
             }
 
             @Override

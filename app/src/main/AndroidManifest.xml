@@ -222,7 +222,8 @@
             android:value="3f41585a44f8cc5a3b8aeb5b" />  </>值来自开发者平台取得的AppKey
         -->
         <activity android:name=".activity.WeChatActivity" />
-        <activity android:name=".activity.RecordStoreActivity"></activity>
+        <activity android:name=".activity.RecordStoreActivity" />
+        <activity android:name=".activity.IntegarlCoinListActivity"></activity>
     </application>
 
 </manifest>

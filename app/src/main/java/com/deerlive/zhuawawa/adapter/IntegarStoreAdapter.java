@@ -33,8 +33,9 @@ public class IntegarStoreAdapter extends BaseQuickAdapter<GiftStoreBean.InfoBean
     @Override
     protected void convert(BaseViewHolder helper, GiftStoreBean.InfoBean.GiftBean item) {
         helper.setText(R.id.gift_name,item.getName())
-                .setText(R.id.gift_price,item.getIntegartion()+"积分")
+                .setText(R.id.gift_price,item.getIntegration()+"积分")
                  .addOnClickListener(R.id.duihuan);
+
         Glide.with(mContext).load(item.getList_img())
                 .error(R.mipmap.logo)
                 .into((ImageView)helper.getView(R.id.gift_img))

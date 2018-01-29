@@ -30,7 +30,6 @@ import com.deerlive.zhuawawa.common.Api;
 import com.deerlive.zhuawawa.intf.OnRecyclerViewItemClickListener;
 import com.deerlive.zhuawawa.intf.OnRequestDataListener;
 import com.deerlive.zhuawawa.model.DanmuMessage;
-import com.deerlive.zhuawawa.model.PayMethod;
 import com.deerlive.zhuawawa.model.PayModel;
 import com.deerlive.zhuawawa.pay.alipay.Alipay;
 import com.deerlive.zhuawawa.pay.alipay.PayResult;

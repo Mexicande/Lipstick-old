@@ -9,17 +9,28 @@ import java.util.List;
 
 public class GiftStoreBean implements Serializable {
 
+
     /**
-     * info : {"code":200,"gift":[{"id":"1","name":"海绵宝宝","integartion":"20","list_img":"http://local.testdoll.com/data/upload/"}],"descrp":"success"}
-     * integrations : {"User_integration":0}
-     * banner : {"code":200,"pic":[{"id":"5","title":"海绵宝宝","img":"http://local.testdoll.com/data/upload/"}],"descrp":"success"}
+     * code : 200
+     * info : {"gift":[{"id":"1","name":"海绵宝宝","integration":"20","list_img":"http://local.testdoll.com/data/upload/"}],"descrp":"success"}
+     * integrations : {"user_integration":"0"}
+     * banner : {"pic":[{"id":"5","title":"海绵宝宝","img":"http://local.testdoll.com/data/upload/"}],"descrp":"success"}
      * limit_end : 1
      */
 
+    private int code;
     private InfoBean info;
     private IntegrationsBean integrations;
     private BannerBean banner;
     private int limit_end;
+
+    public int getCode() {
+        return code;
+    }
+
+    public void setCode(int code) {
+        this.code = code;
+    }
 
     public InfoBean getInfo() {
         return info;
@@ -55,22 +66,12 @@ public class GiftStoreBean implements Serializable {
 
     public static class InfoBean implements Serializable{
         /**
-         * code : 200
-         * gift : [{"id":"1","name":"海绵宝宝","integartion":"20","list_img":"http://local.testdoll.com/data/upload/"}]
+         * gift : [{"id":"1","name":"海绵宝宝","integration":"20","list_img":"http://local.testdoll.com/data/upload/"}]
          * descrp : success
          */
 
-        private int code;
         private String descrp;
         private List<GiftBean> gift;
-
-        public int getCode() {
-            return code;
-        }
-
-        public void setCode(int code) {
-            this.code = code;
-        }
 
         public String getDescrp() {
             return descrp;
@@ -92,7 +93,7 @@ public class GiftStoreBean implements Serializable {
             /**
              * id : 1
              * name : 海绵宝宝
-             * integartion : 20
+             * integration : 20
              * list_img : http://local.testdoll.com/data/upload/
              */
 
@@ -117,12 +118,12 @@ public class GiftStoreBean implements Serializable {
                 this.name = name;
             }
 
-            public String getIntegartion() {
+            public String getIntegration() {
                 return integration;
             }
 
-            public void setIntegartion(String integartion) {
-                this.integration = integartion;
+            public void setIntegration(String integration) {
+                this.integration = integration;
             }
 
             public String getList_img() {
@@ -137,7 +138,7 @@ public class GiftStoreBean implements Serializable {
 
     public static class IntegrationsBean implements Serializable{
         /**
-         * User_integration : 0
+         * user_integration : 0
          */
 
         private int user_integration;
@@ -153,22 +154,12 @@ public class GiftStoreBean implements Serializable {
 
     public static class BannerBean implements Serializable{
         /**
-         * code : 200
          * pic : [{"id":"5","title":"海绵宝宝","img":"http://local.testdoll.com/data/upload/"}]
          * descrp : success
          */
 
-        private int code;
         private String descrp;
         private List<PicBean> pic;
-
-        public int getCode() {
-            return code;
-        }
-
-        public void setCode(int code) {
-            this.code = code;
-        }
 
         public String getDescrp() {
             return descrp;
