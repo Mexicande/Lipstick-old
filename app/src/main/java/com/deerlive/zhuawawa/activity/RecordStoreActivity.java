@@ -48,7 +48,7 @@ public class RecordStoreActivity extends BaseActivity  {
     @Bind(R.id.magic_indicator)
     MagicIndicator magicIndicator;
 
-    private static List<String> mDataList = new ArrayList<>();
+    private  List<String> mDataList = new ArrayList<>();
     @Bind(R.id.view_pager)
     ViewPager viewPager;
 

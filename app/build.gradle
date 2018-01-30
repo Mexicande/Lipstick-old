@@ -125,6 +125,7 @@ dependencies {
     compile 'com.tencent.bugly:crashreport:latest.release'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     testCompile 'junit:junit:4.12'
+    compile 'com.github.mancj:SlideUp-Android:2.2.5'
 
     compile 'com.lzy.net:okgo:3.0.4'
     compile 'com.lzy.net:okrx2:2.0.2'

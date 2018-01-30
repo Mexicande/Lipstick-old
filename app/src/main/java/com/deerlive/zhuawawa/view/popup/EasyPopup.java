@@ -24,6 +24,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroupOverlay;
 import android.view.ViewTreeObserver;
+import android.view.WindowManager;
 import android.widget.PopupWindow;
 
 /**
@@ -119,6 +120,7 @@ public class EasyPopup implements PopupWindow.OnDismissListener {
             mPopupWindow.setWidth(ViewGroup.LayoutParams.WRAP_CONTENT);
         }
 
+
         if (mHeight != 0) {
             mPopupWindow.setHeight(mHeight);
         } else {
@@ -136,6 +138,7 @@ public class EasyPopup implements PopupWindow.OnDismissListener {
             mPopupWindow.setFocusable(true);
             mPopupWindow.setOutsideTouchable(false);
             mPopupWindow.setBackgroundDrawable(null);
+
             //注意下面这三个是contentView 不是PopupWindow，响应返回按钮事件
             mPopupWindow.getContentView().setFocusable(true);
             mPopupWindow.getContentView().setFocusableInTouchMode(true);
@@ -150,6 +153,12 @@ public class EasyPopup implements PopupWindow.OnDismissListener {
                     return false;
                 }
             });
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
+                mPopupWindow.setAttachedInDecor(true);
+            }
+            mPopupWindow.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+
+
             //在Android 6.0以上 ，只能通过拦截事件来解决
             mPopupWindow.setTouchInterceptor(new View.OnTouchListener() {
                 @Override
@@ -187,6 +196,19 @@ public class EasyPopup implements PopupWindow.OnDismissListener {
         }
 
         return (T) this;
+    }
+
+    public int getStatusBarHeight(Context context) {
+        int result = 0;
+        int resourceId = context
+                .getResources()
+                .getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            result = context
+                    .getResources()
+                    .getDimensionPixelSize(resourceId);
+        }
+        return result;
     }
 
     /****自定义生命周期方法****/

@@ -84,7 +84,7 @@ public class Api {
     private static final String REQUEST_CONNECT_DEVICE = HOST + "Api/SiSi/connDeviceControl";
    // private static final String GET_NOTAKEN_WAWA = HOST + "Api/SiSi/getNotTakenWawaByUid";
     private static final String GET_NOTAKEN_WAWA = HOST + "Api/SiSi/getNotTakenWawaByToken";
-    private static final String GET_MESSAGE = HOST + "Api/SiSi/get_message";
+    private static final String GET_MESSAGE = HOST + "Api/SiSi/pushNotice";
     //private static final String APPLY_POST_DUIHUAN_WAWA = HOST + "Api/SiSi/applyPostWawa";
 
     private static final String APPLY_POST_DUIHUAN_WAWA = HOST + "Api/SiSi/getPostConvert";
@@ -104,9 +104,7 @@ public class Api {
     public static void getNoTakenWawa(final Context context, JSONObject params, final OnRequestDataListener listener) {
         excutePost(GET_NOTAKEN_WAWA, context, params,listener);
     }
-    public static void getMessage(final Context context, JSONObject params, final OnRequestDataListener listener) {
-        excutePost(GET_MESSAGE, context, params,listener);
-    }
+
     public static void requestConnectDevice(final Context context, JSONObject params, final OnRequestDataListener listener) {
         excutePost(REQUEST_CONNECT_DEVICE, context, params,listener);
     }
@@ -118,8 +116,10 @@ public class Api {
     public static void getStoreIntegar(FragmentActivity context,  Map<String,String> params , OnRequestDataListener listener) {
         newExcuteMapPost(STORE_INTEGAR, context, params,listener);
     }
-
-
+    //消息通知
+    public static void getMessage(final Context context, Map<String,String> params, final OnRequestDataListener listener) {
+        newExcuteMapPost(GET_MESSAGE, context, params,listener);
+    }
 
 
     public static void getPayMethod(final Context context, Map<String,String> params, final OnRequestDataListener listener) {

@@ -94,7 +94,7 @@ public class IntegarlCoinListActivity extends BaseActivity {
                 for (int i = 0; i < list.size(); i++) {
                     DanmuMessage g = new DanmuMessage();
                     JSONObject t = list.getJSONObject(i);
-                    g.setUserName(t.getString("memo"));
+                    g.setUserName(t.getString("mem"));
                     g.setUid(t.getString("create_time"));
                     g.setMessageContent(t.getString("update_integration"));
                     mListData.add(g);
