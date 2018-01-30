@@ -29,8 +29,6 @@ public class UserCenterActivity extends BaseActivity {
     TextView mUserWqnum;
     @Bind(R.id.user_id)
     TextView mUserId;
-    @Bind(R.id.tv_service)
-    TextView tvService;
     private String mmUserName;
     private String mmAvator;
     private String mmBalance;
@@ -111,9 +109,9 @@ public class UserCenterActivity extends BaseActivity {
         ActivityUtils.startActivity(ChargeActivity.class);
     }*/
 
-    public void onCustomer(View v) {
+  /*  public void onCustomer(View v) {
         ActivityUtils.startActivity(WeChatActivity.class);
-    }
+    }*/
 
 
     public void goWaWa(View v) {

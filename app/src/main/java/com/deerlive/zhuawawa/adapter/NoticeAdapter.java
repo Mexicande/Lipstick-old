@@ -18,8 +18,6 @@ import java.util.List;
 
 public class NoticeAdapter extends BaseQuickAdapter<NoticeMessageBean.InfoBean,BaseViewHolder> {
 
-
-
     public NoticeAdapter(List<NoticeMessageBean.InfoBean> data) {
         super(R.layout.notice_item, data);
 
