@@ -4,46 +4,49 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.blankj.utilcode.util.SPUtils;
 import com.deerlive.zhuawawa.R;
 import com.deerlive.zhuawawa.adapter.InfoRecyclerListAdapter;
+import com.deerlive.zhuawawa.adapter.NoticeAdapter;
 import com.deerlive.zhuawawa.base.BaseActivity;
 import com.deerlive.zhuawawa.common.Api;
 import com.deerlive.zhuawawa.intf.OnRequestDataListener;
 import com.deerlive.zhuawawa.model.DanmuMessage;
+import com.deerlive.zhuawawa.model.NoticeMessageBean;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.Bind;
-import butterknife.OnClick;
 
 public class MessageActivity extends BaseActivity {
 
-    @Bind(R.id.layout_top_title)
-    TextView mTextTopTitle;
 
     @Bind(R.id.refreshLayout)
     SmartRefreshLayout mRefreshLayout;
     @Bind(R.id.recyclerview)
     RecyclerView mRecyclerView;
+    @Bind(R.id.tv_title)
+    TextView tvTitle;
     private String mToken;
-    private ArrayList<DanmuMessage> mListData = new ArrayList();
-    private InfoRecyclerListAdapter mAdapter = new InfoRecyclerListAdapter(this,mListData);
+    private ArrayList<NoticeMessageBean.InfoBean> mListData = new ArrayList();
+    private NoticeAdapter mAdapter = new NoticeAdapter(mListData);
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mTextTopTitle.setText(getResources().getString(R.string.message));
+        tvTitle.setText(getResources().getString(R.string.message));
         mToken = SPUtils.getInstance().getString("token");
         mRefreshLayout.autoRefresh();
         initMessageList();
@@ -70,50 +73,44 @@ public class MessageActivity extends BaseActivity {
     }
 
     private void getGameData(final int limit_begin) {
-        JSONObject params = new JSONObject();
-        params.put("token",mToken);
-        params.put("limit_begin",limit_begin);
-        params.put("limit_num",10);
+        Map<String,String> params=new HashMap<>();
+        params.put("token", mToken);
+        params.put("limit_begin", String.valueOf(limit_begin));
+        params.put("limit_num", 10+"");
         Api.getMessage(this, params, new OnRequestDataListener() {
             @Override
             public void requestSuccess(int code, JSONObject data) {
-                if(limit_begin == 0){
+                if (limit_begin == 0) {
                     mListData.clear();
                 }
-                if(mRefreshLayout.isRefreshing()){
+                if (mRefreshLayout.isRefreshing()) {
                     mRefreshLayout.finishRefresh();
                 }
-                if(mRefreshLayout.isLoading()){
+                if (mRefreshLayout.isLoading()) {
                     mRefreshLayout.finishLoadmore();
                 }
-                JSONArray list = data.getJSONArray("info");
-                for (int i = 0; i < list.size(); i++) {
-                    DanmuMessage g = new DanmuMessage();
-                    JSONObject t = list.getJSONObject(i);
-                    g.setUserName(t.getString("title"));
-                    g.setUid(t.getString("make_time"));
-                    g.setMessageContent(t.getString("content"));
-                    mListData.add(g);
-                }
-                mAdapter.notifyDataSetChanged();
+                NoticeMessageBean noticeMessageBean = JSON.parseObject(data.toString(), NoticeMessageBean.class);
+                mListData.addAll(noticeMessageBean.getInfo());
+                mAdapter.addData(mListData);
             }
 
             @Override
             public void requestFailure(int code, String msg) {
                 toast(msg);
-                if(mRefreshLayout.isRefreshing()){
+                if (mRefreshLayout.isRefreshing()) {
                     mRefreshLayout.finishRefresh();
                 }
-                if(mRefreshLayout.isLoading()){
+                if (mRefreshLayout.isLoading()) {
                     mRefreshLayout.finishLoadmore();
                 }
             }
         });
     }
 
-    public void goBack(View v){
+    public void goBack(View v) {
         finish();
     }
+
     @Override
     public int getLayoutResource() {
         return R.layout.activity_message_list;

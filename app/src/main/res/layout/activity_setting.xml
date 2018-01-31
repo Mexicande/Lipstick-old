@@ -68,11 +68,11 @@
                 android:layout_height="50dp"
                 android:textSize="16sp"
                 app:sDividerLineHeight="1dp"
-
                 app:sLeftTextColor="@color/text_color"
                 app:sDividerLineColor="@color/e_white"
                 app:sBottomDividerLineMarginLR="10dp"
                 app:sRightViewType="switchBtn"
+                app:sUseShape="false"
                 app:sSwitchIsChecked="true"
                 app:sThumbResource="@drawable/thumb"
                 app:sTrackResource="@drawable/track"
@@ -89,12 +89,11 @@
                 app:sLeftTextColor="@color/text_color"
                 app:sRightViewType="switchBtn"
                 app:sSwitchIsChecked="true"
+                app:sUseShape="false"
                 app:sThumbResource="@drawable/thumb"
                 app:sTrackResource="@drawable/track"
                 app:sLeftTextSize="13dp"
                 app:sLeftTextString="@string/set_bg_yinxiao" />
-
-
             <com.deerlive.zhuawawa.view.supertextview.SuperTextView
                 android:onClick="feedback"
                 android:layout_marginTop="20dp"

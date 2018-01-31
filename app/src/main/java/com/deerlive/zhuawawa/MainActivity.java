@@ -21,6 +21,7 @@ import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.bigkoo.convenientbanner.listener.OnItemClickListener;
 import com.blankj.utilcode.util.ActivityUtils;
+import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.SizeUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.deerlive.zhuawawa.activity.ChargeActivity;
@@ -57,11 +58,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
     private ArrayList<Game> mGameData = new ArrayList();
     private ArrayList<Banner> mBannerData = new ArrayList();
     private ConvenientBanner mConvenientBanner;
+    private String token;
     private GameRecyclerListAdapter mGameAdapter = new GameRecyclerListAdapter(this, mGameData);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        token = SPUtils.getInstance().getString("token");
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 
@@ -337,7 +340,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
     public void onClick(View v) {
         switch (v.getId()){
             case  R.id.layout_invite:
-
+                Bundle temp = new Bundle();
+                temp.putString("title", getResources().getString(R.string.yaoqing_me));
+                temp.putString("jump", Api.URL_GAME_YAOQING + "&token=" +token );
+                ActivityUtils.startActivity(temp, WebviewActivity.class);
                 break;
             case  R.id.layout_integral:
                 RecordStoreActivity.launch(this);

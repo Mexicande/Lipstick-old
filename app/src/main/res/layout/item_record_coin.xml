@@ -7,7 +7,7 @@
     android:layout_height="80dp"
     android:layout_marginTop="10dp"
     app:cardBackgroundColor="@color/white"
-    app:cardElevation="1dp"
+    card_view:cardElevation="0.1dp"
     >
     <LinearLayout
         android:layout_gravity="center_vertical"

@@ -7,4 +7,5 @@
     <dimen name="btn_border_width">1dp</dimen>
     <dimen name="home_textsize">14sp</dimen>
     <dimen name="title_size">22sp</dimen>
+
 </resources>

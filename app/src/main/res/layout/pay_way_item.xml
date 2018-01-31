@@ -5,9 +5,10 @@
     android:orientation="vertical"
     app:cardUseCompatPadding="true"
     app:cardCornerRadius="10dp"
+    android:layout_marginBottom="20dp"
     android:layout_marginLeft="10dp"
     android:layout_marginRight="10dp"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent">
     <LinearLayout
         android:layout_marginBottom="20dp"
         android:layout_marginTop="20dp"
@@ -21,24 +22,25 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/select_payway"/>
-
         <ImageView
             android:id="@+id/linear_pay_weichat_container"
             android:layout_marginTop="20dp"
-            android:onClick="wechatC"
-
+            android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:src="@mipmap/iv_wechat_way"/>
         <ImageView
+            android:visibility="gone"
             android:layout_marginTop="5dp"
-            android:onClick="ZfbC"
             android:id="@+id/linear_pay_zfb_container"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:src="@mipmap/iv_alipay_way"/>
-
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="20dp"/>
     </LinearLayout>
+
 </android.support.v7.widget.CardView>

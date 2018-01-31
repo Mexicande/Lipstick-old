@@ -7,6 +7,17 @@
     <string name="login_weixin">微信登录</string>
     <string name="network_error">请检查网络</string>
     <string name="data_error">数据异常</string>
+
+    <string name="consignee">收货人</string>
+    <string name="hint_consignee">请输入收货人姓名</string>
+    <string name="contact_way">联系方式</string>
+    <string name="hint_contact_way">请输入联系方式</string>
+    <string name="city">省/市/区/县</string>
+    <string name="hint">请选择地址</string>
+    <string name="consignee_address">请选择地址</string>
+    <string name="hint_consignee_address">请输入收货人详细地址</string>
+    <string name="setting_default">设置为默认</string>
+
     <string name="data_empty_error">请先选择数据</string>
     <string name="record_error">暂无该视频</string>
     <string name="about_us">关于我们</string>
