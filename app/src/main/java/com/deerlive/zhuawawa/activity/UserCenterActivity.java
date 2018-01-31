@@ -29,6 +29,10 @@ public class UserCenterActivity extends BaseActivity {
     TextView mUserWqnum;
     @Bind(R.id.user_id)
     TextView mUserId;
+    @Bind(R.id.integration)
+    TextView integration;
+    @Bind(R.id.play_balance)
+    TextView myBalanceText;
     private String mmUserName;
     private String mmAvator;
     private String mmBalance;
@@ -38,6 +42,9 @@ public class UserCenterActivity extends BaseActivity {
 
     public void goBack(View v) {
         finish();
+    }
+    public void goCharge(View v) {
+        ChargeActivity.launch(this);
     }
 
     @Override
@@ -72,6 +79,8 @@ public class UserCenterActivity extends BaseActivity {
         mmBalance = SPUtils.getInstance().getString("balance");
         mToken = SPUtils.getInstance().getString("token");
         mId = SPUtils.getInstance().getString("id");
+
+        myBalanceText.setText(mmBalance);
         mUserName.setText(mmUserName);
         Glide.with(this).load(mmAvator)
                 .error(R.mipmap.logo)
@@ -93,7 +102,13 @@ public class UserCenterActivity extends BaseActivity {
                 SPUtils.getInstance().put("avatar", userinfo.getString("avatar"));
                 SPUtils.getInstance().put("user_nicename", userinfo.getString("user_nicename"));
                 SPUtils.getInstance().put("signaling_key", userinfo.getString("signaling_key"));
+
+
+                myBalanceText.setText(userinfo.getString("balance"));
+
                 mUserWqnum.setText(userinfo.getString("not_token_num"));
+
+                integration.setText(userinfo.getString("integration"));
                 initData();
             }
 
@@ -124,6 +139,7 @@ public class UserCenterActivity extends BaseActivity {
 
     /**
      * 收货地址
+     *
      * @param v
      */
     public void shouHuo(View v) {
@@ -132,6 +148,7 @@ public class UserCenterActivity extends BaseActivity {
 
     /**
      * 抓取记录
+     *
      * @param v
      */
     public void zhuaRecord(View v) {
@@ -140,6 +157,7 @@ public class UserCenterActivity extends BaseActivity {
 
     /**
      * 金币记录
+     *
      * @param v
      */
     public void coinRecord(View v) {
@@ -148,6 +166,7 @@ public class UserCenterActivity extends BaseActivity {
 
     /**
      * 积分记录
+     *
      * @param v
      */
     public void intager_record(View v) {

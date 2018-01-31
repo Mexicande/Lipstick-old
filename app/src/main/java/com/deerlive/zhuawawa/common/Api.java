@@ -68,7 +68,8 @@ public class Api {
     //收货地址
     private static final String GET_SHOUHUO_LOCATION = HOST + "Api/SiSi/getAddress";
 
-    private static final String SET_SHOUHUO_LOCATION = HOST + "Api/SiSi/change_userinfo";
+    //收货地址修改和添加
+    private static final String SET_SHOUHUO_LOCATION = HOST + "Api/SiSi/addAddress";
     //抓取记录
     private static final String GET_ZHUA_RECORD = HOST + "Api/SiSi/getPlayLogByUid";
     //积分商城-兑换记录
@@ -154,9 +155,10 @@ public class Api {
     public static void getCoinRecord(final Context context, JSONObject params, final OnRequestDataListener listener) {
         excutePost(GET_COIN_RECORD, context, params,listener);
     }
+    //收货地址修改Andtianjia
 
-    public static void setShouHuoLocation(final Context context, JSONObject params, final OnRequestDataListener listener) {
-        excutePost(SET_SHOUHUO_LOCATION, context, params,listener);
+    public static void setShouHuoLocation(final Context context,Map<String, String>  params, final OnRequestDataListener listener) {
+        newExcuteMapPost(SET_SHOUHUO_LOCATION, context, params,listener);
     }
 
 

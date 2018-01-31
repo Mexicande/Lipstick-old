@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">快抓娃娃机</string>
     <string name="user_address">收货地址</string>
+    <string name="add_address">新增收货地址</string>
     <string name="integar_store">积分商城</string>
     <string name="net_error">网络请求失败</string>
     <string name="device_error">机器出现故障</string>

@@ -3,49 +3,46 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
+    android:background="@color/white"
     android:orientation="vertical">
-    <FrameLayout
+    <ImageView
+        android:id="@+id/login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scaleType="fitXY"
+        android:paddingBottom="10dp"
+        android:src="@mipmap/open"/>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <ImageView
-            android:id="@+id/login"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="centerCrop"
-            android:src="@drawable/open"/>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-        </LinearLayout>
         <TextView
             android:layout_width="315dp"
-            android:layout_height="50dp"
-            android:layout_gravity="bottom|center"
-            android:layout_marginBottom="120dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:gravity="center_horizontal"
-            android:textColor="@color/white"
-            android:textSize="16sp"
+            android:textColor="@color/black_666"
+            android:textSize="20sp"
             android:text="@string/login_weixin"/>
         <ImageView
+            android:layout_marginTop="40dp"
             android:id="@+id/weChat_login"
             android:layout_width="70dp"
             android:layout_height="70dp"
-            android:layout_marginBottom="70dp"
             android:layout_gravity="bottom|center"
             android:src="@drawable/iv_wechat"
             />
         <LinearLayout
-            android:layout_marginBottom="20dp"
-            android:layout_gravity="bottom|center"
+            android:layout_marginTop="40dp"
+            android:layout_gravity="center_horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
             <CheckBox
-                android:layout_marginTop="2dp"
                 android:id="@+id/checkbox_login"
                 android:layout_width="15dp"
                 android:layout_height="15dp"
+                android:layout_gravity="center_vertical"
                 android:background="@drawable/login_check"
                 android:button="@null"
                 android:checked="true"
@@ -53,12 +50,12 @@
             <TextView
                 android:layout_marginLeft="5dp"
                 android:layout_width="wrap_content"
-                android:layout_height="20dp"
-                android:textColor="@color/white"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:textColor="@color/black_666"
                 android:text="@string/xieyi"
                 android:textSize="12sp"
-                android:layout_marginBottom="20dp"
                 android:onClick="xieyi"/>
         </LinearLayout>
-    </FrameLayout>
+    </LinearLayout>
 </LinearLayout>

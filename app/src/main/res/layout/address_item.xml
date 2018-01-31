@@ -1,17 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/layout"
+    android:layout_marginTop="10dp"
     xmlns:tools="http://schemas.android.com/tools">
     <RelativeLayout
+        android:id="@+id/layout_bg"
         android:paddingTop="10dp"
-        android:paddingLeft="20dp"
+        android:paddingLeft="10dp"
         android:paddingRight="20dp"
-        android:background="@color/white"
         android:paddingBottom="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+        <CheckBox
+            android:id="@+id/checkbox_address"
+            android:layout_width="22dp"
+            android:paddingLeft="10dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:paddingRight="10dp"
+            android:layout_height="22dp"
+            android:layout_margin="10dp"
+            android:layout_centerVertical="true"
+            android:background="@drawable/check_exchange_way"
+            android:button="@null"/>
+
         <TextView
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/checkbox_address"
             android:id="@+id/tv_address"
             android:layout_width="match_parent"
             tools:text="@tools:sample/full_names"
@@ -23,6 +40,7 @@
 
         <ImageView
             android:id="@+id/iv_editext"
+
             android:layout_alignParentRight="true"
             android:layout_below="@id/tv_address"
             android:paddingRight="10dp"
@@ -32,6 +50,8 @@
             android:layout_height="25dp"
             android:src="@mipmap/iv_editext"/>
         <TextView
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/checkbox_address"
             android:gravity="bottom"
             android:layout_alignBottom="@id/iv_editext"
             android:id="@+id/tv_userName"

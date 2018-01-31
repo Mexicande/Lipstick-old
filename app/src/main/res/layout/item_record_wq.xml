@@ -18,7 +18,6 @@
             android:layout_margin="10dp"
             android:layout_gravity="center_vertical"
             android:background="@drawable/check_exchange_way"
-            android:enabled="false"
             android:button="@null"/>
         <ImageView
             android:layout_marginLeft="5dp"

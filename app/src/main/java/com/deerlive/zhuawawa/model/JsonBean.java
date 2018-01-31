@@ -72,5 +72,21 @@ public class JsonBean implements IPickerViewData{
         public void setArea(List<String> area) {
             this.area = area;
         }
+
+        @Override
+        public String toString() {
+            return "CityBean{" +
+                    "name='" + name + '\'' +
+                    ", area=" + area +
+                    '}';
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "JsonBean{" +
+                "name='" + name + '\'' +
+                ", city=" + city +
+                '}';
     }
 }
