@@ -11,20 +11,19 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.bigkoo.convenientbanner.ConvenientBanner;
-import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
-import com.bigkoo.convenientbanner.listener.OnItemClickListener;
 import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.SizeUtils;
 import com.blankj.utilcode.util.StringUtils;
+import com.blankj.utilcode.util.TimeUtils;
+import com.bumptech.glide.Glide;
 import com.deerlive.zhuawawa.activity.ChargeActivity;
 import com.deerlive.zhuawawa.activity.PlayerActivity;
 import com.deerlive.zhuawawa.activity.RecordStoreActivity;
@@ -36,10 +35,7 @@ import com.deerlive.zhuawawa.common.Api;
 import com.deerlive.zhuawawa.common.WebviewActivity;
 import com.deerlive.zhuawawa.intf.OnRecyclerViewItemClickListener;
 import com.deerlive.zhuawawa.intf.OnRequestDataListener;
-import com.deerlive.zhuawawa.model.Banner;
 import com.deerlive.zhuawawa.model.DeviceAndBanner;
-import com.deerlive.zhuawawa.model.Game;
-import com.deerlive.zhuawawa.utils.LocalImageHolderView;
 import com.deerlive.zhuawawa.view.SpaceItemDecoration;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -56,6 +52,7 @@ import java.util.List;
 import java.util.Map;
 
 import butterknife.Bind;
+import cn.bingoogolapple.bgabanner.BGABanner;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener{
 
@@ -63,10 +60,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
     SmartRefreshLayout mRefreshLayout;
     @Bind(R.id.recyclerview)
     RecyclerView mRecyclerView;
-
     private ArrayList<DeviceAndBanner.InfoBean.DeviceBean> mGameData = new ArrayList();
     private ArrayList<DeviceAndBanner.BannerBean.PicBean> mBannerData = new ArrayList();
-    private ConvenientBanner mConvenientBanner;
     private String token;
     private GameRecyclerListAdapter mGameAdapter = new GameRecyclerListAdapter(this, mGameData);
 
@@ -109,10 +104,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                         list.getString("img");
                         String status = list.getString("status");
                         if("0".equals(status)){
-                            adDialog(list);
+                            String advertTime = SPUtils.getInstance().getString("AdvertTime", String.valueOf(1111111111111L));
+                            boolean today = TimeUtils.isToday(advertTime);
+                            if (!today) {
+                                adDialog(list);
+                            }
+
                         }
-
-
                     }
 
                     @Override
@@ -120,7 +118,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
 
                     }
                 });
-
+        long timeMillis = System.currentTimeMillis();
+        SPUtils.getInstance().put("AdvertTime", timeMillis);
     }
 
     private void adDialog(final JSONObject list) {
@@ -166,7 +165,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         checkUpdate();
 
     }
-
+    private DeviceAndBanner deviceAndBanner;
     private void getGameData(final int limit_begin) {
         Map<String,String>params=new HashMap<>();
         params.put("limit_begin", String.valueOf(limit_begin));
@@ -184,26 +183,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                 if (mRefreshLayout.isLoading()) {
                     mRefreshLayout.finishLoadmore();
                 }
-                DeviceAndBanner deviceAndBanner = JSON.parseObject(data.toString(), DeviceAndBanner.class);
+                 deviceAndBanner = JSON.parseObject(data.toString(), DeviceAndBanner.class);
 
-
-               /* for (int i = 0; i < list.size(); i++) {
-                    Game g = new Game();
-                    JSONObject t = list.getJSONObject(i);
-                    g.setGameUrl(t.getString("thumb"));
-                    g.setGameName(t.getString("channel_title"));
-                    g.setGameId(t.getString("deviceid"));
-                    g.setGamePrice(t.getString("price"));
-                    g.setGameStatus(t.getString("channel_status"));
-                    g.setGamePlayUrl(t.getString("channel_stream"));
-                    g.setVip_level(t.getString("vip_level"));
-                    mGameData.add(g);
-                }*/
                 mGameData.addAll(deviceAndBanner.getInfo().getDevice());
                 mGameAdapter.notifyDataSetChanged();
                 mBannerData.clear();
                 mBannerData.addAll(deviceAndBanner.getBanner().getPic());
-                mConvenientBanner.notifyDataSetChanged();
+                mConvenientBanner.setData(mBannerData,null);
             }
 
             @Override
@@ -223,29 +209,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         });
     }
 
-    /*private void getBannerData() {
-        Api.getBanner(this, new JSONObject(), new OnRequestDataListener() {
-            @Override
-            public void requestSuccess(int code, JSONObject data) {
-                mBannerData.clear();
-                JSONArray info = data.getJSONArray("data");
-                for (int i = 0; i < info.size(); i++) {
-                    JSONObject t = info.getJSONObject(i);
-                    Banner item = new Banner();
-                    item.setPic(t.getString("pic"));
-                    item.setTitle(t.getString("title"));
-                    item.setJump(t.getString("jump"));
-                    mBannerData.add(item);
-                }
-                mConvenientBanner.notifyDataSetChanged();
-            }
 
-            @Override
-            public void requestFailure(int code, String msg) {
-                toast(msg);
-            }
-        });
-    }*/
 
     private void initGameList() {
         final GridLayoutManager manager = new GridLayoutManager(this, 2);
@@ -288,33 +252,31 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
     LinearLayout layoutInvite;
     LinearLayout layoutIntegral;
     LinearLayout layoutCharge;
+    private BGABanner mConvenientBanner;
 
     private void initBanner() {
         LinearLayout temp = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.layout_home_banner, null);
-        mConvenientBanner = (ConvenientBanner) temp.findViewById(R.id.convenientBanner);
+        mConvenientBanner = (BGABanner) temp.findViewById(R.id.convenientBanner);
         layoutInvite = (LinearLayout) temp.findViewById(R.id.layout_invite);
         layoutIntegral = (LinearLayout) temp.findViewById(R.id.layout_integral);
         layoutCharge = (LinearLayout) temp.findViewById(R.id.layout_charge);
-
-        mConvenientBanner.setPointViewVisible(true);
-        mConvenientBanner.setPages(new CBViewHolderCreator<LocalImageHolderView>() {
-            @Override
-            public LocalImageHolderView createHolder() {
-                return new LocalImageHolderView();
-            }
-        }, mBannerData);
-        if (mBannerData.size() > 1) {
-            mConvenientBanner.setCanLoop(true);
-        } else {
-            mConvenientBanner.setCanLoop(false);
-        }
-        mConvenientBanner.startTurning(3000);
-
         mGameAdapter.addHeaderView(temp);
 
-        mConvenientBanner.setOnItemClickListener(new OnItemClickListener() {
+
+        mConvenientBanner.setAdapter(new BGABanner.Adapter<ImageView, DeviceAndBanner.BannerBean.PicBean>() {
             @Override
-            public void onItemClick(int position) {
+            public void fillBannerItem(BGABanner banner, ImageView itemView, DeviceAndBanner.BannerBean.PicBean model, int position) {
+
+                Glide.with(MainActivity.this)
+                        .load(model.getImg())
+                        .centerCrop()
+                        .into(itemView);
+
+            }
+        });
+        mConvenientBanner.setDelegate(new BGABanner.Delegate<ImageView, DeviceAndBanner.BannerBean.PicBean>() {
+            @Override
+            public void onBannerItemClick(BGABanner banner, ImageView itemView, DeviceAndBanner.BannerBean.PicBean model, int position) {
                 if (!" ".equals(mBannerData.get(position).getJump())&&mBannerData.get(position).getJump()!=null) {
                     DeviceAndBanner.BannerBean.PicBean b = mBannerData.get(position);
                     Bundle temp = new Bundle();
@@ -324,36 +286,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                 }
             }
         });
-       // setHeaderListener();
+
+
+
         layoutInvite.setOnClickListener(this);
         layoutIntegral.setOnClickListener(this);
         layoutCharge.setOnClickListener(this);
     }
 
-    private void setHeaderListener() {
-        //邀请
-        layoutInvite.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-        //积分商城
-        layoutIntegral.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-        //充值
-        layoutCharge.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-
-    }
 
     /**
      * 通告

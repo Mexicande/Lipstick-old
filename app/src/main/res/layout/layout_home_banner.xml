@@ -4,11 +4,20 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
-    <com.bigkoo.convenientbanner.ConvenientBanner
+
+    <cn.bingoogolapple.bgabanner.BGABanner
         android:id="@+id/convenientBanner"
-            android:layout_width="match_parent"
-        android:layout_height="160dp"
-        />
+        android:layout_width="wrap_content"
+        android:layout_height="150dp"
+        style="@style/BannerDefaultStyle"
+        app:banner_isNeedShowIndicatorOnOnlyOnePage="true"
+        app:banner_pointDrawable="@drawable/bga_banner_selector_point_hollow"
+        app:banner_pointAutoPlayAble="true"
+        app:banner_pointContainerBackground="@android:color/transparent"
+        app:banner_transitionEffect="defaultEffect"
+        >
+    </cn.bingoogolapple.bgabanner.BGABanner>
+
     <LinearLayout
         android:layout_marginTop="10dp"
         android:layout_marginRight="10dp"
@@ -64,7 +73,7 @@
                 />
             <TextView
                 android:textSize="@dimen/home_textsize"
-                android:textColor="@color/text_gray"
+                android:textColor="@color/text_black"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/tv_invite"/>
@@ -85,7 +94,7 @@
             <TextView
                 android:textSize="@dimen/home_textsize"
 
-                android:textColor="@color/text_gray"
+                android:textColor="@color/text_black"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/tv_integral"/>
@@ -106,7 +115,7 @@
             <TextView
                 android:textSize="@dimen/home_textsize"
 
-                android:textColor="@color/text_gray"
+                android:textColor="@color/text_black"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/tv_charge"/>

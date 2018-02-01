@@ -25,6 +25,8 @@ import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.Bind;
 
@@ -131,9 +133,11 @@ public class UserCenterOtherActivity extends BaseActivity {
     }
 
     private void getUserInfo(String userId) {
-        JSONObject p = new JSONObject();
-        p.put("token",mToken);
-        p.put("id",userId);
+
+        Map<String,String> p=new HashMap<>();
+        p.put("token", mToken);
+        p.put("id", userId);
+
         Api.getUserInfo(this, p, new OnRequestDataListener() {
             @Override
             public void requestSuccess(int code, JSONObject data) {

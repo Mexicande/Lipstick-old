@@ -4,19 +4,17 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.blankj.utilcode.util.SPUtils;
 import com.deerlive.zhuawawa.R;
-import com.deerlive.zhuawawa.adapter.InfoRecyclerListAdapter;
 import com.deerlive.zhuawawa.adapter.NoticeAdapter;
 import com.deerlive.zhuawawa.base.BaseActivity;
 import com.deerlive.zhuawawa.common.Api;
 import com.deerlive.zhuawawa.intf.OnRequestDataListener;
-import com.deerlive.zhuawawa.model.DanmuMessage;
 import com.deerlive.zhuawawa.model.NoticeMessageBean;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -38,6 +36,8 @@ public class MessageActivity extends BaseActivity {
     RecyclerView mRecyclerView;
     @Bind(R.id.tv_title)
     TextView tvTitle;
+    @Bind(R.id.iv_default)
+    ImageView ivDefault;
     private String mToken;
     private ArrayList<NoticeMessageBean.InfoBean> mListData = new ArrayList();
     private NoticeAdapter mAdapter = new NoticeAdapter(mListData);
@@ -73,10 +73,10 @@ public class MessageActivity extends BaseActivity {
     }
 
     private void getGameData(final int limit_begin) {
-        Map<String,String> params=new HashMap<>();
+        Map<String, String> params = new HashMap<>();
         params.put("token", mToken);
         params.put("limit_begin", String.valueOf(limit_begin));
-        params.put("limit_num", 10+"");
+        params.put("limit_num", 10 + "");
         Api.getMessage(this, params, new OnRequestDataListener() {
             @Override
             public void requestSuccess(int code, JSONObject data) {
@@ -97,6 +97,10 @@ public class MessageActivity extends BaseActivity {
             @Override
             public void requestFailure(int code, String msg) {
                 toast(msg);
+                if(mListData.size()==0){
+                    ivDefault.setVisibility(View.VISIBLE);
+
+                }
                 if (mRefreshLayout.isRefreshing()) {
                     mRefreshLayout.finishRefresh();
                 }

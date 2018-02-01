@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSONArray;
@@ -35,6 +36,8 @@ public class RecordZhuaListActivity extends BaseActivity implements OnRecyclerVi
     RecyclerView mRecyclerView;
     @Bind(R.id.tv_title)
     TextView tvTitle;
+    @Bind(R.id.iv_default)
+    ImageView ivDefault;
     private String mToken;
     private ArrayList<DanmuMessage> mListData = new ArrayList();
     private RecordZqRecyclerListAdapter mAdapter = new RecordZqRecyclerListAdapter(this, mListData);
@@ -98,12 +101,18 @@ public class RecordZhuaListActivity extends BaseActivity implements OnRecyclerVi
                     g.setRemoteUid(t.getString("video_status"));
                     mListData.add(g);
                 }
+
+
                 mAdapter.notifyDataSetChanged();
             }
 
             @Override
             public void requestFailure(int code, String msg) {
                 toast(msg);
+                if(mListData.size()==0){
+                    ivDefault.setVisibility(View.VISIBLE);
+
+                }
                 if (mRefreshLayout.isRefreshing()) {
                     mRefreshLayout.finishRefresh();
                 }

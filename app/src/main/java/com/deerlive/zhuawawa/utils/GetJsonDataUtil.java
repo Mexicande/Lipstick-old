@@ -18,13 +18,13 @@ import java.io.InputStreamReader;
 public class GetJsonDataUtil {
 
 
-    public String getJson(Context context,String fileName) {
+    public String getJson(Context context) {
 
         StringBuilder stringBuilder = new StringBuilder();
         try {
             AssetManager assetManager = context.getAssets();
             BufferedReader bf = new BufferedReader(new InputStreamReader(
-                    assetManager.open(fileName)));
+                    assetManager.open("province.json")));
             String line;
             while ((line = bf.readLine()) != null) {
                 stringBuilder.append(line);

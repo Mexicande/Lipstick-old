@@ -8,18 +8,16 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.deerlive.zhuawawa.R;
-import com.deerlive.zhuawawa.adapter.RecordZqRecyclerListAdapter;
 import com.deerlive.zhuawawa.adapter.ZhuaRecordAdapter;
 import com.deerlive.zhuawawa.common.Api;
 import com.deerlive.zhuawawa.intf.OnRequestDataListener;
-import com.deerlive.zhuawawa.model.DanmuMessage;
 import com.deerlive.zhuawawa.model.ZhuaRecordBean;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -43,6 +41,8 @@ public class StoreDuiHuanFragment extends Fragment {
     RecyclerView mRecyclerView;
     @Bind(R.id.refreshLayout)
     SmartRefreshLayout mRefreshLayout;
+    @Bind(R.id.iv_default)
+    ImageView ivDefault;
 
     public StoreDuiHuanFragment() {
         // Required empty public constructor
@@ -50,7 +50,7 @@ public class StoreDuiHuanFragment extends Fragment {
 
     private String mToken;
     private ArrayList<ZhuaRecordBean.InfoBean> mListData = new ArrayList();
-    private ZhuaRecordAdapter mAdapter = new ZhuaRecordAdapter( mListData);
+    private ZhuaRecordAdapter mAdapter = new ZhuaRecordAdapter(mListData);
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -86,7 +86,7 @@ public class StoreDuiHuanFragment extends Fragment {
 
     private void getGameData(final int limit_begin) {
 
-        Map<String ,String> params=new HashMap<>();
+        Map<String, String> params = new HashMap<>();
         params.put("token", mToken);
         params.put("limit_begin", String.valueOf(limit_begin));
         params.put("limit_num", String.valueOf(10));
@@ -97,16 +97,22 @@ public class StoreDuiHuanFragment extends Fragment {
 
                 ZhuaRecordBean recordBean = JSON.parseObject(data.toString(), ZhuaRecordBean.class);
 
-                switch (limit_begin){
+                switch (limit_begin) {
                     case 0:
                         mListData.clear();
                         mListData.addAll(recordBean.getInfo());
+                        if (mListData.size() == 0) {
+                            ivDefault.setVisibility(View.VISIBLE);
+                        } else {
+                            ivDefault.setVisibility(View.GONE);
+
+                        }
                         mAdapter.setNewData(mListData);
                         break;
-                     default:
-                         mListData.addAll(recordBean.getInfo());
-                         mAdapter.addData(mListData);
-                         break;
+                    default:
+                        mListData.addAll(recordBean.getInfo());
+                        mAdapter.addData(mListData);
+                        break;
                 }
                 if (mRefreshLayout.isRefreshing()) {
                     mRefreshLayout.finishRefresh();
@@ -118,7 +124,10 @@ public class StoreDuiHuanFragment extends Fragment {
 
             @Override
             public void requestFailure(int code, String msg) {
-                ToastUtils.showShort(msg);
+                if(mListData.size()==0){
+                    ivDefault.setVisibility(View.VISIBLE);
+
+                }
                 if (mRefreshLayout.isRefreshing()) {
                     mRefreshLayout.finishRefresh();
                 }

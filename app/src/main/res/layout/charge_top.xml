@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp">
         <ImageView
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="8dp"
             android:layout_width="43dp"
             android:layout_height="23dp"
             android:paddingRight="20dp"
@@ -27,7 +27,7 @@
             android:layout_centerInParent="true"
             android:text=""
             android:textColor="@color/white"
-            android:textSize="17sp"
+            android:textSize="@dimen/title_size"
             />
     </RelativeLayout>
 </RelativeLayout>

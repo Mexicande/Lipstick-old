@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
@@ -24,13 +25,12 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
 
-public class WeiQuListActivity extends BaseActivity implements OnRecyclerViewItemClickListener{
+public class WeiQuListActivity extends BaseActivity implements OnRecyclerViewItemClickListener {
 
     @Bind(R.id.refreshLayout)
     SmartRefreshLayout mRefreshLayout;
@@ -38,6 +38,8 @@ public class WeiQuListActivity extends BaseActivity implements OnRecyclerViewIte
     RecyclerView mRecyclerView;
     @Bind(R.id.tv_title)
     TextView tvTitle;
+    @Bind(R.id.iv_default)
+    ImageView ivDefault;
     private String mToken;
     private CashDialog cashDialog;
     private ArrayList<GrabBean.InfoBean> mListData = new ArrayList();
@@ -109,12 +111,18 @@ public class WeiQuListActivity extends BaseActivity implements OnRecyclerViewIte
                 }
                 GrabBean grabBean = JSON.parseObject(data.toString(), GrabBean.class);
                 mListData.addAll(grabBean.getInfo());
+
+
                 mAdapter.notifyDataSetChanged();
             }
 
             @Override
             public void requestFailure(int code, String msg) {
                 toast(msg);
+                if(mListData.size()==0){
+                    ivDefault.setVisibility(View.VISIBLE);
+
+                }
                 if (limit_begin == 0) {
                     mListData.clear();
                     mAdapter.notifyDataSetChanged();
@@ -137,10 +145,10 @@ public class WeiQuListActivity extends BaseActivity implements OnRecyclerViewIte
     @Override
     public void onRecyclerViewItemClick(View view, int position) {
         int s = mListData.get(position).getRemoteUid();
-        if (s==1) {
+        if (s == 1) {
             mListData.get(position).setRemoteUid(0);
         }
-        if (s==0) {
+        if (s == 0) {
             mListData.get(position).setRemoteUid(1);
         }
         mAdapter.notifyItemChanged(position);
@@ -148,22 +156,23 @@ public class WeiQuListActivity extends BaseActivity implements OnRecyclerViewIte
 
     /**
      * 提取
+     *
      * @param v
      */
     public void tiqu(View v) {
-        final List<GrabBean.InfoBean> list=new ArrayList<>();
-        for(GrabBean.InfoBean mgrab:mListData){
-            if(mgrab.getRemoteUid()==1){
+        final List<GrabBean.InfoBean> list = new ArrayList<>();
+        for (GrabBean.InfoBean mgrab : mListData) {
+            if (mgrab.getRemoteUid() == 1) {
                 list.add(mgrab);
             }
         }
-        if(!list.isEmpty()){
+        if (!list.isEmpty()) {
             cashDialog = new CashDialog(this);
             cashDialog.setYesOnclickListener("是", new CashDialog.onYesOnclickListener() {
                 @Override
                 public void onYesClick() {
                     cashDialog.dismiss();
-                    tiquDuihuan("1",list);
+                    tiquDuihuan("1", list);
                 }
             });
             cashDialog.setNoOnclickListener("否", new CashDialog.onNoOnclickListener() {
@@ -173,35 +182,35 @@ public class WeiQuListActivity extends BaseActivity implements OnRecyclerViewIte
                 }
             });
             cashDialog.show();
-        }else if(mListData.size()!=0){
+        } else if (mListData.size() != 0) {
             toast(getResources().getString(R.string.data_empty_error));
         }
     }
 
     /**
      * 兑换
+     *
      * @param v
      */
     public void duihuan(View v) {
 
-        List<GrabBean.InfoBean> list=new ArrayList<>();
-        for(GrabBean.InfoBean mgrab:mListData){
-            if(mgrab.getRemoteUid()==1){
+        List<GrabBean.InfoBean> list = new ArrayList<>();
+        for (GrabBean.InfoBean mgrab : mListData) {
+            if (mgrab.getRemoteUid() == 1) {
                 list.add(mgrab);
             }
         }
-        if(!list.isEmpty()){
-            tiquDuihuan("0",list);
-        }else if(mListData.size()!=0){
+        if (!list.isEmpty()) {
+            tiquDuihuan("0", list);
+        } else if (mListData.size() != 0) {
             toast(getResources().getString(R.string.data_empty_error));
         }
     }
 
-    private void tiquDuihuan(String type,List<GrabBean.InfoBean> list) {
+    private void tiquDuihuan(String type, List<GrabBean.InfoBean> list) {
 
 
-
-        GrabBean grabBean=new GrabBean();
+        GrabBean grabBean = new GrabBean();
         grabBean.setInfo(list);
         grabBean.setToken(mToken);
         grabBean.setType(type);

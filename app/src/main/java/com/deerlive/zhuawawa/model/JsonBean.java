@@ -2,6 +2,7 @@ package com.deerlive.zhuawawa.model;
 
 import com.bigkoo.pickerview.model.IPickerViewData;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -11,7 +12,7 @@ import java.util.List;
  * @date: 2017/3/16 15:36
  */
 
-public class JsonBean implements IPickerViewData{
+public class JsonBean implements IPickerViewData ,Serializable{
 
 
     /**
@@ -48,7 +49,7 @@ public class JsonBean implements IPickerViewData{
 
 
 
-    public static class CityBean {
+    public static class CityBean implements Serializable{
         /**
          * name : 城市
          * area : ["东城区","西城区","崇文区","昌平区"]

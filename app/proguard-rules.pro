@@ -44,9 +44,13 @@
 -keep class com.autonavi.** {*;}
 -keep class com.a.a.** {*;}
 
+
+
 # Gson混淆脚本
 -keep class com.google.gson.stream.** {*;}
 -keep class com.youyou.uuelectric.renter.Network.user.** {*;}
+
+
 
 # butterknife混淆脚本
 -dontwarn butterknife.internal.**

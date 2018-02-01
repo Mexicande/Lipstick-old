@@ -40,8 +40,31 @@
                         android:textStyle="bold"
                         android:layout_centerVertical="true"
                         android:textColor="@color/white"
-                        android:textSize="22sp"
+                        android:textSize="@dimen/title_size"
                         />
+                    <RelativeLayout
+                        android:id="@+id/layout_gold"
+                        android:layout_marginRight="10dp"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:onClick="goCharge">
+                        <ImageView
+                            android:id="@+id/index_top_set"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:src="@mipmap/player_balance_star"/>
+                        <TextView
+                            android:id="@+id/play_balance"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:text=""
+                            android:textColor="@color/white"
+                            android:textSize="12sp" />
+                    </RelativeLayout>
                 </RelativeLayout>
             </RelativeLayout>
         </RelativeLayout>

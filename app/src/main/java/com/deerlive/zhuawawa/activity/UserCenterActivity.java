@@ -5,6 +5,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSONObject;
@@ -16,6 +17,9 @@ import com.deerlive.zhuawawa.base.BaseActivity;
 import com.deerlive.zhuawawa.common.Api;
 import com.deerlive.zhuawawa.common.GlideCircleTransform;
 import com.deerlive.zhuawawa.intf.OnRequestDataListener;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.Bind;
 
@@ -33,6 +37,8 @@ public class UserCenterActivity extends BaseActivity {
     TextView integration;
     @Bind(R.id.play_balance)
     TextView myBalanceText;
+    @Bind(R.id.layout_integal)
+    LinearLayout layoutIntegal;
     private String mmUserName;
     private String mmAvator;
     private String mmBalance;
@@ -43,6 +49,7 @@ public class UserCenterActivity extends BaseActivity {
     public void goBack(View v) {
         finish();
     }
+
     public void goCharge(View v) {
         ChargeActivity.launch(this);
     }
@@ -64,6 +71,13 @@ public class UserCenterActivity extends BaseActivity {
 
         }
         initData();
+        layoutIntegal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                RecordStoreActivity.launch(UserCenterActivity.this);
+
+            }
+        });
     }
 
     @Override
@@ -90,7 +104,7 @@ public class UserCenterActivity extends BaseActivity {
     }
 
     private void getUserInfo() {
-        JSONObject p = new JSONObject();
+        Map<String, String> p = new HashMap<>();
         p.put("token", mToken);
         p.put("id", mId);
         Api.getUserInfo(this, p, new OnRequestDataListener() {

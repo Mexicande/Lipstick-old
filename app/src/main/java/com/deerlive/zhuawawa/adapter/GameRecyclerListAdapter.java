@@ -153,13 +153,6 @@ public class GameRecyclerListAdapter extends RecyclerView.Adapter<RecyclerView.V
 
     private void setGameStatus(String mGameStatus,SuperButton v) {
         switch (mGameStatus){
-            case "2"://空闲
-                v.setVisibility(View.VISIBLE);
-                v .setText(mContext.getResources().getString(R.string.tv_free));
-                v.setShapeType(SuperButton.RECTANGLE)
-                        .setShapeSolidColor(mContext.getResources().getColor(R.color.blue))
-                        .setUseShape();
-                break;
             case "3": //游戏中
                 v.setVisibility(View.VISIBLE);
                 v.setText(mContext.getResources().getString(R.string.tv_playing));
@@ -168,7 +161,12 @@ public class GameRecyclerListAdapter extends RecyclerView.Adapter<RecyclerView.V
                         .setUseShape();
                 break;
             default:
-                v.setVisibility(View.GONE);
+                v.setVisibility(View.VISIBLE);
+                v .setText(mContext.getResources().getString(R.string.tv_free));
+                v.setShapeType(SuperButton.RECTANGLE)
+                        .setShapeSolidColor(mContext.getResources().getColor(R.color.blue))
+                        .setUseShape();
+                break;
         }
     }
 

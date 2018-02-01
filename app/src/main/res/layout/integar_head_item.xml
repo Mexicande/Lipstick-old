@@ -5,14 +5,14 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:orientation="horizontal"
-        android:layout_height="100dp">
+        android:layout_height="wrap_content">
         <ImageView
             android:id="@+id/iv_banner1"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:adjustViewBounds="true"
-            android:scaleType="centerCrop"
-            android:layout_height="150dp" />
+            android:scaleType="fitXY"
+            android:layout_height="wrap_content" />
         <View
             android:layout_width="1dp"
             android:layout_height="match_parent"/>
@@ -20,8 +20,8 @@
             android:id="@+id/iv_banner2"
             android:layout_weight="1"
             android:adjustViewBounds="true"
-            android:scaleType="centerCrop"
+            android:scaleType="fitXY"
             android:layout_width="0dp"
-            android:layout_height="150dp" />
+            android:layout_height="wrap_content" />
     </LinearLayout>
 </LinearLayout>

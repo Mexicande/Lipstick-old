@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="70dp"
     android:id="@+id/toolbar"
-    android:background="@drawable/shape_toolbar"
-    >
+    app:contentInsetStart="0dp"
+    android:background="@drawable/shape_toolbar">
     <RelativeLayout
         android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <ImageView
+            android:layout_marginLeft="10dp"
             android:id="@+id/index_top_user"
             android:layout_width="45dp"
             android:paddingRight="10dp"
@@ -18,20 +20,22 @@
             android:layout_centerVertical="true"
             android:src="@drawable/index_user"
             android:onClick="userCenter"/>
-        <ImageView
+        <TextView
             android:layout_centerInParent="true"
             android:layout_width="wrap_content"
-            android:layout_height="22dp"
-            android:src="@drawable/index_top"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/title_size"
+            android:textColor="@color/white"
+            android:text="@string/app_name"
             />
 
         <ImageView
             android:id="@+id/index_top_set"
             android:layout_width="45dp"
-            android:layout_height="25dp"
-            android:paddingRight="10dp"
+            android:layout_height="23dp"
+            android:paddingRight="5dp"
             android:paddingLeft="10dp"
-            android:layout_marginRight="3dp"
+            android:layout_marginRight="13dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:src="@mipmap/index_set"

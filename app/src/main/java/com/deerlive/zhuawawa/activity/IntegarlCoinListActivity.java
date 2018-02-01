@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSONArray;
@@ -34,6 +35,8 @@ public class IntegarlCoinListActivity extends BaseActivity {
     RecyclerView mRecyclerView;
     @Bind(R.id.refreshLayout)
     SmartRefreshLayout mRefreshLayout;
+    @Bind(R.id.iv_default)
+    ImageView ivDefault;
     private String mToken;
     private ArrayList<DanmuMessage> mListData = new ArrayList();
     private RecordCoinRecyclerListAdapter mAdapter = new RecordCoinRecyclerListAdapter(this, mListData);
@@ -73,10 +76,10 @@ public class IntegarlCoinListActivity extends BaseActivity {
     }
 
     private void getGameData(final int limit_begin) {
-        Map<String,String> params = new HashMap<>();
+        Map<String, String> params = new HashMap<>();
         params.put("token", mToken);
         params.put("limit_begin", String.valueOf(limit_begin));
-        params.put("limit_num", 10+"");
+        params.put("limit_num", 10 + "");
 
         Api.getIntegarlCoinRecord(this, params, new OnRequestDataListener() {
             @Override
@@ -99,12 +102,17 @@ public class IntegarlCoinListActivity extends BaseActivity {
                     g.setMessageContent(t.getString("update_integration"));
                     mListData.add(g);
                 }
+
                 mAdapter.notifyDataSetChanged();
             }
 
             @Override
             public void requestFailure(int code, String msg) {
                 toast(msg);
+                if(mListData.size()==0){
+                    ivDefault.setVisibility(View.VISIBLE);
+
+                }
                 if (mRefreshLayout.isRefreshing()) {
                     mRefreshLayout.finishRefresh();
                 }

@@ -5,31 +5,8 @@
     android:layout_below="@id/toolbar"
     android:layout_marginTop="70dp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-        <RelativeLayout
-            android:id="@+id/layout_gold"
-            android:layout_marginRight="23dp"
-            android:layout_alignParentRight="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="goCharge">
-            <ImageView
-                android:id="@+id/index_top_set"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:src="@mipmap/player_balance_star"/>
 
-            <TextView
-                android:id="@+id/play_balance"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:text=""
-                android:textColor="@color/white"
-                android:textSize="12sp" />
-        </RelativeLayout>
     <LinearLayout
-        android:layout_below="@id/layout_gold"
         android:layout_width="match_parent"
         android:layout_height="170dp"
         android:orientation="vertical"
@@ -158,6 +135,7 @@
                 android:layout_height="match_parent"/>
 
             <LinearLayout
+                android:id="@+id/layout_integal"
                 android:layout_centerInParent="true"
                 android:layout_width="wrap_content"
                 android:layout_centerVertical="true"

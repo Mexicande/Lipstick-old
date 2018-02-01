@@ -15,15 +15,15 @@ public class NoticeMessageBean implements Serializable{
      * descrp : success
      */
 
-    private String code;
+    private int code;
     private String descrp;
     private List<InfoBean> info;
 
-    public String getCode() {
+    public int getCode() {
         return code;
     }
 
-    public void setCode(String code) {
+    public void setCode(int code) {
         this.code = code;
     }
 

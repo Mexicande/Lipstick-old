@@ -99,7 +99,6 @@ public class ChargeActivity extends BaseActivity {
     }
 
     private ImageView mImageViewBanner;
-
     private void initRecycler() {
         mPaymethidAdapter = new PayMethodRecyclerListAdapter(mPayMethodData);
         GridLayoutManager m = new GridLayoutManager(this, 2);
@@ -163,11 +162,13 @@ public class ChargeActivity extends BaseActivity {
                 mPayMethodData.clear();
                 PayMethod payMethod = JSON.parseObject(data.toString(), PayMethod.class);
                 mPaymethidAdapter.addData(payMethod.getPrices());
-                Glide.with(ChargeActivity.this)
-                        .load(payMethod.getBanner().getPic().getImg())
-                        .error(R.mipmap.logo)
-                        .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                        .into(mImageViewBanner);
+
+                if(payMethod.getBanner().getCode()==200){
+                    Glide.with(ChargeActivity.this)
+                            .load(payMethod.getBanner().getPic().getImg())
+                            .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                            .into(mImageViewBanner);
+                }
             }
 
             @Override

@@ -19,6 +19,7 @@ import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.SizeUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.deerlive.zhuawawa.R;
 import com.deerlive.zhuawawa.adapter.IntegarStoreAdapter;
 import com.deerlive.zhuawawa.common.Api;
@@ -34,6 +35,7 @@ import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import org.greenrobot.eventbus.EventBus;
+import org.json.JSONException;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -55,8 +57,6 @@ public class IntegarFragment extends Fragment {
     SmartRefreshLayout refreshLayout;
     private IntegarStoreAdapter integarStoreAdapter;
     private String mToken;
-
-
 
 
 
@@ -96,6 +96,59 @@ public class IntegarFragment extends Fragment {
                 initDate(mDateList.size());
             }
         });
+        integarStoreAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                convertApply(mDateList.get(position).getId());
+            }
+        });
+        getHead();
+
+    }
+
+    /**
+     * 积分兑换
+     *
+     */
+    private void convertApply(String id) {
+
+        Map<String ,String> params=new HashMap<>();
+        params.put("token", mToken);
+        params.put("id", id);
+        Api.convertApply(getActivity(), params, new OnRequestDataListener() {
+            @Override
+            public void requestSuccess(int code, JSONObject data) {
+                String descrp = data.getString("descrp");
+
+
+                String integration = data.getString("integration");
+
+                try {
+                    org.json.JSONObject jsonObject=new org.json.JSONObject(integration);
+
+                    int user_integration = jsonObject.getInt("user_integration");
+
+                    EventBus.getDefault().post(new IntegarStore(user_integration));
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
+
+
+                ToastUtils.showShort(descrp);
+
+            }
+
+            @Override
+            public void requestFailure(int code, String msg) {
+                ToastUtils.showShort(msg);
+
+            }
+        });
+
+
     }
 
     private ImageView banner1,banner2;
@@ -117,24 +170,16 @@ public class IntegarFragment extends Fragment {
         Api.getStoreIntegar(getActivity(), params, new OnRequestDataListener() {
             @Override
             public void requestSuccess(int code, JSONObject data) {
-                if (limit_begin == 0) {
-                    mDateList.clear();
-                }
-
                 GiftStoreBean grabBean = JSON.parseObject(data.toString(), GiftStoreBean.class);
-
-                switch (limit_begin){
-                    case 0:
-                        mDateList.clear();
-                        mDateList.addAll(grabBean.getInfo().getGift());
-                        integarStoreAdapter.setNewData(mDateList);
-                        break;
-                    default:
-                        mDateList.addAll(grabBean.getInfo().getGift());
-                        integarStoreAdapter.addData(mDateList);
-                        break;
-
+                if(limit_begin==0){
+                    mDateList.clear();
+                    mDateList.addAll(grabBean.getInfo().getGift());
+                    integarStoreAdapter.setNewData(mDateList);
+                }else {
+                    mDateList.addAll(grabBean.getInfo().getGift());
+                    integarStoreAdapter.setNewData(mDateList);
                 }
+
                 if (refreshLayout.isRefreshing()) {
                     refreshLayout.finishRefresh();
                 }
@@ -143,18 +188,14 @@ public class IntegarFragment extends Fragment {
                 }
                 EventBus.getDefault().post(new IntegarStore(grabBean.getIntegrations().getUser_integration()));
                 if(grabBean.getBanner().getPic()!=null){
+
                     if(grabBean.getBanner().getPic().size()==1){
-                        getHead();
                         Glide.with(getActivity()).load(grabBean.getBanner().getPic().get(0).getImg())
-                                .error(R.mipmap.logo)
                                 .into(banner1);
                     }else if(grabBean.getBanner().getPic().size()==2){
-                        getHead();
                         Glide.with(getActivity()).load(grabBean.getBanner().getPic().get(0).getImg())
-                                .error(R.mipmap.logo)
                                 .into(banner1);
                         Glide.with(getActivity()).load(grabBean.getBanner().getPic().get(1).getImg())
-                                .error(R.mipmap.logo)
                                 .into(banner2);
                     }
                 }
@@ -165,10 +206,7 @@ public class IntegarFragment extends Fragment {
             public void requestFailure(int code, String msg) {
                 ToastUtils.showShort(msg);
 
-                if (limit_begin == 0) {
-                    mDateList.clear();
-                    integarStoreAdapter.notifyDataSetChanged();
-                }
+
 
                 if (refreshLayout.isRefreshing()) {
                     refreshLayout.finishRefresh();

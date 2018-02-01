@@ -37,9 +37,9 @@ import cz.msebera.android.httpclient.HttpResponse;
  * Author: XuDeLong
  */
 public class Api {
-    public static final String APP_VER = "1.0.0";
+    public static final String APP_VER = "1.2.0";
     //public static final String HOST = "http://kuailai.deerlive.com/";
-    public static final String HOST = "http://test.doll.anwenqianbao.com/";
+    public static final String HOST = "http://doll.anwenqianbao.com/";
     public static final String OS = "android";
     public static final String QUDAO = "kuailai-one";
 
@@ -78,6 +78,7 @@ public class Api {
     private static final String GET_ZHUA_RECORD = HOST + "Api/SiSi/getPlayLogByUid";
     //积分商城-兑换记录
     private static final String GET_DUI_RECORD = HOST + "Api/SiSi/convertLog";
+    private static final String CONVER_APPLY = HOST + "Api/SiSi/convertApply";
     //用户心中-积分记录
     private static final String GET_INTERGATION_COIN = HOST + "Api/SiSi/intergationLog";
 
@@ -140,8 +141,8 @@ public class Api {
     public static void getLaunchScreen(final Context context, JSONObject params, final OnRequestDataListener listener) {
         excutePost(GET_LAUNCH_SCREEN, context, params, listener);
     }
-    public static void getUserInfo(final Context context, JSONObject params, final OnRequestDataListener listener) {
-        excutePost(GET_USER_INFO, context, params,listener);
+    public static void getUserInfo(final Context context, Map<String,String> params, final OnRequestDataListener listener) {
+        newExcuteMapPost(GET_USER_INFO, context, params,listener);
     }
 
     public static void getZhuaRecord(final Context context, JSONObject params, final OnRequestDataListener listener) {
@@ -151,6 +152,13 @@ public class Api {
     public static void getDuiRecord(FragmentActivity context,Map<String,String> params, OnRequestDataListener listener) {
         newExcuteMapPost(GET_DUI_RECORD, context, params,listener);
     }
+
+    //礼物兑换
+    public static void convertApply(final Context context, Map<String,String> params, final OnRequestDataListener listener) {
+        newExcuteMapPost(CONVER_APPLY, context, params,listener);
+
+    }
+
     // UserCenter 积分记录
 
     public static void getIntegarlCoinRecord(IntegarlCoinListActivity context, Map<String, String> params, OnRequestDataListener listener) {

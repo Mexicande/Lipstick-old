@@ -4,6 +4,8 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardCornerRadius="10dp"
+    android:layout_marginRight="10dp"
+    android:layout_marginLeft="10dp"
     android:background="#ffffff"
     android:orientation="vertical">
     <LinearLayout
