@@ -15,6 +15,7 @@ import com.blankj.utilcode.util.SizeUtils;
 import com.bumptech.glide.Glide;
 import com.deerlive.zhuawawa.R;
 import com.deerlive.zhuawawa.intf.OnRecyclerViewItemClickListener;
+import com.deerlive.zhuawawa.model.DeviceAndBanner;
 import com.deerlive.zhuawawa.model.Game;
 import com.deerlive.zhuawawa.view.supertextview.SuperButton;
 
@@ -37,11 +38,11 @@ public class GameRecyclerListAdapter extends RecyclerView.Adapter<RecyclerView.V
     private View mFooterView;
 
     private Context mContext;
-    private ArrayList<Game> mItems;
+    private ArrayList<DeviceAndBanner.InfoBean.DeviceBean> mItems;
     private int imageWidth;
     private int imageHeight;
     private OnRecyclerViewItemClickListener mOnRecyclerViewItemClickListener;
-    public GameRecyclerListAdapter(Context mContext, ArrayList<Game> mVideoItems) {
+    public GameRecyclerListAdapter(Context mContext, ArrayList<DeviceAndBanner.InfoBean.DeviceBean> mVideoItems) {
 
         this.mContext = mContext;
         this.mItems = mVideoItems;
@@ -126,13 +127,13 @@ public class GameRecyclerListAdapter extends RecyclerView.Adapter<RecyclerView.V
 
         } else {
            final GameViewHolder temp = (GameViewHolder)holder;
-            Game t = mItems.get(position-1);
-            temp.mGameName.setText(t.getGameName());
-            Glide.with(mContext).load(t.getGameUrl())
+            DeviceAndBanner.InfoBean.DeviceBean t = mItems.get(position-1);
+            temp.mGameName.setText(t.getChannel_title());
+            Glide.with(mContext).load(t.getThumb())
                     .error(R.mipmap.logo)
                     .into(temp.mGameIcon);
-            temp.mGamePrice.setText(t.getGamePrice()+"币 / 次");
-            setGameStatus(t.getGameStatus(),temp.mGameStatus);
+            temp.mGamePrice.setText(t.getPrice()+"币 / 次");
+            setGameStatus(t.getChannel_status(),temp.mGameStatus);
             //FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(imageWidth, imageHeight);
             FrameLayout.LayoutParams params1 = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, imageHeight+ SizeUtils.dp2px(40));
             //temp.mGameIcon.setLayoutParams(params);

@@ -8,6 +8,7 @@ import android.util.Log;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.blankj.utilcode.util.LogUtils;
+import com.deerlive.zhuawawa.MainActivity;
 import com.deerlive.zhuawawa.R;
 import com.deerlive.zhuawawa.activity.IntegarlCoinListActivity;
 import com.deerlive.zhuawawa.intf.OnRequestDataListener;
@@ -24,6 +25,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.security.MessageDigest;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -47,7 +49,7 @@ public class Api {
     private static final String LOGIN = HOST + "Api/SiSi/sendOauthUserInfo";
     public static final String ANNUNCIATE = HOST + "Api/SiSi/notice";
     private static final String GET_BANNER = HOST + "Api/SiSi/getBanner";
-    private static final String GET_GAME = HOST + "Api/SiSi/getLive";
+    private static final String GET_GAME = HOST + "Api/SiSi/getLiveBanner";
     private static final String GET_CHANNEL_KEY = HOST + "Api/SiSi/getChannelKey";
     //帮助
     public static final String URL_GAME_HELP = HOST + "/portal/appweb/help?qudao="+QUDAO;
@@ -67,6 +69,8 @@ public class Api {
     private static final String GET_LATEST_DEVICE_RECORD = HOST + "Api/SiSi/getWinLogByDeviceid";
     //收货地址
     private static final String GET_SHOUHUO_LOCATION = HOST + "Api/SiSi/getAddress";
+    //广告弹窗
+    private static final String GET_DIALOG = HOST + "Api/SiSi/pushPopup";
 
     //收货地址修改和添加
     private static final String SET_SHOUHUO_LOCATION = HOST + "Api/SiSi/addAddress";
@@ -78,7 +82,7 @@ public class Api {
     private static final String GET_INTERGATION_COIN = HOST + "Api/SiSi/intergationLog";
 
     private static final String GET_COIN_RECORD = HOST + "Api/SiSi/getMoneylog";
-    private static final String GET_USER_INFO = HOST + "Api/SiSi/getUserInfo";
+    private static final String GET_USER_INFO = HOST + "Api/SiSi/getTokenInfo";
     //充值
     private static final String GET_PAY_METHOD = HOST + "Api/SiSi/get_recharge";
     //积分商城  积分
@@ -103,6 +107,11 @@ public class Api {
     }
     public static void applyPostOrDuiHuanWaWa(final Context context, JSONObject params, final OnRequestDataListener listener) {
         newExcutePost(APPLY_POST_DUIHUAN_WAWA, context, params,listener);
+    }
+    //广告弹窗
+    public static void getDialog(MainActivity mainActivity, HashMap<String, String> stringStringHashMap, OnRequestDataListener onRequestDataListener) {
+        newExcuteMapPost(GET_DIALOG, mainActivity, stringStringHashMap,onRequestDataListener);
+
     }
     public static void getNoTakenWawa(final Context context, JSONObject params, final OnRequestDataListener listener) {
         excutePost(GET_NOTAKEN_WAWA, context, params,listener);
@@ -180,8 +189,9 @@ public class Api {
         excutePost(GET_BANNER, context, params,listener);
     }
 
-    public static void getGameList(final Context context, JSONObject params, final OnRequestDataListener listener) {
-        excutePost(GET_GAME, context, params,listener);
+    //device banner
+    public static void getGameList(final Context context, Map<String, String> params, final OnRequestDataListener listener) {
+        newExcuteMapPost(GET_GAME, context, params,listener);
     }
 
     public static void checkUpdate(final Context context, JSONObject params, final OnRequestDataListener listener) {

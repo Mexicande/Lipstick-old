@@ -60,6 +60,7 @@ import com.deerlive.zhuawawa.fragment.RecordFragment;
 import com.deerlive.zhuawawa.fragment.RecordZjFragment;
 import com.deerlive.zhuawawa.intf.OnRequestDataListener;
 import com.deerlive.zhuawawa.model.DanmuMessage;
+import com.deerlive.zhuawawa.model.DeviceAndBanner;
 import com.deerlive.zhuawawa.model.Game;
 import com.deerlive.zhuawawa.model.MessageType;
 import com.deerlive.zhuawawa.utils.LogUtils;
@@ -381,10 +382,14 @@ public class PlayerActivity extends BaseActivity implements View.OnTouchListener
         mBgm = SPUtils.getInstance().getString("bgm");
         mYinXiao = SPUtils.getInstance().getString("yinxiao");
         mPlayBalance.setText(mmPlayBalance);
-        Game item = (Game) data.getSerializable("item");
-        mRemoteUid = Integer.parseInt(item.getGameId());
-        mChannleName = item.getGameId();
-        mChannelStream = item.getGamePlayUrl();
+        DeviceAndBanner.InfoBean.DeviceBean item = (DeviceAndBanner.InfoBean.DeviceBean) data.getSerializable("item");
+        if((item != null ? item.getDeviceid() : null) !=null){
+
+            mRemoteUid = Integer.parseInt(item.getDeviceid());
+            mChannleName = item.getDeviceid();
+            mChannelStream = item.getChannel_stream();
+        }
+
         getChannelKey();
     }
 

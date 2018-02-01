@@ -8,12 +8,13 @@ import com.bigkoo.convenientbanner.holder.Holder;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.deerlive.zhuawawa.model.Banner;
+import com.deerlive.zhuawawa.model.DeviceAndBanner;
 
 /**
  * Created by apple on 2018/1/4.
  */
 
-public class LocalImageHolderView implements Holder<Banner> {
+public class LocalImageHolderView implements Holder<DeviceAndBanner.BannerBean.PicBean> {
     private ImageView imageView;
     @Override
     public View createView(Context context) {
@@ -23,9 +24,9 @@ public class LocalImageHolderView implements Holder<Banner> {
     }
 
     @Override
-    public void UpdateUI(Context context, final int position, Banner data) {
+    public void UpdateUI(Context context, final int position, DeviceAndBanner.BannerBean.PicBean data) {
         Glide.with(context)
-                .load(data.getPic())
+                .load(data.getImg())
                 .dontAnimate()
                 .centerCrop()
                 //.transform(new CenterCrop(context), new GlideRoundTransform(context,10))

@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.bigkoo.convenientbanner.ConvenientBanner;
@@ -36,6 +37,7 @@ import com.deerlive.zhuawawa.common.WebviewActivity;
 import com.deerlive.zhuawawa.intf.OnRecyclerViewItemClickListener;
 import com.deerlive.zhuawawa.intf.OnRequestDataListener;
 import com.deerlive.zhuawawa.model.Banner;
+import com.deerlive.zhuawawa.model.DeviceAndBanner;
 import com.deerlive.zhuawawa.model.Game;
 import com.deerlive.zhuawawa.utils.LocalImageHolderView;
 import com.deerlive.zhuawawa.view.SpaceItemDecoration;
@@ -43,8 +45,15 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+import com.uuch.adlibrary.AdConstant;
+import com.uuch.adlibrary.AdManager;
+import com.uuch.adlibrary.bean.AdInfo;
+import com.uuch.adlibrary.transformer.DepthPageTransformer;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import butterknife.Bind;
 
@@ -55,8 +64,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
     @Bind(R.id.recyclerview)
     RecyclerView mRecyclerView;
 
-    private ArrayList<Game> mGameData = new ArrayList();
-    private ArrayList<Banner> mBannerData = new ArrayList();
+    private ArrayList<DeviceAndBanner.InfoBean.DeviceBean> mGameData = new ArrayList();
+    private ArrayList<DeviceAndBanner.BannerBean.PicBean> mBannerData = new ArrayList();
     private ConvenientBanner mConvenientBanner;
     private String token;
     private GameRecyclerListAdapter mGameAdapter = new GameRecyclerListAdapter(this, mGameData);
@@ -79,12 +88,69 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
             this.getWindow().setStatusBarColor(Color.TRANSPARENT);
 
         }
+        showAdvertising();
         initGameList();
         initBanner();
         mRefreshLayout.autoRefresh();
         initData();
     }
 
+    /**
+     * 广告弹窗
+     *
+     */
+    private void showAdvertising() {
+
+        Api.getDialog(this, new HashMap<String, String>(), new OnRequestDataListener() {
+                    @Override
+                    public void requestSuccess(int code, JSONObject data) {
+
+                        JSONObject list = data.getJSONObject("info");
+                        list.getString("img");
+                        String status = list.getString("status");
+                        if("0".equals(status)){
+                            adDialog(list);
+                        }
+
+
+                    }
+
+                    @Override
+                    public void requestFailure(int code, String msg) {
+
+                    }
+                });
+
+    }
+
+    private void adDialog(final JSONObject list) {
+        AdInfo adInfo = new AdInfo();
+        adInfo.setActivityImg(list.getString("img"));
+
+        List<AdInfo>advList = new ArrayList<>();
+        advList.add(adInfo);
+
+         final AdManager adManager = new AdManager(this, advList);
+        adManager.setOverScreen(true)
+                .setWidthPerHeight(Float.parseFloat(list.getString("size")))
+                .setBackViewColor(Color.parseColor("#AA333333"))
+                .setPageTransformer(new DepthPageTransformer())
+                .setOnImageClickListener(new AdManager.OnImageClickListener() {
+                    @Override
+                    public void onImageClick(View view, AdInfo advInfo) {
+                        if (!"".equals(list.getString("jump"))&&list.getString("jump")!=null) {
+
+                            Bundle temp = new Bundle();
+                            temp.putString("title", list.getString("name"));
+                            temp.putString("jump", list.getString("jump"));
+                            ActivityUtils.startActivity(temp, WebviewActivity.class);
+
+                        }
+                        adManager.dismissAdDialog();
+                    }
+                })
+                .showAdDialog(AdConstant.ANIM_DOWN_TO_UP);
+    }
 
 
     public void userCenter(View v) {
@@ -96,16 +162,16 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
     }
 
     private void initData() {
-        getBannerData();
         getGameData(0);
         checkUpdate();
 
     }
 
     private void getGameData(final int limit_begin) {
-        JSONObject params = new JSONObject();
-        params.put("limit_begin", limit_begin);
-        params.put("limit_num", 10);
+        Map<String,String>params=new HashMap<>();
+        params.put("limit_begin", String.valueOf(limit_begin));
+        params.put("limit_num", 10+"");
+        params.put("token", token);
         Api.getGameList(this, params, new OnRequestDataListener() {
             @Override
             public void requestSuccess(int code, JSONObject data) {
@@ -118,8 +184,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                 if (mRefreshLayout.isLoading()) {
                     mRefreshLayout.finishLoadmore();
                 }
-                JSONArray list = data.getJSONArray("info");
-                for (int i = 0; i < list.size(); i++) {
+                DeviceAndBanner deviceAndBanner = JSON.parseObject(data.toString(), DeviceAndBanner.class);
+
+
+               /* for (int i = 0; i < list.size(); i++) {
                     Game g = new Game();
                     JSONObject t = list.getJSONObject(i);
                     g.setGameUrl(t.getString("thumb"));
@@ -130,8 +198,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                     g.setGamePlayUrl(t.getString("channel_stream"));
                     g.setVip_level(t.getString("vip_level"));
                     mGameData.add(g);
-                }
+                }*/
+                mGameData.addAll(deviceAndBanner.getInfo().getDevice());
                 mGameAdapter.notifyDataSetChanged();
+                mBannerData.clear();
+                mBannerData.addAll(deviceAndBanner.getBanner().getPic());
+                mConvenientBanner.notifyDataSetChanged();
             }
 
             @Override
@@ -151,7 +223,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         });
     }
 
-    private void getBannerData() {
+    /*private void getBannerData() {
         Api.getBanner(this, new JSONObject(), new OnRequestDataListener() {
             @Override
             public void requestSuccess(int code, JSONObject data) {
@@ -173,7 +245,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                 toast(msg);
             }
         });
-    }
+    }*/
 
     private void initGameList() {
         final GridLayoutManager manager = new GridLayoutManager(this, 2);
@@ -243,8 +315,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         mConvenientBanner.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                if (!" ".equals(mBannerData.get(position).getJump())) {
-                    Banner b = mBannerData.get(position);
+                if (!" ".equals(mBannerData.get(position).getJump())&&mBannerData.get(position).getJump()!=null) {
+                    DeviceAndBanner.BannerBean.PicBean b = mBannerData.get(position);
                     Bundle temp = new Bundle();
                     temp.putString("title", b.getTitle());
                     temp.putString("jump", b.getJump());

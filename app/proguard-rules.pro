@@ -251,4 +251,10 @@
      <init>(...);
 }
 
+-keep,allowobfuscation @interface com.facebook.common.internal.DoNotStrip
 
+# Do not strip any method/class that is annotated with @DoNotStrip
+-keep @com.facebook.common.internal.DoNotStrip class *
+-keepclassmembers class * {
+    @com.facebook.common.internal.DoNotStrip *;
+}
