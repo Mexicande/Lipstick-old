@@ -24,8 +24,6 @@
         >
         <FrameLayout
             android:id="@+id/player_container"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <com.tencent.rtmp.ui.TXCloudVideoView
@@ -61,7 +59,7 @@
                     android:layout_marginLeft="5dp"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
-                    android:src="@drawable/people_num"/>
+                    android:src="@mipmap/people_num"/>
                 <TextView
                     android:layout_marginRight="5dp"
                     android:layout_marginLeft="2dp"
@@ -254,6 +252,7 @@
                         android:layout_height="wrap_content"
                         android:text="x123"
                         android:shadowDx="5"
+                        android:paddingRight="5dp"
                         android:gravity="center"
                         android:shadowDy="5"
                         android:shadowRadius="5"

@@ -18,7 +18,7 @@
             android:paddingRight="10dp"
             android:layout_height="25dp"
             android:layout_centerVertical="true"
-            android:src="@drawable/index_user"
+            android:src="@mipmap/index_user"
             android:onClick="userCenter"/>
         <TextView
             android:layout_centerInParent="true"
@@ -32,10 +32,11 @@
         <ImageView
             android:id="@+id/index_top_set"
             android:layout_width="45dp"
-            android:layout_height="23dp"
-            android:paddingRight="5dp"
+            android:layout_height="33dp"
             android:paddingLeft="10dp"
-            android:layout_marginRight="13dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:layout_marginRight="10dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:src="@mipmap/index_set"

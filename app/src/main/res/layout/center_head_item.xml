@@ -8,10 +8,10 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="170dp"
+        android:layout_height="180dp"
         android:orientation="vertical"
         android:padding="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="40dp"
         android:layout_marginRight="20dp"
         android:layout_marginLeft="20dp"
         android:background="@drawable/pay_bg_off">
@@ -42,7 +42,7 @@
             android:id="@+id/user_avator"
             android:layout_width="70dp"
             android:layout_height="70dp"
-            android:src="@mipmap/iv_logo"/>
+            />
     </RelativeLayout>
 
     <LinearLayout

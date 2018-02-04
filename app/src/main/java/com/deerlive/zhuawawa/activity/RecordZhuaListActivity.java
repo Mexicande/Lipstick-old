@@ -101,7 +101,9 @@ public class RecordZhuaListActivity extends BaseActivity implements OnRecyclerVi
                     g.setRemoteUid(t.getString("video_status"));
                     mListData.add(g);
                 }
-
+                if(mListData.size()!=0){
+                    ivDefault.setVisibility(View.GONE);
+                }
 
                 mAdapter.notifyDataSetChanged();
             }

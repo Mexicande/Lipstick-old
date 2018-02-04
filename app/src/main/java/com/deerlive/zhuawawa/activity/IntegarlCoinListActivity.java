@@ -102,6 +102,9 @@ public class IntegarlCoinListActivity extends BaseActivity {
                     g.setMessageContent(t.getString("update_integration"));
                     mListData.add(g);
                 }
+                if(list.size()!=0){
+                    ivDefault.setVisibility(View.GONE);
+                }
 
                 mAdapter.notifyDataSetChanged();
             }

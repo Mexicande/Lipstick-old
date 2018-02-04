@@ -40,6 +40,10 @@ public class WeiQuListActivity extends BaseActivity implements OnRecyclerViewIte
     TextView tvTitle;
     @Bind(R.id.iv_default)
     ImageView ivDefault;
+    @Bind(R.id.duihuan)
+    TextView duihuan;
+    @Bind(R.id.tiqu)
+    TextView tiqu;
     private String mToken;
     private CashDialog cashDialog;
     private ArrayList<GrabBean.InfoBean> mListData = new ArrayList();
@@ -110,16 +114,23 @@ public class WeiQuListActivity extends BaseActivity implements OnRecyclerViewIte
                     mRefreshLayout.finishLoadmore();
                 }
                 GrabBean grabBean = JSON.parseObject(data.toString(), GrabBean.class);
+
                 mListData.addAll(grabBean.getInfo());
 
+                for(int i=0;i<grabBean.getInfo().size();i++){
+                    grabBean.getInfo().get(i).setRemoteUid(0);
+                }
 
+                if (mListData.size() != 0) {
+                    ivDefault.setVisibility(View.GONE);
+                }
                 mAdapter.notifyDataSetChanged();
             }
 
             @Override
             public void requestFailure(int code, String msg) {
                 toast(msg);
-                if(mListData.size()==0){
+                if (mListData.size() == 0) {
                     ivDefault.setVisibility(View.VISIBLE);
 
                 }
@@ -144,14 +155,54 @@ public class WeiQuListActivity extends BaseActivity implements OnRecyclerViewIte
 
     @Override
     public void onRecyclerViewItemClick(View view, int position) {
+
         int s = mListData.get(position).getRemoteUid();
         if (s == 1) {
             mListData.get(position).setRemoteUid(0);
+            mAdapter.notifyItemChanged(position);
+            duihuan.setBackgroundResource(R.drawable.prize_button);
+            duihuan.setEnabled(true);
+            for(int i=0;i<mListData.size();i++){
+               if(mListData.get(i).getChange()==1&&mListData.get(i).getRemoteUid()==1){
+                   duihuan.setBackgroundResource(R.drawable.iv_duihuan_press);
+                   duihuan.setEnabled(false);
+
+               }
+            }
+
         }
         if (s == 0) {
             mListData.get(position).setRemoteUid(1);
+            mAdapter.notifyItemChanged(position);
+
+            if (mListData.get(position).getChange() == 0) {
+
+                for(int i=0;i<mListData.size();i++){
+                    if (mListData.get(i).getChange() == 1) {
+                        if(mListData.get(i).getRemoteUid()==1){
+                            mListData.get(i).setRemoteUid(0);
+                            mAdapter.notifyItemChanged(i);
+                        }
+                    }
+                }
+
+                duihuan.setBackgroundResource(R.drawable.prize_button);
+                duihuan.setEnabled(true);
+
+            } else {
+                for(int i=0;i<mListData.size();i++){
+                    if (mListData.get(i).getChange() == 0) {
+                        if(mListData.get(i).getRemoteUid()==1){
+                            mListData.get(i).setRemoteUid(0);
+                            mAdapter.notifyItemChanged(i);
+                        }
+
+                    }
+                }
+                duihuan.setBackgroundResource(R.drawable.iv_duihuan_press);
+                duihuan.setEnabled(false);
+            }
         }
-        mAdapter.notifyItemChanged(position);
     }
 
     /**

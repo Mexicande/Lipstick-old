@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    >
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
     <include layout="@layout/charge_top"/>
 
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
@@ -46,6 +45,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp">
         <TextView
+            android:id="@+id/duihuan"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:paddingTop="5dp"
@@ -57,6 +57,7 @@
             android:textSize="16sp"
             android:onClick="duihuan"/>
         <TextView
+            android:id="@+id/tiqu"
             android:layout_marginLeft="50dp"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
@@ -68,5 +69,17 @@
             android:textSize="16sp"
             android:background="@drawable/prize_button"
             android:onClick="tiqu"/>
+       <!-- <com.deerlive.zhuawawa.view.supertextview.SuperButton
+            android:layout_width="100dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:layout_height="30dp"
+            app:sCornersRadius="10dp"
+            android:text="@string/tv_exchange"
+            app:sSolidColor="@color/colorPrimaryDark"
+            android:textColor="@color/white"
+            android:onClick="duihuan"
+
+            />-->
     </LinearLayout>
 </LinearLayout>

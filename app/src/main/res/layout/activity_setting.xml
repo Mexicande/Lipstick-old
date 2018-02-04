@@ -24,9 +24,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:textSize="16sp"
-                app:sUseShape="true"
-                app:sSelectorPressedColor="@color/e_white"
-                app:sSelectorNormalColor="@color/white"
                 app:sLeftTextColor="@color/text_color"
                 app:sRightIconRes="@mipmap/iv_right_arrow"
                 app:sRightIconHeight="12dp"
@@ -40,8 +37,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:textSize="16sp"
-                app:sSelectorPressedColor="@color/e_white"
-                app:sSelectorNormalColor="@color/white"
                 app:sDividerLineHeight="1dp"
                 app:sLeftTextColor="@color/text_color"
                 app:sDividerLineColor="@color/e_white"
@@ -56,9 +51,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:textSize="16sp"
-                app:sUseShape="true"
-                app:sSelectorPressedColor="@color/e_white"
-                app:sSelectorNormalColor="@color/white"
                 app:sDividerLineColor="@color/e_white"
                 app:sLeftTextColor="@color/text_color"
                 app:sBottomDividerLineMarginLR="10dp"
@@ -75,8 +67,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:textSize="16sp"
-                app:sSelectorPressedColor="@color/e_white"
-                app:sSelectorNormalColor="@color/white"
                 app:sDividerLineHeight="1dp"
                 app:sLeftTextColor="@color/text_color"
                 app:sDividerLineColor="@color/e_white"
@@ -98,9 +88,7 @@
                 app:sLeftTextColor="@color/text_color"
                 app:sRightViewType="switchBtn"
                 app:sSwitchIsChecked="true"
-                app:sUseShape="true"
-                app:sSelectorPressedColor="@color/e_white"
-                app:sSelectorNormalColor="@color/white"                app:sThumbResource="@drawable/thumb"
+                app:sThumbResource="@drawable/thumb"
                 app:sTrackResource="@drawable/track"
                 app:sLeftTextSize="13dp"
                 app:sLeftTextString="@string/set_bg_yinxiao" />
@@ -112,8 +100,6 @@
                 android:layout_height="50dp"
                 app:sDividerLineHeight="1dp"
                 android:textSize="16sp"
-                app:sSelectorPressedColor="@color/e_white"
-                app:sSelectorNormalColor="@color/white"
                 app:sBottomDividerLineMarginLR="10dp"
                 app:sLeftTextColor="@color/text_color"
                 app:sDividerLineColor="@color/e_white"
@@ -132,22 +118,17 @@
                 app:sDividerLineColor="@color/e_white"
                 app:sDividerLineType="bottom"
                 app:sRightTextString="v1.3.0"
-                app:sSelectorPressedColor="@color/e_white"
-                app:sSelectorNormalColor="@color/white"
                 app:sDividerLineHeight="1dp"
                 app:sRightTextColor="@color/black_666"
                 app:sLeftTextColor="@color/text_color"
                 app:sLeftTextSize="13dp"
                 app:sLeftTextString="@string/set_update" />
-            <com.deerlive.zhuawawa.view.supertextview.SuperTextView
+           <!-- <com.deerlive.zhuawawa.view.supertextview.SuperTextView
                 android:onClick="aboutUs"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 app:sTopDividerLineMarginLR="10dp"
                 android:textSize="16sp"
-                app:sUseShape="true"
-                app:sSelectorPressedColor="@color/e_white"
-                app:sSelectorNormalColor="@color/white"
                 app:sDividerLineColor="@color/e_white"
                 app:sDividerLineType="none"
                 app:sLeftTextColor="@color/text_color"
@@ -155,7 +136,7 @@
                 app:sRightIconHeight="12dp"
                 app:sRightIconWidth="10dp"
                 app:sLeftTextSize="13dp"
-                app:sLeftTextString="@string/set_about" />
+                app:sLeftTextString="@string/set_about" />-->
         </LinearLayout>
 
         <com.deerlive.zhuawawa.view.supertextview.SuperButton
@@ -169,12 +150,9 @@
             app:sCornersRadius="20dp"
             app:sSolidColor="@color/bg_color"
             app:sStrokeWidth="1dp"
-            app:sSelectorNormalColor="@color/bg_color"
-            app:sSelectorPressedColor="@color/e_white"
             android:layout_marginBottom="50dp"
             app:sStrokeColor="@color/text_gray"
             android:textColor="@color/text_gray"
-            app:sUseSelector="true"
             />
     </LinearLayout>
 

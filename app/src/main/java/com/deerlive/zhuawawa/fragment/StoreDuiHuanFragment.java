@@ -114,6 +114,9 @@ public class StoreDuiHuanFragment extends Fragment {
                         mAdapter.addData(mListData);
                         break;
                 }
+                if(mListData.size()!=0){
+                    ivDefault.setVisibility(View.GONE);
+                }
                 if (mRefreshLayout.isRefreshing()) {
                     mRefreshLayout.finishRefresh();
                 }

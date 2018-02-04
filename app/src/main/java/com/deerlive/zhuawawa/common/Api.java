@@ -11,6 +11,7 @@ import com.blankj.utilcode.util.LogUtils;
 import com.deerlive.zhuawawa.MainActivity;
 import com.deerlive.zhuawawa.R;
 import com.deerlive.zhuawawa.activity.IntegarlCoinListActivity;
+import com.deerlive.zhuawawa.activity.ShouhuoActivity;
 import com.deerlive.zhuawawa.intf.OnRequestDataListener;
 import com.hss01248.dialog.StyledDialog;
 import com.loopj.android.http.AsyncHttpClient;
@@ -37,7 +38,7 @@ import cz.msebera.android.httpclient.HttpResponse;
  * Author: XuDeLong
  */
 public class Api {
-    public static final String APP_VER = "1.2.0";
+    public static final String APP_VER = "1.3.0";
     //public static final String HOST = "http://kuailai.deerlive.com/";
     public static final String HOST = "http://doll.anwenqianbao.com/";
     public static final String OS = "android";
@@ -74,6 +75,8 @@ public class Api {
 
     //收货地址修改和添加
     private static final String SET_SHOUHUO_LOCATION = HOST + "Api/SiSi/addAddress";
+    //收货地址删除
+    private static final String DELETE_ADDRESS = HOST + "Api/SiSi/delAddress";
     //抓取记录
     private static final String GET_ZHUA_RECORD = HOST + "Api/SiSi/getPlayLogByUid";
     //积分商城-兑换记录
@@ -177,7 +180,11 @@ public class Api {
     public static void setShouHuoLocation(final Context context,Map<String, String>  params, final OnRequestDataListener listener) {
         newExcuteMapPost(SET_SHOUHUO_LOCATION, context, params,listener);
     }
+    //收货地址删除
+    public static void getDeleteAddress(final Context context,Map<String, String>  params, final OnRequestDataListener listener) {
+        newExcuteMapPost(DELETE_ADDRESS, context, params,listener);
 
+    }
 
 
     public static void getLatestDeviceRecord(final Context context, JSONObject params, final OnRequestDataListener listener) {
@@ -468,7 +475,6 @@ public class Api {
         return str;
 
     }
-
 
 
 }

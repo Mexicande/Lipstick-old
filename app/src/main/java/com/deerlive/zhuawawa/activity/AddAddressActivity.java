@@ -10,8 +10,10 @@ import android.widget.TextView;
 import com.alibaba.fastjson.JSONObject;
 import com.bigkoo.pickerview.OptionsPickerView;
 import com.bigkoo.pickerview.listener.CustomListener;
+import com.blankj.utilcode.util.RegexUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
+import com.blankj.utilcode.util.Utils;
 import com.deerlive.zhuawawa.R;
 import com.deerlive.zhuawawa.base.BaseActivity;
 import com.deerlive.zhuawawa.common.Api;
@@ -19,7 +21,6 @@ import com.deerlive.zhuawawa.intf.OnRequestDataListener;
 import com.deerlive.zhuawawa.model.AddressBean;
 import com.deerlive.zhuawawa.model.JsonBean;
 import com.deerlive.zhuawawa.utils.GetJsonDataUtil;
-import com.deerlive.zhuawawa.utils.RegexUtils;
 import com.deerlive.zhuawawa.view.supertextview.SuperTextView;
 import com.google.gson.Gson;
 
@@ -61,7 +62,6 @@ public class AddAddressActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         tvTitle.setText(R.string.add_address);
-
         mToken = SPUtils.getInstance().getString("token");
         initDate();
         Thread thread = new Thread(new Runnable() {
@@ -117,6 +117,7 @@ public class AddAddressActivity extends BaseActivity {
         boolean zh = RegexUtils.isZh(userName);
         String userPhone = ed_Contact.getText().toString();
         boolean mobileSimple = RegexUtils.isMobileExact(userPhone);
+
         String etAddress = edAddress.getText().toString();
         if(!TextUtils.isEmpty(userName)&&zh){
             if(!TextUtils.isEmpty(userPhone)||mobileSimple){
@@ -173,10 +174,11 @@ public class AddAddressActivity extends BaseActivity {
 
     private void initJsonData() {//解析数据
         String JsonData = new GetJsonDataUtil().getJson(this);
-        ToastUtils.showShort(JsonData);
+       // ToastUtils.showShort(JsonData);
 
         ArrayList<JsonBean> jsonBean = parseData(JsonData);//用Gson 转成实体
         options1Items = jsonBean;
+
        // ToastUtils.showShort(jsonlsit.toString());
         /**
          * 添加省份数据
@@ -186,11 +188,9 @@ public class AddAddressActivity extends BaseActivity {
          */
 
 
-
         for (int i=0;i<jsonBean.size();i++){  //遍历省份
             ArrayList<String> CityList = new ArrayList<>();//该省的城市列表（第二级）
             ArrayList<ArrayList<String>> Province_AreaList = new ArrayList<>();//该省的所有地区列表（第三极）
-
 
             for (int c=0; c<jsonBean.get(i).getCityList().size(); c++){//遍历该省份的所有城市
                 String CityName = jsonBean.get(i).getCityList().get(c).getName();
@@ -204,11 +204,16 @@ public class AddAddressActivity extends BaseActivity {
                     City_AreaList.add("");
                 }else {
 
-                    for (int d=0; d < jsonBean.get(i).getCityList().get(c).getArea().size(); d++) {//该城市对应地区所有数据
+                    //该城市对应地区所有数据
+                    //添加该城市所有地区数据
+                    City_AreaList.addAll(jsonBean.get(i).getCityList().get(c).getArea());
+
+                   /* for (int d=0; d < jsonBean.get(i).getCityList().get(c).getArea().size(); d++) {//该城市对应地区所有数据
                         String AreaName = jsonBean.get(i).getCityList().get(c).getArea().get(d);
 
                         City_AreaList.add(AreaName);//添加该城市所有地区数据
-                    }
+                    }*/
+
                 }
                 Province_AreaList.add(City_AreaList);//添加该省所有地区数据
             }

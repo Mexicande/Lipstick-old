@@ -172,12 +172,13 @@ public class WeiQuRecyclerListAdapter extends RecyclerView.Adapter<RecyclerView.
         if (mFooterView != null) {
             count++;
         }
-
         if (mHeaderView != null) {
             count++;
         }
         return count;
     }
+
+
 
 
     class HeaderHolder extends RecyclerView.ViewHolder {

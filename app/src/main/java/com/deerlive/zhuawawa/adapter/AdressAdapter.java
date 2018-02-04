@@ -2,6 +2,7 @@ package com.deerlive.zhuawawa.adapter;
 
 import android.widget.CompoundButton;
 
+import com.chad.library.adapter.base.BaseItemDraggableAdapter;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.deerlive.zhuawawa.R;
@@ -14,7 +15,7 @@ import java.util.List;
  * Created by apple on 2017/6/9.
  */
 
-public class AdressAdapter extends BaseQuickAdapter<AddressBean.AddrBean,BaseViewHolder> {
+public class AdressAdapter extends BaseItemDraggableAdapter<AddressBean.AddrBean,BaseViewHolder> {
 
     public AdressAdapter(List<AddressBean.AddrBean> data) {
         super(R.layout.address_item, data);

@@ -166,12 +166,12 @@ public class SettingActivity extends BaseActivity {
                 .show();
     }
 
-    public void aboutUs(View v) {
+  /*  public void aboutUs(View v) {
         Bundle temp = new Bundle();
         temp.putString("title", getResources().getString(R.string.about_us));
         temp.putString("jump", Api.URL_GAME_ABOUT + "&token=" + token);
         ActivityUtils.startActivity(temp, WebviewActivity.class);
-    }
+    }*/
 
 
     @Override

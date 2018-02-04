@@ -101,7 +101,9 @@ public class RecordCoinListActivity extends BaseActivity {
                     mListData.add(g);
                 }
 
-
+                if(mListData.size()!=0){
+                    ivDefault.setVisibility(View.GONE);
+                }
                 mAdapter.notifyDataSetChanged();
             }
 

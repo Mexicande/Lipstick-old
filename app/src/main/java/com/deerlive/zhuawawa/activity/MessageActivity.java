@@ -91,6 +91,9 @@ public class MessageActivity extends BaseActivity {
                 }
                 NoticeMessageBean noticeMessageBean = JSON.parseObject(data.toString(), NoticeMessageBean.class);
                 mListData.addAll(noticeMessageBean.getInfo());
+                if(mListData.size()!=0){
+                    ivDefault.setVisibility(View.GONE);
+                }
                 mAdapter.addData(mListData);
             }
 

@@ -1,25 +1,36 @@
 package com.deerlive.zhuawawa.activity;
 
 import android.content.Intent;
+import android.graphics.Canvas;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
+import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.ImageView;
+import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.callback.ItemDragAndSwipeCallback;
+import com.chad.library.adapter.base.listener.OnItemSwipeListener;
 import com.deerlive.zhuawawa.R;
 import com.deerlive.zhuawawa.adapter.AdressAdapter;
 import com.deerlive.zhuawawa.base.BaseActivity;
 import com.deerlive.zhuawawa.common.Api;
 import com.deerlive.zhuawawa.intf.OnRequestDataListener;
 import com.deerlive.zhuawawa.model.AddressBean;
+import com.deerlive.zhuawawa.view.popup.EasyPopup;
+import com.deerlive.zhuawawa.view.popup.HorizontalGravity;
+import com.deerlive.zhuawawa.view.popup.VerticalGravity;
 import com.hss01248.dialog.StyledDialog;
 
 import java.util.ArrayList;
@@ -40,6 +51,8 @@ public class ShouhuoActivity extends BaseActivity {
     @Bind(R.id.iv_default)
     ImageView ivDefault;
     private String mToken;
+    private EasyPopup mRvPop;
+    private TextView tv_delete;
     private List<AddressBean.AddrBean> list = new ArrayList<>();
     private AdressAdapter adressAdapter;
 
@@ -69,6 +82,7 @@ public class ShouhuoActivity extends BaseActivity {
                 startActivityForResult(intent, REQUESTION_CODE);
             }
         });
+
         adressAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
@@ -78,7 +92,6 @@ public class ShouhuoActivity extends BaseActivity {
                     viewByPosition.setChecked(false);
                 } else {
                     viewByPosition.setChecked(true);
-
                 }
 
             }
@@ -104,7 +117,74 @@ public class ShouhuoActivity extends BaseActivity {
         recycler.setLayoutManager(new LinearLayoutManager(this));
         adressAdapter = new AdressAdapter(null);
         recycler.setAdapter(adressAdapter);
+      /*  ItemDragAndSwipeCallback itemDragAndSwipeCallback = new ItemDragAndSwipeCallback(adressAdapter);
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(itemDragAndSwipeCallback);
+        itemTouchHelper.attachToRecyclerView(recycler);
+        adressAdapter.enableSwipeItem();*/
 
+
+        mRvPop = new EasyPopup(this)
+                .setContentView(R.layout.layout_circle_comment)
+                .setFocusAndOutsideEnable(true)
+                .setOnDismissListener(new PopupWindow.OnDismissListener() {
+                    @Override
+                    public void onDismiss() {
+
+                    }
+                })
+                .createPopup();
+
+
+
+
+
+        adressAdapter.setOnItemLongClickListener(new BaseQuickAdapter.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(BaseQuickAdapter adapter, View view, int position) {
+                showPopup(view,position);
+                return false;
+            }
+        });
+
+
+
+    }
+
+    private void showPopup(View view , final int position) {
+        mRvPop.showAtAnchorView(view, VerticalGravity.ABOVE, HorizontalGravity.CENTER);
+        tv_delete = mRvPop.getView(R.id.tv_comment);
+
+
+        tv_delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mRvPop.dismiss();
+                deleteAddress( position);
+            }
+        });
+
+
+    }
+
+    private void deleteAddress(final int pos) {
+        Log.i("position",pos+"");
+
+        Map<String, String> p = new HashMap<>();
+        p.put("token", mToken);
+        p.put("id", list.get(pos).getId());
+        Api.getDeleteAddress(this, p, new OnRequestDataListener() {
+            @Override
+            public void requestSuccess(int code, JSONObject data) {
+                Log.i("position",pos+"");
+                adressAdapter.remove(pos);
+                //list.remove(pos);
+            }
+
+            @Override
+            public void requestFailure(int code, String msg) {
+                toast(msg);
+            }
+        });
     }
 
     private void initDate() {
@@ -114,9 +194,13 @@ public class ShouhuoActivity extends BaseActivity {
             @Override
             public void requestSuccess(int code, JSONObject data) {
                 AddressBean adressBean = JSON.parseObject(data.toString(), AddressBean.class);
+                if(list.size()!=0){
+                    list.clear();
+                }
                 list.addAll(adressBean.getAddr());
-
-
+                if(list.size()!=0){
+                    ivDefault.setVisibility(View.GONE);
+                }
                 adressAdapter.setNewData(list);
             }
 
@@ -125,7 +209,8 @@ public class ShouhuoActivity extends BaseActivity {
                 toast(msg);
                 if(list.size()==0){
                     ivDefault.setVisibility(View.VISIBLE);
-
+                }else {
+                    ivDefault.setVisibility(View.GONE);
                 }
             }
         });
@@ -141,7 +226,6 @@ public class ShouhuoActivity extends BaseActivity {
         p.put("mobile", addrBean.getMobile());
         p.put("address", addrBean.getAddress());
         p.put("city", addrBean.getCity());
-
         p.put("status", "0".equals(addrBean.getStatus()) ? "1" : "0");
         p.put("id", addrBean.getId());
         Api.setShouHuoLocation(ShouhuoActivity.this, p, new OnRequestDataListener() {
@@ -177,7 +261,6 @@ public class ShouhuoActivity extends BaseActivity {
             @Override
             public void requestFailure(int code, String msg) {
                 StyledDialog.dismissLoading();
-                adressAdapter.setNewData(list);
                 toast(msg);
 
             }

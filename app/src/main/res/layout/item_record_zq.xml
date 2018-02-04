@@ -17,7 +17,6 @@
         <ImageView
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:src="@mipmap/iv_logo"
             android:layout_centerVertical="true"
             android:id="@+id/zq_avator"/>
         <LinearLayout
