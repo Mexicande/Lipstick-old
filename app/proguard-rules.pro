@@ -202,6 +202,7 @@
         public *;
 }
 
+
 -keepclassmembers class * implements java.io.Serializable {
     static final long serialVersionUID;
     private static final java.io.ObjectStreamField[] serialPersistentFields;
@@ -210,19 +211,34 @@
     java.lang.Object writeReplace();
     java.lang.Object readResolve();
 }
+-dontwarn android.support.**
+-dontwarn com.alibaba.fastjson.**
+# 避免混淆泛型
+# FastJson
+-dontwarn com.alibaba.fastjson.**
+-keep class com.alibaba.fastjson.** { *; }
+
+-keepattributes *Annotation*
 
 -dontskipnonpubliclibraryclassmembers
 -dontskipnonpubliclibraryclasses
-
 -keep class com.alibaba.fastjson.** { *; }
+
+-keepclassmembers class * {
+public <methods>;
+}
 
 -keepclassmembers class * {
     public <methods>;
 }
+##---------------End: proguard configuration for fastjson  ----------
+
+
+##-----bugly---------
+
 -dontwarn com.tencent.bugly.**
 -keep public class com.tencent.bugly.**{*;}
 
-##---------------End: proguard configuration for fastjson  ----------
 -dontoptimize
 -dontpreverify
 
@@ -242,6 +258,18 @@
 #okio
 -dontwarn okio.**
 -keep class okio.**{*;}
+
+
+# Gson
+-keep class com.google.**{*;}
+
+-keepattributes Signature
+-keep class sun.misc.Unsafe { *; }
+-keep class com.google.gson.stream.** { *; }
+# 使用Gson时需要配置Gson的解析对象及变量都不混淆。不然Gson会找不到变量。
+# 将下面替换成自己的实体类
+-keep class com.deerlive.zhuawawa.model.** { *; }
+
 
 -keep public class pl.droidsonroids.gif.GifIOException{<init>(int);}
 -keep class pl.droidsonroids.gif.GifInfoHandle{<init>(long,int,int,int);}
