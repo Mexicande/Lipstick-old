@@ -44,7 +44,7 @@
                         android:layout_gravity="center_vertical"
                         android:textColor="#EC116D"
                         android:text="200积分"/>
-                <com.deerlive.zhuawawa.view.supertextview.SuperButton
+                <com.deerlive.lipstick.view.supertextview.SuperButton
                     android:id="@+id/duihuan"
                     android:layout_width="wrap_content"
                     android:layout_height="20dp"

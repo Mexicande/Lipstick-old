@@ -50,7 +50,7 @@
                 android:layout_marginTop="5dp"
                 android:layout_gravity="center_vertical"
                 android:text="123"
-                android:textColor="@color/itemText_red"
+                android:textColor="@color/colorPrimary"
                 android:layout_height="wrap_content" />
         </LinearLayout>
         <RelativeLayout

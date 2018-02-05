@@ -65,7 +65,7 @@
             android:id="@+id/tv_add"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:background="#FA97C1"
+            android:background="@color/colorPrimary"
             android:gravity="center"
             android:text="确定"
             android:textColor="@color/white"

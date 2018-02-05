@@ -44,7 +44,7 @@
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:src="@drawable/game_icon"/>
-        <com.deerlive.zhuawawa.view.StrokeTextView
+        <com.deerlive.lipstick.view.StrokeTextView
             android:id="@+id/game_price"
             android:layout_gravity="center_vertical"
             android:layout_width="wrap_content"

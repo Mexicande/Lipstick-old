@@ -6,7 +6,7 @@
     android:orientation="vertical"
     android:background="@color/bg_color"
     android:layout_height="match_parent"
-    tools:context="com.deerlive.zhuawawa.activity.RecordStoreActivity">
+    tools:context="com.deerlive.lipstick.activity.RecordStoreActivity">
     <include layout="@layout/toolbar_item"/>
     <net.lucode.hackware.magicindicator.MagicIndicator
         android:id="@+id/magic_indicator"

@@ -18,7 +18,7 @@
             android:orientation="vertical"
             android:layout_marginTop="10dp"
             >
-            <com.deerlive.zhuawawa.view.supertextview.SuperTextView
+            <com.deerlive.lipstick.view.supertextview.SuperTextView
                 android:id="@+id/invite"
                 android:onClick="gamehelp"
                 android:layout_width="match_parent"
@@ -30,7 +30,7 @@
                 app:sRightIconWidth="10dp"
                 app:sLeftTextSize="13dp"
                 app:sLeftTextString="@string/set_helps" />
-            <com.deerlive.zhuawawa.view.supertextview.SuperTextView
+            <com.deerlive.lipstick.view.supertextview.SuperTextView
                 android:onClick="yaoqing"
                 android:layout_marginTop="20dp"
                 app:sDividerLineType="bottom"
@@ -46,7 +46,7 @@
                 app:sRightIconWidth="10dp"
                 app:sLeftTextSize="13dp"
                 app:sLeftTextString="@string/set_yaoqing" />
-            <com.deerlive.zhuawawa.view.supertextview.SuperTextView
+            <com.deerlive.lipstick.view.supertextview.SuperTextView
                 android:onClick="yaoqingma"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
@@ -60,7 +60,7 @@
                 app:sLeftTextSize="13dp"
                 app:sLeftTextString="@string/set_yaoqingma" />
 
-            <com.deerlive.zhuawawa.view.supertextview.SuperTextView
+            <com.deerlive.lipstick.view.supertextview.SuperTextView
                 android:id="@+id/checkbox_bgm"
                 android:layout_marginTop="20dp"
                 app:sDividerLineType="bottom"
@@ -78,7 +78,7 @@
                 app:sLeftTextSize="13dp"
                 app:sLeftTextString="@string/set_bg_music" />
 
-            <com.deerlive.zhuawawa.view.supertextview.SuperTextView
+            <com.deerlive.lipstick.view.supertextview.SuperTextView
                 android:id="@+id/checkbox_yinxiao"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
@@ -92,7 +92,7 @@
                 app:sTrackResource="@drawable/track"
                 app:sLeftTextSize="13dp"
                 app:sLeftTextString="@string/set_bg_yinxiao" />
-            <com.deerlive.zhuawawa.view.supertextview.SuperTextView
+            <com.deerlive.lipstick.view.supertextview.SuperTextView
                 android:onClick="feedback"
                 android:layout_marginTop="20dp"
                 app:sDividerLineType="bottom"
@@ -108,7 +108,7 @@
                 app:sRightIconWidth="10dp"
                 app:sLeftTextSize="13dp"
                 app:sLeftTextString="@string/set_feedback" />
-            <com.deerlive.zhuawawa.view.supertextview.SuperTextView
+            <com.deerlive.lipstick.view.supertextview.SuperTextView
                 android:id="@+id/bt_version"
                 android:onClick="checkUpdate"
                 android:layout_width="match_parent"
@@ -139,7 +139,7 @@
                 app:sLeftTextString="@string/set_about" />-->
         </LinearLayout>
 
-        <com.deerlive.zhuawawa.view.supertextview.SuperButton
+        <com.deerlive.lipstick.view.supertextview.SuperButton
             android:onClick="logout"
             android:layout_marginTop="30dp"
             android:layout_marginLeft="30dp"

@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.deerlive.zhuawawa.MainActivity">
+
+    tools:context="com.deerlive.lipstick.MainActivity">
     <include layout="@layout/layout_index_top"/>
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:id="@+id/refreshLayout"

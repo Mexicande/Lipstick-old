@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/bg_color"
-    tools:context="com.deerlive.zhuawawa.fragment.IntegarFragment">
+    tools:context="com.deerlive.lipstick.fragment.IntegarFragment">
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:id="@+id/refreshLayout"
         android:layout_width="match_parent"

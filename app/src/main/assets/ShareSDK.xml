@@ -1,24 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <DevInfor>
     <ShareSDK
-        AppKey = "22df8db419014"/>
+        AppKey = "241ef37e9c97b"/>
     <!--weixin-->
     <Wechat
         Id="1"
         SortId="1"
-        AppId="wx8bf15a7269bafb69"
-        AppSecret="e051831188f1181e89ae75facc19d6ce"
+        AppId="wx40fb88094de45090"
+        AppSecret="9112b3913b3a118e1c42d3485b8cdf9d"
         BypassApproval="false"
         Enable="true" />
-
     <!-- 微信朋友圈 -->
     <WechatMoments
         Id="2"
         SortId="2"
         AppId="wx8bf15a7269bafb69"
-        AppSecret="e051831188f1181e89ae75facc19d6ce"
+        AppSecret="9112b3913b3a118e1c42d3485b8cdf9d"
         BypassApproval="false"
-        Enable="true" />
+        Enable="true"/>
 
     <QQ
         Id="3"

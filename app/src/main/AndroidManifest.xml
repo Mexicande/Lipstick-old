@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:meta-dataandroid="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.deerlive.zhuawawa">
+    package="com.deerlive.lipstick">
 
     <!--
         &lt;!&ndash; Required &ndash;&gt;
@@ -31,7 +31,7 @@
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
 
     <application
-        android:name=".MyApplication"
+        android:name="com.deerlive.lipstick.MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/logo"
         android:label="@string/app_name"
@@ -39,7 +39,7 @@
         tools:replace="android:name"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".common.SplashActivity"
+            android:name="com.deerlive.lipstick.common.SplashActivity"
             android:theme="@style/AppTheme.NoActionBarWithBackGround">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -48,71 +48,71 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name="com.deerlive.lipstick.MainActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity
-            android:name=".activity.LoginActivity"
+            android:name="com.deerlive.lipstick.activity.LoginActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity
-            android:name=".common.WebviewActivity"
+            android:name="com.deerlive.lipstick.common.WebviewActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity
-            android:name=".activity.SettingActivity"
+            android:name="com.deerlive.lipstick.activity.SettingActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity
-            android:name=".activity.UserCenterActivity"
+            android:name="com.deerlive.lipstick.activity.UserCenterActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity
-            android:name=".activity.PlayerActivity"
+            android:name="com.deerlive.lipstick.activity.PlayerActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateAlwaysHidden" />
         <activity
-            android:name=".activity.ChargeActivity"
+            android:name="com.deerlive.lipstick.activity.ChargeActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity
-            android:name=".activity.RecordZhuaListActivity"
+            android:name="com.deerlive.lipstick.activity.RecordZhuaListActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity
-            android:name=".activity.RecordCoinListActivity"
+            android:name="com.deerlive.lipstick.activity.RecordCoinListActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity
-            android:name=".activity.MessageActivity"
+            android:name="com.deerlive.lipstick.activity.MessageActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity
-            android:name=".activity.ShouhuoActivity"
+            android:name="com.deerlive.lipstick.activity.ShouhuoActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity
-            android:name=".activity.VideoPlayerActivity"
+            android:name="com.deerlive.lipstick.activity.VideoPlayerActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity
-            android:name=".activity.WeiQuListActivity"
+            android:name="com.deerlive.lipstick.activity.WeiQuListActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity
-            android:name=".activity.UserCenterOtherActivity"
+            android:name="com.deerlive.lipstick.activity.UserCenterOtherActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <!-- 微信分享回调 -->
         <activity
-            android:name=".wxapi.WXEntryActivity"
+            android:name="com.deerlive.lipstick.wxapi.WXEntryActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <!-- 微信支付回调 -->
         <activity
-            android:name=".wxapi.WXPayEntryActivity"
+            android:name="com.deerlive.lipstick.wxapi.WXPayEntryActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:launchMode="singleTop">
@@ -121,7 +121,7 @@
 
                 <category android:name="android.intent.category.DEFAULT" />
 
-                <data android:scheme="wx8bf15a7269bafb69" />
+                <data android:scheme="wx40fb88094de45090" />
             </intent-filter>
         </activity>
         <activity
@@ -223,16 +223,16 @@
             android:name="JPUSH_APPKEY"
             android:value="3f41585a44f8cc5a3b8aeb5b" />  </>值来自开发者平台取得的AppKey
         -->
-        <activity android:name=".activity.WeChatActivity"
+        <activity android:name="com.deerlive.lipstick.activity.WeChatActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden"/>
-        <activity android:name=".activity.RecordStoreActivity"
+        <activity android:name="com.deerlive.lipstick.activity.RecordStoreActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden"/>
-        <activity android:name=".activity.IntegarlCoinListActivity"
+        <activity android:name="com.deerlive.lipstick.activity.IntegarlCoinListActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden"/>
-        <activity android:name=".activity.AddAddressActivity"
+        <activity android:name="com.deerlive.lipstick.activity.AddAddressActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden"/>
     </application>

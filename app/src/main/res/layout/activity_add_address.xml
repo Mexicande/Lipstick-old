@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/bg_color"
-    tools:context="com.deerlive.zhuawawa.activity.AddAddressActivity">
+    tools:context="com.deerlive.lipstick.activity.AddAddressActivity">
     <include layout="@layout/toolbar_item"/>
     <LinearLayout
         android:paddingRight="10dp"
@@ -154,7 +154,7 @@
             android:background="@color/e_white"/>
 
     </LinearLayout>
-    <com.deerlive.zhuawawa.view.supertextview.SuperTextView
+    <com.deerlive.lipstick.view.supertextview.SuperTextView
         android:id="@+id/setting_default"
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"
