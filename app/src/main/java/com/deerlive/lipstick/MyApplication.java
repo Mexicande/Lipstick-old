@@ -40,7 +40,7 @@ public class MyApplication extends Application {
         Utils.init(this);
         LogUtils.init(getInstance());
 
-        initOkGo();
+
 
         Fresco.initialize(this);
         initDisplayOpinion();
@@ -55,6 +55,7 @@ public class MyApplication extends Application {
         //友盟
         MobclickAgent.startWithConfigure(new MobclickAgent.UMAnalyticsConfig(this,"5a77fa0d8f4a9d45d4000057"
                 ,channel));
+        initOkGo();
         //极光推送
         //JPushInterface.setDebugMode(true);
       //  JPushInterface.init(this);
@@ -67,6 +68,7 @@ public class MyApplication extends Application {
         params.put("soft_ver", APP_VER);
         params.put("os_ver", OS_VER);
         params.put("qudao",QUDAO);
+        params.put("chanel",channel);
 
         OkGo.getInstance().init(this)
                 .addCommonParams(params);

@@ -202,24 +202,24 @@ public class ChargeActivity extends BaseActivity {
     }
 
     private void insertPayItem(ArrayList<PayModel> payModels) {
-      /* ImageView wechat = mCirclePop.getView(R.id.linear_pay_weichat_container);
-        ImageView alipay = mCirclePop.getView(R.id.linear_pay_zfb_container);*/
-        for (PayModel s : payModels) {
-            if ("1".equals(s.getId())) {
+        for (final PayModel s : payModels) {
+           // getResources().getString(R.string.pay_weixin)
+            if (getResources().getString(R.string.pay_weixin).equals(s.getName())) {
                 linearPayWeichatContainer.setVisibility(View.VISIBLE);
                 linearPayWeichatContainer.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        beigin_pay("1");
+                        beigin_pay(s.getId());
                     }
                 });
             }
-            if ("2".equals(s.getId())) {
+            //getResources().getString(R.string.pay_zfb)
+            if (getResources().getString(R.string.pay_weixin).equals(s.getName())) {
                 linearPayZfbContainer.setVisibility(View.VISIBLE);
                 linearPayZfbContainer.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        beigin_pay("2");
+                        beigin_pay(s.getId());
                     }
                 });
 

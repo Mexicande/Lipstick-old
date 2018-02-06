@@ -8,6 +8,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.blankj.utilcode.util.LogUtils;
 import com.deerlive.lipstick.MainActivity;
+import com.deerlive.lipstick.MyApplication;
 import com.deerlive.lipstick.R;
 import com.deerlive.lipstick.activity.IntegarlCoinListActivity;
 import com.deerlive.lipstick.intf.OnRequestDataListener;
@@ -31,24 +32,21 @@ import cz.msebera.android.httpclient.Header;
  * Author: XuDeLong
  */
 public class Api {
-    public static final String APP_VER = "1.3.0";
-    //public static final String HOST = "http://kuailai.deerlive.com/";
+    public static final String APP_VER = MyApplication.getInstance().getPackageName();
     public static final String HOST = "http://doll.anwenqianbao.com/";
     public static final String OS = "android";
-    public static final String QUDAO = "kuailai-one";
-
+    public static final String QUDAO = "kuailai-two";
 
     public static final String OS_VER = Build.VERSION.RELEASE;
     private static final String KEY = "HZ1lERfDhUqNuUQ42PfX5lALvKlaTQxT";
     private static final String LOGIN = HOST + "Api/SiSi/sendOauthUserInfo";
-    public static final String ANNUNCIATE = HOST + "Api/SiSi/notice";
     private static final String GET_BANNER = HOST + "Api/SiSi/getBanner";
     private static final String GET_GAME = HOST + "Api/SiSi/getLiveBanner";
     private static final String GET_CHANNEL_KEY = HOST + "Api/SiSi/getChannelKey";
     //帮助
     public static final String URL_GAME_HELP = HOST + "/portal/appweb/help?qudao="+QUDAO;
     //邀请
-    public static final String URL_GAME_YAOQING = HOST + "/portal/appweb/my_code?qudao="+QUDAO;
+    public static final String URL_GAME_YAOQING = HOST + "/portal/appweb/my_code_hong?qudao="+QUDAO;
     //邀请码
     public static final String URL_GAME_YAOQINGMA = HOST + "/portal/appweb/input_code?qudao="+QUDAO;
     //问题反馈

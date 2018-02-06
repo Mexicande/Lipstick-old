@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -36,12 +37,11 @@ public class MessageActivity extends BaseActivity {
     RecyclerView mRecyclerView;
     @Bind(R.id.tv_title)
     TextView tvTitle;
-    @Bind(R.id.iv_default)
-    ImageView ivDefault;
     private String mToken;
     private ArrayList<NoticeMessageBean.InfoBean> mListData = new ArrayList();
     private NoticeAdapter mAdapter = new NoticeAdapter(mListData);
-
+    private View notDataView;
+    private View errorView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +70,8 @@ public class MessageActivity extends BaseActivity {
                 getGameData(mListData.size());
             }
         });
+        notDataView = getLayoutInflater().inflate(R.layout.empty_view, (ViewGroup) mRecyclerView.getParent(), false);
+
     }
 
     private void getGameData(final int limit_begin) {
@@ -91,9 +93,6 @@ public class MessageActivity extends BaseActivity {
                 }
                 NoticeMessageBean noticeMessageBean = JSON.parseObject(data.toString(), NoticeMessageBean.class);
                 mListData.addAll(noticeMessageBean.getInfo());
-                if(mListData.size()!=0){
-                    ivDefault.setVisibility(View.GONE);
-                }
                 mAdapter.addData(mListData);
             }
 
@@ -101,8 +100,7 @@ public class MessageActivity extends BaseActivity {
             public void requestFailure(int code, String msg) {
                 toast(msg);
                 if(mListData.size()==0){
-                    ivDefault.setVisibility(View.VISIBLE);
-
+                    mAdapter.setEmptyView(notDataView); 
                 }
                 if (mRefreshLayout.isRefreshing()) {
                     mRefreshLayout.finishRefresh();
