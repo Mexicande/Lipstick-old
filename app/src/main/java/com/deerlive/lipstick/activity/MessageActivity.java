@@ -100,7 +100,7 @@ public class MessageActivity extends BaseActivity {
             public void requestFailure(int code, String msg) {
                 toast(msg);
                 if(mListData.size()==0){
-                    mAdapter.setEmptyView(notDataView); 
+                    mAdapter.setEmptyView(notDataView);
                 }
                 if (mRefreshLayout.isRefreshing()) {
                     mRefreshLayout.finishRefresh();

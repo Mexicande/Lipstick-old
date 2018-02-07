@@ -15,7 +15,6 @@
         android:layout_height="wrap_content">
         <RelativeLayout
             android:id="@+id/buttom"
-            android:paddingRight="10dp"
             android:paddingLeft="10dp"
             android:layout_alignParentBottom="true"
             android:layout_width="match_parent"
@@ -46,7 +45,7 @@
                         android:layout_height="15dp"
                         android:src="@drawable/game_icon"/>
                     <TextView
-                        android:layout_marginLeft="5dp"
+                        android:layout_marginLeft="1dp"
                         android:id="@+id/game_price"
                         android:textSize="12sp"
                         android:layout_width="wrap_content"
@@ -57,15 +56,16 @@
                 </LinearLayout>
                 <com.deerlive.lipstick.view.supertextview.SuperButton
                     android:id="@+id/game_status"
+                    android:layout_marginRight="5dp"
                     android:layout_width="wrap_content"
-                    android:layout_height="20dp"
+                    android:layout_height="18dp"
                     android:layout_centerVertical="true"
                     android:layout_alignParentRight="true"
                     android:paddingLeft="8dp"
                     android:paddingRight="8dp"
                     app:sCornersRadius="15dp"
                     android:textColor="@color/white"
-                    android:textSize="11sp"
+                    android:textSize="10sp"
                     android:text="游戏中"/>
             </RelativeLayout>
         </RelativeLayout>

@@ -14,6 +14,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.deerlive.lipstick.R;
 import com.deerlive.lipstick.base.BaseActivity;
 import com.hss01248.dialog.StyledDialog;
@@ -142,6 +143,8 @@ public class WebviewActivity extends BaseActivity implements PlatformActionListe
 
         @JavascriptInterface
         public void shareToMoment(String title, String msg, String url, String imgUrl) {
+            LogUtils.d("imgUrl==",imgUrl+"");
+            LogUtils.d("url==",url+"");
             Platform.ShareParams sp = new Platform.ShareParams();
             sp.setTitle(title);
             sp.setUrl(url);

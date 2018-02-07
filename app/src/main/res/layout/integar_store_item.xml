@@ -15,7 +15,6 @@
         android:layout_height="wrap_content">
         <RelativeLayout
             android:id="@+id/buttom"
-            android:paddingRight="10dp"
             android:paddingLeft="10dp"
             android:layout_alignParentBottom="true"
             android:layout_width="match_parent"
@@ -46,18 +45,19 @@
                         android:text="200积分"/>
                 <com.deerlive.lipstick.view.supertextview.SuperButton
                     android:id="@+id/duihuan"
+                    android:layout_marginRight="5dp"
                     android:layout_width="wrap_content"
-                    android:layout_height="20dp"
+                    android:layout_height="16dp"
                     android:layout_centerVertical="true"
                     android:layout_alignParentRight="true"
-                    android:paddingLeft="12dp"
-                    android:paddingRight="12dp"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
                     app:sCornersRadius="15dp"
                     app:sSelectorNormalColor="@color/colorPrimary"
                     app:sSelectorPressedColor="@color/text_gray"
                     android:textColor="@color/white"
                     app:sUseSelector="true"
-                    android:textSize="11sp"
+                    android:textSize="10sp"
                     android:text="兑换"/>
             </RelativeLayout>
         </RelativeLayout>

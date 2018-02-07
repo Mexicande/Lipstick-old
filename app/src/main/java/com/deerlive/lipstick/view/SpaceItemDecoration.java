@@ -28,7 +28,7 @@ public class SpaceItemDecoration extends RecyclerView.ItemDecoration {
             outRect.bottom = 20;
             outRect.left = 15;
         }else{
-            outRect.left = 40;
+            outRect.left = 30;
             outRect.top = 0;
             outRect.bottom = 20;
             outRect.right = 15;
