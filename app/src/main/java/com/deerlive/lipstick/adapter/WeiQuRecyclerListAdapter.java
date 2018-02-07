@@ -145,16 +145,8 @@ public class WeiQuRecyclerListAdapter extends RecyclerView.Adapter<RecyclerView.
 
     private void setGetWay(ImageView imageView,int type) {
             if(type==0){
-               /* Glide.with(mContext).load(R.mipmap.iv_claw)
-                        .error(R.mipmap.logo)
-                        .centerCrop()
-                        .into(imageView);*/
                 imageView.setImageResource(R.mipmap.iv_claw);
             }else {
-               /* Glide.with(mContext).load(R.mipmap.iv_exchange)
-                        .error(R.mipmap.logo)
-                        .transform(new GlideCircleTransform(mContext))
-                        .into(imageView);*/
                 imageView.setImageResource(R.mipmap.iv_exchange);
             }
 
@@ -174,8 +166,6 @@ public class WeiQuRecyclerListAdapter extends RecyclerView.Adapter<RecyclerView.
         }
         return count;
     }
-
-
 
 
     class HeaderHolder extends RecyclerView.ViewHolder {

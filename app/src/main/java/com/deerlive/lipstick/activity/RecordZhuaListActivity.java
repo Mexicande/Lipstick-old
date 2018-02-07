@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -24,10 +25,12 @@ import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.Bind;
 
-public class RecordZhuaListActivity extends BaseActivity implements OnRecyclerViewItemClickListener {
+public class RecordZhuaListActivity extends BaseActivity {
 
 
     @Bind(R.id.refreshLayout)
@@ -36,11 +39,10 @@ public class RecordZhuaListActivity extends BaseActivity implements OnRecyclerVi
     RecyclerView mRecyclerView;
     @Bind(R.id.tv_title)
     TextView tvTitle;
-    @Bind(R.id.iv_default)
-    ImageView ivDefault;
     private String mToken;
     private ArrayList<DanmuMessage> mListData = new ArrayList();
-    private RecordZqRecyclerListAdapter mAdapter = new RecordZqRecyclerListAdapter(this, mListData);
+    private RecordZqRecyclerListAdapter mAdapter = new RecordZqRecyclerListAdapter( mListData);
+    private View notDataView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +56,6 @@ public class RecordZhuaListActivity extends BaseActivity implements OnRecyclerVi
     private void initGameList() {
         final LinearLayoutManager manager = new LinearLayoutManager(this);
         manager.setOrientation(LinearLayoutManager.VERTICAL);
-        //mRecyclerView.addItemDecoration(new SpaceItemDecoration(SizeUtils.dp2px(10)));
         mRecyclerView.setLayoutManager(manager);
         mRecyclerView.setAdapter(mAdapter);
         mRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
@@ -69,14 +70,16 @@ public class RecordZhuaListActivity extends BaseActivity implements OnRecyclerVi
                 getGameData(mListData.size());
             }
         });
-        mAdapter.setOnRecyclerViewItemClickListener(this);
+        notDataView = getLayoutInflater().inflate(R.layout.empty_view, (ViewGroup) mRecyclerView.getParent(), false);
+
+
     }
 
     private void getGameData(final int limit_begin) {
-        JSONObject params = new JSONObject();
+        Map<String,String>params=new HashMap<>();
         params.put("token", mToken);
-        params.put("limit_begin", limit_begin);
-        params.put("limit_num", 10);
+        params.put("limit_begin", String.valueOf(limit_begin));
+        params.put("limit_num", 10+"");
         Api.getZhuaRecord(this, params, new OnRequestDataListener() {
             @Override
             public void requestSuccess(int code, JSONObject data) {
@@ -101,20 +104,16 @@ public class RecordZhuaListActivity extends BaseActivity implements OnRecyclerVi
                     g.setRemoteUid(t.getString("video_status"));
                     mListData.add(g);
                 }
-                if(mListData.size()!=0){
-                    ivDefault.setVisibility(View.GONE);
-                }
-
-                mAdapter.notifyDataSetChanged();
+                mAdapter.setNewData(mListData);
             }
 
             @Override
             public void requestFailure(int code, String msg) {
                 toast(msg);
                 if(mListData.size()==0){
-                    ivDefault.setVisibility(View.VISIBLE);
-
+                    mAdapter.setEmptyView(notDataView);
                 }
+
                 if (mRefreshLayout.isRefreshing()) {
                     mRefreshLayout.finishRefresh();
                 }
@@ -128,18 +127,6 @@ public class RecordZhuaListActivity extends BaseActivity implements OnRecyclerVi
     @Override
     public int getLayoutResource() {
         return R.layout.activity_record_zhua_list;
-    }
-
-    @Override
-    public void onRecyclerViewItemClick(View view, int position) {
-        DanmuMessage t = mListData.get(position);
-        if (t != null && "1".equals(t.getRemoteUid())) {
-            Bundle d = new Bundle();
-            d.putSerializable("item", t);
-            ActivityUtils.startActivity(d, VideoPlayerActivity.class);
-        } else {
-            toast(getString(R.string.record_error));
-        }
     }
 
 

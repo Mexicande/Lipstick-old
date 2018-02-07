@@ -138,9 +138,9 @@ public class Api {
     public static void getUserInfo(final Context context, Map<String,String> params, final OnRequestDataListener listener) {
         newExcuteMapPost(GET_USER_INFO, context, params,listener);
     }
-
-    public static void getZhuaRecord(final Context context, JSONObject params, final OnRequestDataListener listener) {
-        excutePost(GET_ZHUA_RECORD, context, params,listener);
+    //抓取记录
+    public static void getZhuaRecord(final Context context, Map<String,String> params, final OnRequestDataListener listener) {
+        newExcuteMapPost(GET_ZHUA_RECORD, context, params,listener);
     }
     //积分商城兑换记录
     public static void getDuiRecord(FragmentActivity context,Map<String,String> params, OnRequestDataListener listener) {
@@ -163,8 +163,9 @@ public class Api {
     public static void getShouHuoLocation(final Context context, Map<String, String>  params, final OnRequestDataListener listener) {
         newExcuteMapPost(GET_SHOUHUO_LOCATION, context, params,listener);
     }
-    public static void getCoinRecord(final Context context, JSONObject params, final OnRequestDataListener listener) {
-        excutePost(GET_COIN_RECORD, context, params,listener);
+    //金币记录
+    public static void getCoinRecord(final Context context, Map<String, String>  params, final OnRequestDataListener listener) {
+        newExcuteMapPost(GET_COIN_RECORD, context, params,listener);
     }
     //收货地址修改Andtianjia
 

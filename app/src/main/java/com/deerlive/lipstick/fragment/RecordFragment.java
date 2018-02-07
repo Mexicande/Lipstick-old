@@ -67,7 +67,7 @@ public class RecordFragment extends DialogFragment {
         ButterKnife.bind(this, view);
         getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
-        mRecordZjAdapter = new RecordZjRecyclerListAdapter(getActivity(), mRecordZjDate);
+        mRecordZjAdapter = new RecordZjRecyclerListAdapter( mRecordZjDate);
         LinearLayoutManager m = new LinearLayoutManager(getActivity());
         m.setOrientation(LinearLayoutManager.VERTICAL);
         mRecordZhuaList.setLayoutManager(m);

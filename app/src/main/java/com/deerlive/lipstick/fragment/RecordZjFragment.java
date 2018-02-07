@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -33,6 +34,8 @@ public class RecordZjFragment extends BaseFragment {
 
     @Bind(R.id.record_zhua_list)
     RecyclerView mRecordZhuaList;
+    private View notDataView;
+
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
@@ -49,11 +52,13 @@ public class RecordZjFragment extends BaseFragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mRecordZjAdapter = new RecordZjRecyclerListAdapter(getContext(),mRecordZjDate);
+        mRecordZjAdapter = new RecordZjRecyclerListAdapter(mRecordZjDate);
         LinearLayoutManager m = new LinearLayoutManager(getContext());
         m.setOrientation(LinearLayoutManager.VERTICAL);
         mRecordZhuaList.setLayoutManager(m);
         mRecordZhuaList.setAdapter(mRecordZjAdapter);
+        notDataView = getLayoutInflater().inflate(R.layout.empty_view, (ViewGroup) mRecordZhuaList.getParent(), false);
+
         //getData();
     }
 
@@ -76,12 +81,13 @@ public class RecordZjFragment extends BaseFragment {
                     item1.setMessageContent(t.getString("play_time"));
                     mRecordZjDate.add(item1);
                 }
-                mRecordZjAdapter.notifyDataSetChanged();
+                mRecordZjAdapter.setNewData(mRecordZjDate);
             }
 
             @Override
             public void requestFailure(int code, String msg) {
                 toast(msg);
+
             }
         });
     }

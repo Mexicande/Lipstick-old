@@ -166,7 +166,6 @@ public class WeiQuListActivity extends BaseActivity implements OnRecyclerViewIte
                if(mListData.get(i).getChange()==1&&mListData.get(i).getRemoteUid()==1){
                    duihuan.setBackgroundResource(R.drawable.iv_duihuan_press);
                    duihuan.setEnabled(false);
-
                }
             }
 
@@ -174,9 +173,7 @@ public class WeiQuListActivity extends BaseActivity implements OnRecyclerViewIte
         if (s == 0) {
             mListData.get(position).setRemoteUid(1);
             mAdapter.notifyItemChanged(position);
-
             if (mListData.get(position).getChange() == 0) {
-
                 for(int i=0;i<mListData.size();i++){
                     if (mListData.get(i).getChange() == 1) {
                         if(mListData.get(i).getRemoteUid()==1){
@@ -185,10 +182,8 @@ public class WeiQuListActivity extends BaseActivity implements OnRecyclerViewIte
                         }
                     }
                 }
-
                 duihuan.setBackgroundResource(R.drawable.prize_button);
                 duihuan.setEnabled(true);
-
             } else {
                 for(int i=0;i<mListData.size();i++){
                     if (mListData.get(i).getChange() == 0) {

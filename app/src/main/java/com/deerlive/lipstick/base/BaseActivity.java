@@ -68,10 +68,12 @@ public abstract class BaseActivity extends AppCompatActivity {
             mImmersionBar.destroy();
         active = false;
     }
+    @Override
     public void onResume() {
         super.onResume();
         MobclickAgent.onResume(this);
     }
+    @Override
     public void onPause() {
         super.onPause();
         MobclickAgent.onPause(this);

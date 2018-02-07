@@ -44,7 +44,7 @@ public class UserCenterOtherActivity extends BaseActivity {
     @Bind(R.id.recyclerview)
     RecyclerView mRecyclerView;
     private ArrayList<DanmuMessage> mListData = new ArrayList();
-    private RecordZqRecyclerListAdapter mAdapter = new RecordZqRecyclerListAdapter(this,mListData);
+    private RecordZqRecyclerListAdapter mAdapter = new RecordZqRecyclerListAdapter(mListData);
 
     private String mToken;
     private String mUserId;
@@ -88,11 +88,12 @@ public class UserCenterOtherActivity extends BaseActivity {
     }
 
     private void getGameData(final int limit_begin) {
-        JSONObject params = new JSONObject();
-        params.put("token",mToken);
+        Map<String,String>params=new HashMap<>();
+        params.put("token", mToken);
+        params.put("limit_begin", String.valueOf(limit_begin));
+        params.put("limit_num", 10+"");
         params.put("userId",mUserId);
-        params.put("limit_begin",limit_begin);
-        params.put("limit_num",10);
+
         Api.getZhuaRecord(this, params, new OnRequestDataListener() {
             @Override
             public void requestSuccess(int code, JSONObject data) {
@@ -115,7 +116,7 @@ public class UserCenterOtherActivity extends BaseActivity {
                     g.setMessageContent(t.getString("play_result"));
                     mListData.add(g);
                 }
-                mAdapter.notifyDataSetChanged();
+                mAdapter.setNewData(mListData);
             }
 
             @Override
