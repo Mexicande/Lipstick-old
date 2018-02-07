@@ -23,6 +23,7 @@ import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.SizeUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.TimeUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
 import com.deerlive.lipstick.activity.ChargeActivity;
 import com.deerlive.lipstick.activity.PlayerActivity;
@@ -367,5 +368,17 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                 break;
 
         }
+    }
+    private long mLastBackTime = 0;
+    @Override
+    public void onBackPressed() {
+                if ((System.currentTimeMillis() - mLastBackTime) < 1000) {
+                    finish();
+                } else {
+                    mLastBackTime = System.currentTimeMillis();
+                    ToastUtils.showShort( "再按一次退出");
+        }
+
+
     }
 }

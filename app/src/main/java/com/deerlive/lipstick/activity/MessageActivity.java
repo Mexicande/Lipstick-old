@@ -41,7 +41,6 @@ public class MessageActivity extends BaseActivity {
     private ArrayList<NoticeMessageBean.InfoBean> mListData = new ArrayList();
     private NoticeAdapter mAdapter = new NoticeAdapter(mListData);
     private View notDataView;
-    private View errorView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
