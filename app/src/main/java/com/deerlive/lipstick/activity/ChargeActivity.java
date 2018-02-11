@@ -37,6 +37,7 @@ import com.deerlive.lipstick.model.PayModel;
 import com.deerlive.lipstick.pay.alipay.Alipay;
 import com.deerlive.lipstick.pay.alipay.PayResult;
 import com.deerlive.lipstick.pay.wechat.Wechat;
+import com.deerlive.lipstick.utils.LogUtils;
 import com.deerlive.lipstick.view.GridSpaceItemDecoration;
 import com.mancj.slideup.SlideUp;
 
@@ -189,7 +190,6 @@ public class ChargeActivity extends BaseActivity {
                     model.setType(list.getJSONObject(i).getString("type"));
                     payModels.add(model);
                 }
-
                 insertPayItem(payModels);
             }
 
@@ -202,8 +202,8 @@ public class ChargeActivity extends BaseActivity {
     }
 
     private void insertPayItem(ArrayList<PayModel> payModels) {
+
         for (final PayModel s : payModels) {
-           // getResources().getString(R.string.pay_weixin)
             if (getResources().getString(R.string.pay_weixin).equals(s.getName())) {
                 linearPayWeichatContainer.setVisibility(View.VISIBLE);
                 linearPayWeichatContainer.setOnClickListener(new View.OnClickListener() {
@@ -213,8 +213,7 @@ public class ChargeActivity extends BaseActivity {
                     }
                 });
             }
-            //getResources().getString(R.string.pay_zfb)
-            if (getResources().getString(R.string.pay_weixin).equals(s.getName())) {
+            if (getResources().getString(R.string.pay_zfb).equals(s.getName())) {
                 linearPayZfbContainer.setVisibility(View.VISIBLE);
                 linearPayZfbContainer.setOnClickListener(new View.OnClickListener() {
                     @Override

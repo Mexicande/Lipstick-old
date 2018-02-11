@@ -70,7 +70,6 @@ public class UserCenterActivity extends BaseActivity {
             this.getWindow().setStatusBarColor(Color.TRANSPARENT);
 
         }
-        initData();
         layoutIntegal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -91,8 +90,6 @@ public class UserCenterActivity extends BaseActivity {
         mmUserName = SPUtils.getInstance().getString("user_nicename");
         mmAvator = SPUtils.getInstance().getString("avatar");
         mmBalance = SPUtils.getInstance().getString("balance");
-        mToken = SPUtils.getInstance().getString("token");
-        mId = SPUtils.getInstance().getString("id");
 
         myBalanceText.setText(mmBalance);
         mUserName.setText(mmUserName);
@@ -104,6 +101,9 @@ public class UserCenterActivity extends BaseActivity {
     }
 
     private void getUserInfo() {
+        mId = SPUtils.getInstance().getString("id");
+        mToken = SPUtils.getInstance().getString("token");
+
         Map<String, String> p = new HashMap<>();
         p.put("token", mToken);
         p.put("id", mId);

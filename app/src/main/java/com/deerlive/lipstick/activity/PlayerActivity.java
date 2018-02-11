@@ -239,9 +239,11 @@ public class PlayerActivity extends BaseActivity implements View.OnTouchListener
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP_MR1)
     private void startRecord() {
-        if (mMediaProjectionManager != null) {
-            Intent captureIntent = mMediaProjectionManager.createScreenCaptureIntent();
-            startActivityForResult(captureIntent, REQUEST_CODE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            if (mMediaProjectionManager != null) {
+                Intent captureIntent = mMediaProjectionManager.createScreenCaptureIntent();
+                startActivityForResult(captureIntent, REQUEST_CODE);
+            }
         }
     }
 
@@ -859,6 +861,8 @@ public class PlayerActivity extends BaseActivity implements View.OnTouchListener
                         }
                     }
                     break;
+                default:
+                    break;
             }
         }
     };
@@ -1076,9 +1080,11 @@ public class PlayerActivity extends BaseActivity implements View.OnTouchListener
 
     private void startTimerEnsture() {
         mTimerEnture = new CountDownTimer(8000, 1000) {
+            @Override
             public void onTick(long millisUntilFinished) {
             }
 
+            @Override
             public void onFinish() {
                 toast(getString(R.string.net_error));
                 mImageGameStatus.setEnabled(true);

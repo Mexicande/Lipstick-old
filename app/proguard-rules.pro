@@ -251,6 +251,9 @@ public <methods>;
 -dontwarn com.google.**
 -keep class com.google.gson.** {*;}
 -keep class com.google.protobuf.** {*;}
+
+
+#-------okgo---------
 #okhttp
 -dontwarn okhttp3.**
 -keep class okhttp3.**{*;}
@@ -258,6 +261,23 @@ public <methods>;
 #okio
 -dontwarn okio.**
 -keep class okio.**{*;}
+
+
+#okgo
+-dontwarn com.lzy.okgo.**
+-keep class com.lzy.okgo.**{*;}
+
+#okrx
+-dontwarn com.lzy.okrx.**
+-keep class com.lzy.okrx.**{*;}
+
+#okrx2
+-dontwarn com.lzy.okrx2.**
+-keep class com.lzy.okrx2.**{*;}
+
+#okserver
+-dontwarn com.lzy.okserver.**
+-keep class com.lzy.okserver.**{*;}
 
 
 # Gson
@@ -268,7 +288,8 @@ public <methods>;
 -keep class com.google.gson.stream.** { *; }
 # 使用Gson时需要配置Gson的解析对象及变量都不混淆。不然Gson会找不到变量。
 # 将下面替换成自己的实体类
--keep class com.deerlive.zhuawawa.model.** { *; }
+-keep class com.deerlive.lipstick.model.** { *; }
+
 
 
 -keep public class pl.droidsonroids.gif.GifIOException{<init>(int);}
@@ -290,3 +311,7 @@ public <methods>;
 -keepclassmembers class * {
     @com.facebook.common.internal.DoNotStrip *;
 }
+
+-keep class com.blankj.utilcode.** { *; }
+-keepclassmembers class com.blankj.utilcode.** { *; }
+-dontwarn com.blankj.utilcode.**

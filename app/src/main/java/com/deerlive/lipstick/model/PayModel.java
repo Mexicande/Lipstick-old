@@ -44,4 +44,14 @@ public class PayModel implements Serializable{
     public void setIcon(String icon) {
         this.icon = icon;
     }
+
+    @Override
+    public String toString() {
+        return "PayModel{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", type='" + type + '\'' +
+                ", icon='" + icon + '\'' +
+                '}';
+    }
 }
