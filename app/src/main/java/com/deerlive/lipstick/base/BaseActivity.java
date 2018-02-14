@@ -26,7 +26,6 @@ import butterknife.ButterKnife;
 
 public abstract class BaseActivity extends AppCompatActivity {
     protected Boolean active = true;
-    protected ImmersionBar mImmersionBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,11 +46,6 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         }
     }
-    protected void initImmersionBar() {
-        //在BaseActivity里初始化
-        mImmersionBar = ImmersionBar.with(this);
-        mImmersionBar.init();
-    }
 
     public void toast(String mes){
         ToastUtils.showShort(mes);
@@ -64,8 +58,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (mImmersionBar != null)
-            mImmersionBar.destroy();
         active = false;
     }
     @Override

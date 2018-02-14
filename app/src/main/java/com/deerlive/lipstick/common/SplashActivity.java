@@ -67,7 +67,6 @@ public class SplashActivity extends BaseActivity {
         },SHOW_TIME_MIN);
     }
 
-
     @Override
     public int getLayoutResource() {
         return R.layout.activity_splash;
