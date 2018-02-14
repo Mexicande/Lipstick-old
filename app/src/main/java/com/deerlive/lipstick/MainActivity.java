@@ -302,7 +302,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
 
 
     public void checkUpdate() {
-        JSONObject params = new JSONObject();
+
+        Map<String,String>params=new HashMap<>();
         try {
             String versionCode = getPackageManager().getPackageInfo(this.getPackageName(), 0).versionName;
             params.put("ver_num", versionCode);

@@ -44,6 +44,7 @@ import com.mancj.slideup.SlideUp;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.Bind;
 
@@ -114,12 +115,8 @@ public class ChargeActivity extends BaseActivity {
         mPaymethidAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                // mCur =Integer.parseInt(mPayMethodData.get(position).getId());
                 mCur = position;
                 cat_SlideUp.show();
-                //mCirclePop.showAtLocation(view, Gravity.BOTTOM, 0, 0);
-
-                //mCirclePop.showAtAnchorView(view, VerticalGravity.ALIGN_BOTTOM, HorizontalGravity.CENTER,0, 0);
             }
         });
 
@@ -175,8 +172,9 @@ public class ChargeActivity extends BaseActivity {
             }
         });
 
-        JSONObject p = new JSONObject();
+        Map<String,String> p=new HashMap<>();
         p.put("token", mToken);
+
         Api.getPayType(this, p, new OnRequestDataListener() {
             @Override
             public void requestSuccess(int code, JSONObject data) {
@@ -231,7 +229,7 @@ public class ChargeActivity extends BaseActivity {
             toast(getResources().getString(R.string.data_error));
             return;
         }
-        JSONObject params = new JSONObject();
+        Map<String,String> params=new HashMap<>();
         params.put("token", mToken);
         params.put("item_id", mPayMethodData.get(mCur).getId());
         params.put("paytype_id", paytype_id);

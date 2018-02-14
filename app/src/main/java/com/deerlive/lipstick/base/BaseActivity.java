@@ -14,7 +14,6 @@ import android.widget.EditText;
 import com.blankj.utilcode.util.SnackbarUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.deerlive.lipstick.R;
-import com.gyf.barlibrary.ImmersionBar;
 import com.umeng.analytics.MobclickAgent;
 
 import butterknife.ButterKnife;

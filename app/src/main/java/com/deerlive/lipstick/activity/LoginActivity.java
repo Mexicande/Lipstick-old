@@ -22,6 +22,7 @@ import com.deerlive.lipstick.intf.OnRequestDataListener;
 import com.hss01248.dialog.StyledDialog;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.Bind;
 import cn.sharesdk.framework.Platform;
@@ -34,7 +35,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener{
     Platform mPlatForm;
     Dialog mLoadingDialog;
     MyHandler mHandler;
-    JSONObject params;
+    private Map<String,String> params;
     @Bind(R.id.checkbox_login)
     CheckBox checkboxLogin;
     @Bind(R.id.weChat_login)
@@ -76,7 +77,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener{
             String openid = db.getUserId();
             String access_token = db.getToken();
             String expires_date = db.getExpiresTime() + "";
-            params = new JSONObject();
+            params = new HashMap<>();
             params.put("name", name);
             params.put("from", from);
             params.put("head_img", head_img);
@@ -111,6 +112,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener{
                 }else {
                     ToastUtils.showShort("请先选择并同意下面条款");
                 }
+                break;
+            default:
                 break;
         }
 

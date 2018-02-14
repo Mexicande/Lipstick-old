@@ -14,6 +14,8 @@ import com.deerlive.lipstick.activity.LoginActivity;
 import com.deerlive.lipstick.base.BaseActivity;
 import com.deerlive.lipstick.intf.OnRequestDataListener;
 
+import java.util.HashMap;
+
 import butterknife.Bind;
 
 public class SplashActivity extends BaseActivity {
@@ -28,7 +30,7 @@ public class SplashActivity extends BaseActivity {
     }
 
     private void getLaunchScreen() {
-        Api.getLaunchScreen(this, new JSONObject(), new OnRequestDataListener() {
+        Api.getLaunchScreen(this, new HashMap<String, String>(), new OnRequestDataListener() {
             @Override
             public void requestSuccess(int code, final JSONObject data) {
                    Glide.with(getApplicationContext()).load(data.getString("info")).into(mLauchScreen);

@@ -23,6 +23,9 @@ import com.deerlive.lipstick.common.WebviewActivity;
 import com.deerlive.lipstick.intf.OnRequestDataListener;
 import com.deerlive.lipstick.view.supertextview.SuperTextView;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import butterknife.Bind;
 
 public class SettingActivity extends BaseActivity {
@@ -121,7 +124,8 @@ public class SettingActivity extends BaseActivity {
     }
 
     public void checkUpdate(View v) {
-        JSONObject params = new JSONObject();
+        Map<String,String>params=new HashMap<>();
+
         try {
             String versionCode = getPackageManager().getPackageInfo(this.getPackageName(), 0).versionName;
             params.put("ver_num", versionCode);

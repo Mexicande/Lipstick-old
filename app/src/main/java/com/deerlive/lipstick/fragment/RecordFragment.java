@@ -24,6 +24,8 @@ import com.deerlive.lipstick.model.DanmuMessage;
 import com.deerlive.lipstick.utils.Utils;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -98,10 +100,11 @@ public class RecordFragment extends DialogFragment {
     }
 
     private void getData() {
-        JSONObject params = new JSONObject();
+        Map<String,String> params=new HashMap<>();
+
         params.put("deviceid", mArgument);
         params.put("limit_begin", "0");
-        params.put("limit_num", 20);
+        params.put("limit_num", 20+"");
         Api.getLatestDeviceRecord(getActivity(), params, new OnRequestDataListener() {
             @Override
             public void requestSuccess(int code, JSONObject data) {

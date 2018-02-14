@@ -47,8 +47,6 @@ public class MyApplication extends Application {
         Utils.init(this);
         LogUtils.init(getInstance());
 
-
-
         Fresco.initialize(this);
         initDisplayOpinion();
 
