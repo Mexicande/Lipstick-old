@@ -8,7 +8,6 @@
     <permission
         android:name="com.deerlive.zhuawawa.permission.JPUSH_MESSAGE"
         android:protectionLevel="signature" />
-
     &lt;!&ndash; Required  一些系统要求的权限，如访问网络等 &ndash;&gt;
     <uses-permission android:name="com.deerlive.zhuawawa.permission.JPUSH_MESSAGE" />
     -->
@@ -22,8 +21,6 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />

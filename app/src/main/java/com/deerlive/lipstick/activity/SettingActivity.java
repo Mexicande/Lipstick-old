@@ -19,6 +19,7 @@ import com.deerlive.lipstick.common.Api;
 import com.deerlive.lipstick.common.WebviewActivity;
 import com.deerlive.lipstick.intf.OnRequestDataListener;
 import com.deerlive.lipstick.utils.ActivityUtils;
+import com.deerlive.lipstick.utils.AppUtils;
 import com.deerlive.lipstick.utils.SPUtils;
 import com.deerlive.lipstick.utils.Utils;
 import com.deerlive.lipstick.view.supertextview.SuperTextView;
@@ -38,7 +39,7 @@ public class SettingActivity extends BaseActivity {
     @Bind(R.id.bt_version)
     SuperTextView btVersion;
     private String token;
-
+    private String versionName;
     public void goBack(View v) {
         finish();
     }
@@ -63,7 +64,7 @@ public class SettingActivity extends BaseActivity {
     }
 
     private void setListener() {
-        String versionName = Utils.getApp().getPackageName();
+        versionName = AppUtils.getAppVersionName() ;
         btVersion.setRightString("v"+versionName);
 
         checkboxBgm.setSwitchCheckedChangeListener(new SuperTextView.OnSwitchCheckedChangeListener() {
@@ -125,13 +126,8 @@ public class SettingActivity extends BaseActivity {
 
     public void checkUpdate(View v) {
         Map<String,String>params=new HashMap<>();
-
-        try {
-            String versionCode = getPackageManager().getPackageInfo(this.getPackageName(), 0).versionName;
+            String versionCode =AppUtils.getAppVersionCode()+"";
             params.put("ver_num", versionCode);
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        }
 
         Api.checkUpdate(this, params, new OnRequestDataListener() {
             @Override
@@ -168,13 +164,6 @@ public class SettingActivity extends BaseActivity {
                 })
                 .show();
     }
-
-  /*  public void aboutUs(View v) {
-        Bundle temp = new Bundle();
-        temp.putString("title", getResources().getString(R.string.about_us));
-        temp.putString("jump", Api.URL_GAME_ABOUT + "&token=" + token);
-        ActivityUtils.startActivity(temp, WebviewActivity.class);
-    }*/
 
 
     @Override
