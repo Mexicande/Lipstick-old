@@ -49,6 +49,7 @@ public class SoundUtils {
     }
 
     private static final MediaPlayer.OnCompletionListener beepListener = new MediaPlayer.OnCompletionListener() {
+        @Override
         public void onCompletion(MediaPlayer mediaPlayer) {
             mediaPlayer.seekTo(0);
         }

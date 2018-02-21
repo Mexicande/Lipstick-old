@@ -5,13 +5,13 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
-import com.blankj.utilcode.util.ScreenUtils;
-import com.blankj.utilcode.util.SizeUtils;
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.deerlive.lipstick.R;
 import com.deerlive.lipstick.model.GiftStoreBean;
+import com.deerlive.lipstick.utils.ScreenUtils;
+import com.deerlive.lipstick.utils.SizeUtils;
 
 import java.util.List;
 
@@ -21,12 +21,10 @@ import java.util.List;
 
 public class IntegarStoreAdapter extends BaseQuickAdapter<GiftStoreBean.InfoBean.GiftBean,BaseViewHolder> {
     private int imageHeight;
-    private int imageWidth;
 
     public IntegarStoreAdapter(int layoutResId, List<GiftStoreBean.InfoBean.GiftBean> data) {
         super(layoutResId, data);
         imageHeight = (ScreenUtils.getScreenWidth() - SizeUtils.dp2px(15))/2;
-        imageWidth = imageHeight ;
     }
 
     @Override

@@ -12,9 +12,6 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.bigkoo.pickerview.OptionsPickerView;
 import com.bigkoo.pickerview.listener.CustomListener;
-import com.blankj.utilcode.util.RegexUtils;
-import com.blankj.utilcode.util.SPUtils;
-import com.blankj.utilcode.util.ToastUtils;
 import com.deerlive.lipstick.R;
 import com.deerlive.lipstick.base.BaseActivity;
 import com.deerlive.lipstick.common.Api;
@@ -22,6 +19,9 @@ import com.deerlive.lipstick.intf.OnRequestDataListener;
 import com.deerlive.lipstick.model.AddressBean;
 import com.deerlive.lipstick.model.CityEntityBean;
 import com.deerlive.lipstick.utils.GetJsonDataUtil;
+import com.deerlive.lipstick.utils.RegexUtils;
+import com.deerlive.lipstick.utils.SPUtils;
+import com.deerlive.lipstick.utils.ToastUtils;
 import com.deerlive.lipstick.view.supertextview.SuperTextView;
 
 

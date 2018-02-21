@@ -9,7 +9,6 @@ import android.widget.TextView;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.blankj.utilcode.util.SPUtils;
 import com.bumptech.glide.Glide;
 import com.deerlive.lipstick.R;
 import com.deerlive.lipstick.adapter.RecordZqRecyclerListAdapter;
@@ -18,6 +17,7 @@ import com.deerlive.lipstick.common.Api;
 import com.deerlive.lipstick.common.GlideCircleTransform;
 import com.deerlive.lipstick.intf.OnRequestDataListener;
 import com.deerlive.lipstick.model.DanmuMessage;
+import com.deerlive.lipstick.utils.SPUtils;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;

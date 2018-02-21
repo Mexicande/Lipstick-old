@@ -8,16 +8,15 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.blankj.utilcode.util.SPUtils;
 import com.deerlive.lipstick.R;
 import com.deerlive.lipstick.adapter.ZhuaRecordAdapter;
 import com.deerlive.lipstick.common.Api;
 import com.deerlive.lipstick.intf.OnRequestDataListener;
 import com.deerlive.lipstick.model.ZhuaRecordBean;
+import com.deerlive.lipstick.utils.SPUtils;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;

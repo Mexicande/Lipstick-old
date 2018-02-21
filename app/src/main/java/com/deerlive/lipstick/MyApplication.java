@@ -3,11 +3,8 @@ package com.deerlive.lipstick;
 import android.app.Application;
 import android.content.Context;
 import android.support.multidex.MultiDex;
-import android.util.DisplayMetrics;
 
-import com.blankj.utilcode.util.Utils;
-import com.deerlive.lipstick.utils.LogUtils;
-import com.facebook.drawee.backends.pipeline.Fresco;
+import com.deerlive.lipstick.utils.Utils;
 import com.hss01248.dialog.StyledDialog;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.model.HttpParams;
@@ -15,8 +12,6 @@ import com.meituan.android.walle.WalleChannelReader;
 import com.mob.MobSDK;
 import com.tencent.bugly.crashreport.CrashReport;
 import com.umeng.analytics.MobclickAgent;
-import com.uuch.adlibrary.utils.DisplayUtil;
-
 import static com.deerlive.lipstick.common.Api.APP_VER;
 import static com.deerlive.lipstick.common.Api.OS;
 import static com.deerlive.lipstick.common.Api.OS_VER;
@@ -45,11 +40,6 @@ public class MyApplication extends Application {
         // LeakCanary.install(this);
 
         Utils.init(this);
-        LogUtils.init(getInstance());
-
-        Fresco.initialize(this);
-        initDisplayOpinion();
-
         StyledDialog.init(this);
         //ShareSDK
         MobSDK.init(this,"241ef37e9c97b","bf5dbc1bbb546283ea4f31b41a7ac8c2");
@@ -77,15 +67,6 @@ public class MyApplication extends Application {
 
         OkGo.getInstance().init(this)
                 .addCommonParams(params);
-    }
-    private void initDisplayOpinion() {
-        DisplayMetrics dm = getResources().getDisplayMetrics();
-        DisplayUtil.density = dm.density;
-        DisplayUtil.densityDPI = dm.densityDpi;
-        DisplayUtil.screenWidthPx = dm.widthPixels;
-        DisplayUtil.screenhightPx = dm.heightPixels;
-        DisplayUtil.screenWidthDip = DisplayUtil.px2dip(getApplicationContext(), dm.widthPixels);
-        DisplayUtil.screenHightDip = DisplayUtil.px2dip(getApplicationContext(), dm.heightPixels);
     }
 
     public static MyApplication getInstance(){

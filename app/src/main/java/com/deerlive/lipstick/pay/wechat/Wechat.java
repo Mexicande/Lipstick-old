@@ -29,7 +29,7 @@ public class Wechat {
     public  void pay(String jsonStr){
         try{
             JSONObject json = new JSONObject(jsonStr);
-                if(null !=  json && !json.has("retcode") ){
+                if(!json.has("retcode")){
                     PayReq req = new PayReq();
                     //req.appId = "wxf8b4f85f3a794e77";  // 测试用appId
                     req.appId			= json.getString("appid");

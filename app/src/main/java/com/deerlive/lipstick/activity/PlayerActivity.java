@@ -1,9 +1,7 @@
 package com.deerlive.lipstick.activity;
 
-import android.annotation.TargetApi;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.media.SoundPool;
@@ -11,7 +9,6 @@ import android.media.projection.MediaProjectionManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.os.Environment;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Looper;
@@ -20,6 +17,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceView;
@@ -40,10 +38,6 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.blankj.utilcode.util.ActivityUtils;
-import com.blankj.utilcode.util.KeyboardUtils;
-import com.blankj.utilcode.util.SPUtils;
-import com.blankj.utilcode.util.StringUtils;
 import com.bumptech.glide.Glide;
 import com.deerlive.lipstick.R;
 import com.deerlive.lipstick.adapter.MessageRecyclerListAdapter;
@@ -59,14 +53,15 @@ import com.deerlive.lipstick.intf.OnRequestDataListener;
 import com.deerlive.lipstick.model.DanmuMessage;
 import com.deerlive.lipstick.model.DeviceAndBanner;
 import com.deerlive.lipstick.model.MessageType;
+import com.deerlive.lipstick.utils.ActivityUtils;
+import com.deerlive.lipstick.utils.KeyboardUtils;
 import com.deerlive.lipstick.utils.LogUtils;
+import com.deerlive.lipstick.utils.SPUtils;
 import com.deerlive.lipstick.utils.SharedPreferencesUtil;
 import com.tencent.rtmp.ITXLivePlayListener;
 import com.tencent.rtmp.TXLivePlayer;
 import com.tencent.rtmp.ui.TXCloudVideoView;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -170,7 +165,7 @@ public class PlayerActivity extends BaseActivity implements View.OnTouchListener
     private int mTryAgainTimeLeft = 3;
     private SoundPool soundPool;
     private MediaPlayer mMediaPlayer;
-    private HashMap<String, Integer> soundID = new HashMap<String, Integer>();
+    private HashMap<String, Integer> soundID = new HashMap<>();
     private MediaProjectionManager mMediaProjectionManager;
     private ScreenRecorder mRecorder;
 
@@ -298,7 +293,7 @@ public class PlayerActivity extends BaseActivity implements View.OnTouchListener
 
     private void initTencentPlayer() {
         //mPlayerView即step1中添加的界面view
-        mPlayView = (TXCloudVideoView) findViewById(R.id.player_surface);
+        mPlayView = findViewById(R.id.player_surface);
         //创建player对象
         mLivePlayer = new TXLivePlayer(this);
         //关键player对象与界面view
@@ -398,7 +393,7 @@ public class PlayerActivity extends BaseActivity implements View.OnTouchListener
     @OnClick(R.id.mess_send)
     public void messSend(View v) {
         String c = mMessContent.getText().toString();
-        if (StringUtils.isTrimEmpty(c)) {
+        if (TextUtils.isEmpty(c)) {
             toast(getResources().getString(R.string.empty_tip));
             return;
         }
@@ -547,7 +542,7 @@ public class PlayerActivity extends BaseActivity implements View.OnTouchListener
 
             @Override
             public void onChannelUserJoined(String account, int uid) {
-                log(account + ":" + (long) (uid & 0xffffffffl) + " joined");
+                log(account + ":" + (long) (uid & 0xffffffffL) + " joined");
                 Message m = myHandler.obtainMessage();
                 m.what = IM_ONLINE_JOIN;
                 m.sendToTarget();
@@ -562,7 +557,7 @@ public class PlayerActivity extends BaseActivity implements View.OnTouchListener
             @Override
             public void onChannelUserLeaved(String account, int uid) {
                 //所有人收到
-                log(account + ":" + (long) (uid & 0xffffffffl) + " leaved");
+                log(account + ":" + (long) (uid & 0xffffffffL) + " leaved");
                 Message m = myHandler.obtainMessage();
                 m.what = IM_ONLINE_LEAVE;
                 m.sendToTarget();
@@ -572,8 +567,8 @@ public class PlayerActivity extends BaseActivity implements View.OnTouchListener
             public void onChannelUserList(String[] accounts, int[] uids) {
                 log("Channel user list:");
                 for (int i = 0; i < accounts.length; i++) {
-                    long uid = uids[i] & 0xffffffffl;
-                    log(accounts[i] + ":" + (long) (uid & 0xffffffffl));
+                    long uid = uids[i] & 0xffffffffL;
+                    log(accounts[i] + ":" + (long) (uid & 0xffffffffL));
                 }
             }
 
@@ -666,7 +661,7 @@ public class PlayerActivity extends BaseActivity implements View.OnTouchListener
                 //成功申请到matchid  准备上机
                 if ("1".equals(status)) {
                     mCurMatchId = j.getString("match_id");
-                    if (!StringUtils.isTrimEmpty(j.getString("balance"))) {
+                    if (!TextUtils.isEmpty(j.getString("balance"))) {
                         SPUtils.getInstance().put("balance", j.getString("balance"));
                         mmPlayBalance = j.getString("balance");
                     }
@@ -940,7 +935,7 @@ public class PlayerActivity extends BaseActivity implements View.OnTouchListener
                     }*/
 
                     startTimerPlay();
-                    if (StringUtils.isTrimEmpty(mmPlayBalance) || StringUtils.isTrimEmpty(mmPlayPrice)) {
+                    if (TextUtils.isEmpty(mmPlayBalance) || TextUtils.isEmpty(mmPlayPrice)) {
                         toast(getString(R.string.data_error));
                         return;
                     }
@@ -1168,10 +1163,7 @@ public class PlayerActivity extends BaseActivity implements View.OnTouchListener
                 hideKeyboard(v.getWindowToken());
             }
         }
-        if (getWindow().superDispatchTouchEvent(ev)) {
-            return true;
-        }
-        return super.dispatchTouchEvent(ev);
+        return getWindow().superDispatchTouchEvent(ev) || super.dispatchTouchEvent(ev);
     }
 
     private void hideKeyboard(IBinder token) {
@@ -1201,9 +1193,9 @@ public class PlayerActivity extends BaseActivity implements View.OnTouchListener
     public void showDanmuAnim(DanmuMessage model) {
         if (active) {
             final View giftPop = View.inflate(this, R.layout.item_danmu_pop, null);
-            ImageView giftAvatar = (ImageView) giftPop.findViewById(R.id.gift_pop_avatar);
-            TextView giftUserName = (TextView) giftPop.findViewById(R.id.gift_pop_username);
-            TextView giftContent = (TextView) giftPop.findViewById(R.id.gift_pop_content);
+            ImageView giftAvatar = giftPop.findViewById(R.id.gift_pop_avatar);
+            TextView giftUserName = giftPop.findViewById(R.id.gift_pop_username);
+            TextView giftContent = giftPop.findViewById(R.id.gift_pop_content);
             Glide.with(this).load(mCurPlayerAvatar)
                     .error(R.mipmap.logo)
                     .into(giftAvatar);

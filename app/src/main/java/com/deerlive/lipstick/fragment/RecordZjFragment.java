@@ -36,7 +36,6 @@ public class RecordZjFragment extends BaseFragment {
 
     @Bind(R.id.record_zhua_list)
     RecyclerView mRecordZhuaList;
-    private View notDataView;
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -47,7 +46,6 @@ public class RecordZjFragment extends BaseFragment {
             mArgument = bundle.getString("params");
         }else{
             toast(getResources().getString(R.string.net_error));
-            return;
         }
     }
 
@@ -59,7 +57,6 @@ public class RecordZjFragment extends BaseFragment {
         m.setOrientation(LinearLayoutManager.VERTICAL);
         mRecordZhuaList.setLayoutManager(m);
         mRecordZhuaList.setAdapter(mRecordZjAdapter);
-        notDataView = getLayoutInflater().inflate(R.layout.empty_view, (ViewGroup) mRecordZhuaList.getParent(), false);
 
         //getData();
     }

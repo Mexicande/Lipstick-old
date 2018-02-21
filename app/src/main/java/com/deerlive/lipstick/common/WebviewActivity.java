@@ -14,7 +14,6 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.LogUtils;
 import com.deerlive.lipstick.R;
 import com.deerlive.lipstick.base.BaseActivity;
 import com.hss01248.dialog.StyledDialog;
@@ -47,8 +46,10 @@ public class WebviewActivity extends BaseActivity implements PlatformActionListe
         mPlatFormMoment = ShareSDK.getPlatform(WechatMoments.NAME);
         mPlatFormWeChat.setPlatformActionListener(this);
         mPlatFormMoment.setPlatformActionListener(this);
-        tvTitle.setText(data.getString("title"));
-        mWebView.loadUrl(data.getString("jump"));
+        if (data != null) {
+            tvTitle.setText(data.getString("title"));
+            mWebView.loadUrl(data.getString("jump"));
+        }
         mLoadingDialog = StyledDialog.buildLoading().setActivity(this).show();
         WebSettings webSettings = mWebView.getSettings();
         webSettings.setJavaScriptEnabled(true);
@@ -105,7 +106,10 @@ public class WebviewActivity extends BaseActivity implements PlatformActionListe
         boolean flag = false;
         if (cmpName != null) { // 说明系统中存在这个activity
             ActivityManager am = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
-            List<ActivityManager.RunningTaskInfo> taskInfoList = am.getRunningTasks(10);
+            List<ActivityManager.RunningTaskInfo> taskInfoList = null;
+            if (am != null) {
+                taskInfoList = am.getRunningTasks(10);
+            }
             for (ActivityManager.RunningTaskInfo taskInfo : taskInfoList) {
                 if (taskInfo.baseActivity.equals(cmpName)) { // 说明它已经启动了
                     flag = true;
@@ -116,6 +120,7 @@ public class WebviewActivity extends BaseActivity implements PlatformActionListe
         return flag;
     }
 
+    @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && mWebView.canGoBack()) {
             mWebView.goBack();// 返回前一个页面
@@ -143,8 +148,6 @@ public class WebviewActivity extends BaseActivity implements PlatformActionListe
 
         @JavascriptInterface
         public void shareToMoment(String title, String msg, String url, String imgUrl) {
-            LogUtils.d("imgUrl==",imgUrl+"");
-            LogUtils.d("url==",url+"");
             Platform.ShareParams sp = new Platform.ShareParams();
             sp.setTitle(title);
             sp.setUrl(url);

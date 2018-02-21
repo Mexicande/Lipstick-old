@@ -9,16 +9,15 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 
 import com.alibaba.fastjson.JSONObject;
-import com.blankj.utilcode.util.ActivityUtils;
-import com.blankj.utilcode.util.LogUtils;
-import com.blankj.utilcode.util.SPUtils;
-import com.blankj.utilcode.util.ToastUtils;
 import com.deerlive.lipstick.MainActivity;
 import com.deerlive.lipstick.R;
 import com.deerlive.lipstick.base.BaseActivity;
 import com.deerlive.lipstick.common.Api;
 import com.deerlive.lipstick.common.WebviewActivity;
 import com.deerlive.lipstick.intf.OnRequestDataListener;
+import com.deerlive.lipstick.utils.ActivityUtils;
+import com.deerlive.lipstick.utils.SPUtils;
+import com.deerlive.lipstick.utils.ToastUtils;
 import com.hss01248.dialog.StyledDialog;
 
 import java.util.HashMap;
@@ -66,7 +65,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener{
     private PlatformActionListener mPlatListener = new PlatformActionListener() {
         @Override
         public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
-            //mLoadingDialog.dismiss();
 
 
             PlatformDb db = platform.getDb();
@@ -123,7 +121,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener{
         @Override
         public void handleMessage(Message msg) {
             if (msg.what == 1) {
-                LogUtils.d(params.toString());
                 Api.doLogin(LoginActivity.this, params, new OnRequestDataListener() {
                     @Override
                     public void requestSuccess(int code, JSONObject data) {

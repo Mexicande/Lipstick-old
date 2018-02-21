@@ -1,5 +1,6 @@
 package com.deerlive.lipstick.view.popup;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
@@ -161,6 +162,7 @@ public class EasyPopup implements PopupWindow.OnDismissListener {
 
             //在Android 6.0以上 ，只能通过拦截事件来解决
             mPopupWindow.setTouchInterceptor(new View.OnTouchListener() {
+                @SuppressLint("ClickableViewAccessibility")
                 @Override
                 public boolean onTouch(View v, MotionEvent event) {
 

@@ -9,14 +9,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSONObject;
-import com.blankj.utilcode.util.ActivityUtils;
-import com.blankj.utilcode.util.SPUtils;
 import com.bumptech.glide.Glide;
 import com.deerlive.lipstick.R;
 import com.deerlive.lipstick.base.BaseActivity;
 import com.deerlive.lipstick.common.Api;
 import com.deerlive.lipstick.common.GlideCircleTransform;
 import com.deerlive.lipstick.intf.OnRequestDataListener;
+import com.deerlive.lipstick.utils.ActivityUtils;
+import com.deerlive.lipstick.utils.SPUtils;
 
 import java.util.HashMap;
 import java.util.Map;

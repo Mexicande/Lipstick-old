@@ -11,9 +11,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
-import com.blankj.utilcode.util.SnackbarUtils;
-import com.blankj.utilcode.util.ToastUtils;
-import com.deerlive.lipstick.R;
+import com.deerlive.lipstick.utils.ToastUtils;
 import com.umeng.analytics.MobclickAgent;
 
 import butterknife.ButterKnife;
@@ -49,9 +47,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     public void toast(String mes){
         ToastUtils.showShort(mes);
     }
-    public void showSnake(String msg){
-        SnackbarUtils.with(getWindow().getDecorView()).setBgColor(getResources().getColor(R.color.shape2)).setMessage(msg).show();
-    }
     public abstract int getLayoutResource();
 
     @Override
@@ -77,10 +72,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                 hideKeyboard(v.getWindowToken());
             }
         }
-        if (getWindow().superDispatchTouchEvent(ev)) {
-            return true;
-        }
-        return super.dispatchTouchEvent(ev);
+        return getWindow().superDispatchTouchEvent(ev) || super.dispatchTouchEvent(ev);
     }
 
     private boolean isShouldHideKeyboard(View v, MotionEvent event) {
@@ -108,7 +100,9 @@ public abstract class BaseActivity extends AppCompatActivity {
     private void hideKeyboard(IBinder token) {
         if (token != null) {
             InputMethodManager im = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-            im.hideSoftInputFromWindow(token, InputMethodManager.HIDE_NOT_ALWAYS);
+            if (im != null) {
+                im.hideSoftInputFromWindow(token, InputMethodManager.HIDE_NOT_ALWAYS);
+            }
         }
     }
 }

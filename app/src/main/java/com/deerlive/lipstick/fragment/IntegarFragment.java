@@ -12,9 +12,6 @@ import android.widget.ImageView;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.blankj.utilcode.util.SPUtils;
-import com.blankj.utilcode.util.SizeUtils;
-import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.deerlive.lipstick.R;
@@ -23,6 +20,9 @@ import com.deerlive.lipstick.common.Api;
 import com.deerlive.lipstick.intf.OnRequestDataListener;
 import com.deerlive.lipstick.model.GiftStoreBean;
 import com.deerlive.lipstick.model.eventbean.IntegarStore;
+import com.deerlive.lipstick.utils.SPUtils;
+import com.deerlive.lipstick.utils.SizeUtils;
+import com.deerlive.lipstick.utils.ToastUtils;
 import com.deerlive.lipstick.view.SpaceItemDecoration;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -149,8 +149,8 @@ public class IntegarFragment extends Fragment {
     private ImageView banner1,banner2;
     private void getHead() {
         View view = getActivity().getLayoutInflater().inflate(R.layout.integar_head_item, null);
-        banner1= (ImageView) view.findViewById(R.id.iv_banner1);
-        banner2= (ImageView) view.findViewById(R.id.iv_banner2);
+        banner1= view.findViewById(R.id.iv_banner1);
+        banner2= view.findViewById(R.id.iv_banner2);
         integarStoreAdapter.addHeaderView(view);
 
     }

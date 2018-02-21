@@ -22,8 +22,6 @@ import android.widget.Toast;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.blankj.utilcode.util.SPUtils;
-import com.blankj.utilcode.util.SizeUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -37,7 +35,8 @@ import com.deerlive.lipstick.model.PayModel;
 import com.deerlive.lipstick.pay.alipay.Alipay;
 import com.deerlive.lipstick.pay.alipay.PayResult;
 import com.deerlive.lipstick.pay.wechat.Wechat;
-import com.deerlive.lipstick.utils.LogUtils;
+import com.deerlive.lipstick.utils.SPUtils;
+import com.deerlive.lipstick.utils.SizeUtils;
 import com.deerlive.lipstick.view.GridSpaceItemDecoration;
 import com.mancj.slideup.SlideUp;
 
@@ -105,7 +104,7 @@ public class ChargeActivity extends BaseActivity {
         mPayMethodList.setLayoutManager(m);
         mPayMethodList.setAdapter(mPaymethidAdapter);
         LinearLayout item = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.image_layout, null);
-        mImageViewBanner = (ImageView) item.findViewById(R.id.iv_chargeBanner);
+        mImageViewBanner = item.findViewById(R.id.iv_chargeBanner);
         mPaymethidAdapter.addHeaderView(item);
 
     }
@@ -142,10 +141,6 @@ public class ChargeActivity extends BaseActivity {
                 .build();
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-    }
 
     ArrayList<PayModel> payModels = new ArrayList<>();
 
@@ -343,8 +338,4 @@ public class ChargeActivity extends BaseActivity {
         return false;
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-    }
 }

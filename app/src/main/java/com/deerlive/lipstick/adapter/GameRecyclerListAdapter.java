@@ -10,12 +10,12 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.ScreenUtils;
-import com.blankj.utilcode.util.SizeUtils;
 import com.bumptech.glide.Glide;
 import com.deerlive.lipstick.R;
 import com.deerlive.lipstick.intf.OnRecyclerViewItemClickListener;
 import com.deerlive.lipstick.model.DeviceAndBanner;
+import com.deerlive.lipstick.utils.ScreenUtils;
+import com.deerlive.lipstick.utils.SizeUtils;
 import com.deerlive.lipstick.view.supertextview.SuperButton;
 
 import java.util.ArrayList;
@@ -38,7 +38,6 @@ public class GameRecyclerListAdapter extends RecyclerView.Adapter<RecyclerView.V
 
     private Context mContext;
     private ArrayList<DeviceAndBanner.InfoBean.DeviceBean> mItems;
-    private int imageWidth;
     private int imageHeight;
     private OnRecyclerViewItemClickListener mOnRecyclerViewItemClickListener;
     public GameRecyclerListAdapter(Context mContext, ArrayList<DeviceAndBanner.InfoBean.DeviceBean> mVideoItems) {
@@ -46,7 +45,6 @@ public class GameRecyclerListAdapter extends RecyclerView.Adapter<RecyclerView.V
         this.mContext = mContext;
         this.mItems = mVideoItems;
         imageHeight = (ScreenUtils.getScreenWidth() - SizeUtils.dp2px(15))/2;
-        imageWidth = imageHeight ;
 
     }
 

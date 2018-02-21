@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -18,12 +19,6 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.blankj.utilcode.util.ActivityUtils;
-import com.blankj.utilcode.util.SPUtils;
-import com.blankj.utilcode.util.SizeUtils;
-import com.blankj.utilcode.util.StringUtils;
-import com.blankj.utilcode.util.TimeUtils;
-import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
 import com.deerlive.lipstick.activity.ChargeActivity;
 import com.deerlive.lipstick.activity.PlayerActivity;
@@ -34,22 +29,24 @@ import com.deerlive.lipstick.adapter.GameRecyclerListAdapter;
 import com.deerlive.lipstick.base.BaseActivity;
 import com.deerlive.lipstick.common.Api;
 import com.deerlive.lipstick.common.WebviewActivity;
+import com.deerlive.lipstick.fragment.AdialogFragment;
 import com.deerlive.lipstick.intf.OnRecyclerViewItemClickListener;
 import com.deerlive.lipstick.intf.OnRequestDataListener;
 import com.deerlive.lipstick.model.DeviceAndBanner;
+import com.deerlive.lipstick.model.PopupBean;
+import com.deerlive.lipstick.utils.ActivityUtils;
+import com.deerlive.lipstick.utils.SPUtils;
+import com.deerlive.lipstick.utils.SizeUtils;
+import com.deerlive.lipstick.utils.TimeUtils;
+import com.deerlive.lipstick.utils.ToastUtils;
 import com.deerlive.lipstick.view.SpaceItemDecoration;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
-import com.uuch.adlibrary.AdConstant;
-import com.uuch.adlibrary.AdManager;
-import com.uuch.adlibrary.bean.AdInfo;
-import com.uuch.adlibrary.transformer.DepthPageTransformer;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import butterknife.Bind;
@@ -85,6 +82,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
 
         }
         showAdvertising();
+
+
+
         initGameList();
         initBanner();
         mRefreshLayout.autoRefresh();
@@ -100,7 +100,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         Api.getDialog(this, new HashMap<String, String>(), new OnRequestDataListener() {
                     @Override
                     public void requestSuccess(int code, JSONObject data) {
-
                         JSONObject list = data.getJSONObject("info");
                         list.getString("img");
                         String status = list.getString("status");
@@ -108,12 +107,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                             String advertTime = SPUtils.getInstance().getString("AdvertTime", String.valueOf(1111111111111L));
                             boolean today = TimeUtils.isToday(advertTime);
                             if (!today) {
-                                adDialog(list);
-                            }
 
+                                PopupBean popupBean = JSON.parseObject(list.toString(), PopupBean.class);
+                                AdialogFragment adialogFragment= AdialogFragment.newInstance(popupBean);
+                                adialogFragment.show(getSupportFragmentManager(),"adialogFragment");
+                            }
                         }
                     }
-
                     @Override
                     public void requestFailure(int code, String msg) {
 
@@ -121,35 +121,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                 });
         long timeMillis = System.currentTimeMillis();
         SPUtils.getInstance().put("AdvertTime", timeMillis);
-    }
-
-    private void adDialog(final JSONObject list) {
-        AdInfo adInfo = new AdInfo();
-        adInfo.setActivityImg(list.getString("img"));
-
-        List<AdInfo>advList = new ArrayList<>();
-        advList.add(adInfo);
-
-         final AdManager adManager = new AdManager(this, advList);
-        adManager.setOverScreen(true)
-                .setWidthPerHeight(Float.parseFloat(list.getString("size")))
-                .setBackViewColor(Color.parseColor("#AA333333"))
-                .setPageTransformer(new DepthPageTransformer())
-                .setOnImageClickListener(new AdManager.OnImageClickListener() {
-                    @Override
-                    public void onImageClick(View view, AdInfo advInfo) {
-                        if (!"".equals(list.getString("jump"))&&list.getString("jump")!=null) {
-
-                            Bundle temp = new Bundle();
-                            temp.putString("title", list.getString("name"));
-                            temp.putString("jump", list.getString("jump"));
-                            ActivityUtils.startActivity(temp, WebviewActivity.class);
-
-                        }
-                        adManager.dismissAdDialog();
-                    }
-                })
-                .showAdDialog(AdConstant.ANIM_DOWN_TO_UP);
     }
 
 
@@ -257,10 +228,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
 
     private void initBanner() {
         LinearLayout temp = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.layout_home_banner, null);
-        mConvenientBanner = (BGABanner) temp.findViewById(R.id.convenientBanner);
-        layoutInvite = (LinearLayout) temp.findViewById(R.id.layout_invite);
-        layoutIntegral = (LinearLayout) temp.findViewById(R.id.layout_integral);
-        layoutCharge = (LinearLayout) temp.findViewById(R.id.layout_charge);
+        mConvenientBanner = temp.findViewById(R.id.convenientBanner);
+        layoutInvite = temp.findViewById(R.id.layout_invite);
+        layoutIntegral = temp.findViewById(R.id.layout_integral);
+        layoutCharge = temp.findViewById(R.id.layout_charge);
         mGameAdapter.addHeaderView(temp);
 
 
@@ -315,7 +286,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
             @Override
             public void requestSuccess(int code, JSONObject data) {
                 JSONObject info = data.getJSONObject("data");
-                if (!StringUtils.isEmpty(info.getString("package"))) {
+                if (!TextUtils.isEmpty(info.getString("package"))) {
                     checkUpgrade(info.getString("package"), info.getString("description"));
                 }
             }
@@ -378,6 +349,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                 } else {
                     mLastBackTime = System.currentTimeMillis();
                     ToastUtils.showShort( "再按一次退出");
+
         }
 
 

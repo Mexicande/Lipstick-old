@@ -5,6 +5,7 @@ package com.deerlive.lipstick.common;
  * Author: XuDeLong
  */
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.hardware.display.DisplayManager;
 import android.hardware.display.VirtualDisplay;
@@ -59,6 +60,7 @@ public class ScreenRecorder extends Thread {
     }
 
 
+    @SuppressLint("SdCardPath")
     public ScreenRecorder(MediaProjection mp) {
         // 480p 2Mbps
         this(640, 480, 2000000, 1, mp, "/sdcard/test.mp4");
@@ -105,7 +107,7 @@ public class ScreenRecorder extends Thread {
                 try {
                     // wait 10ms
                     Thread.sleep(10);
-                } catch (InterruptedException e) {
+                } catch (InterruptedException ignored) {
                 }
             } else if (index >= 0) {
 

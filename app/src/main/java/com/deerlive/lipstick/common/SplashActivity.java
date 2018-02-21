@@ -5,14 +5,14 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.alibaba.fastjson.JSONObject;
-import com.blankj.utilcode.util.ActivityUtils;
-import com.blankj.utilcode.util.SPUtils;
 import com.bumptech.glide.Glide;
 import com.deerlive.lipstick.MainActivity;
 import com.deerlive.lipstick.R;
 import com.deerlive.lipstick.activity.LoginActivity;
 import com.deerlive.lipstick.base.BaseActivity;
 import com.deerlive.lipstick.intf.OnRequestDataListener;
+import com.deerlive.lipstick.utils.ActivityUtils;
+import com.deerlive.lipstick.utils.SPUtils;
 
 import java.util.HashMap;
 

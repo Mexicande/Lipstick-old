@@ -7,9 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.blankj.utilcode.util.SnackbarUtils;
-import com.blankj.utilcode.util.ToastUtils;
-import com.deerlive.lipstick.R;
+
+import com.deerlive.lipstick.utils.ToastUtils;
 
 import butterknife.ButterKnife;
 
@@ -20,21 +19,16 @@ import butterknife.ButterKnife;
 
 public abstract class BaseFragment extends Fragment {
 
-    private View mRootView;
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        mRootView = inflater.inflate(getLayoutResource(), container, false);
+        View mRootView = inflater.inflate(getLayoutResource(), container, false);
         ButterKnife.bind(this, mRootView);
         return mRootView;
     }
 
     public void toast(String mes){
         ToastUtils.showShort(mes);
-    }
-    public void showSnake(String msg){
-        SnackbarUtils.with(getView()).setBgColor(getResources().getColor(R.color.colorPrimary)).setMessage(msg).show();
     }
     public abstract int getLayoutResource();
 }

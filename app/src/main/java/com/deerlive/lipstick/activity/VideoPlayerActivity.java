@@ -34,7 +34,7 @@ public class VideoPlayerActivity extends BaseActivity{
     }
     private void initTencentPlayer(DanmuMessage d) {
         //mPlayerView即step1中添加的界面view
-        mPlayView = (TXCloudVideoView) findViewById(R.id.player_surface);
+        mPlayView = findViewById(R.id.player_surface);
         //创建player对象
         mLivePlayer = new TXLivePlayer(this);
         //关键player对象与界面view

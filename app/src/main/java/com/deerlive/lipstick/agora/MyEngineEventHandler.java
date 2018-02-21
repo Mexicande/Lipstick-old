@@ -9,10 +9,8 @@ import io.agora.rtc.IRtcEngineEventHandler;
 
 public class MyEngineEventHandler extends IRtcEngineEventHandler {
     private static final int INIT_FRAME = 1000;
-    private Context mContext;
     private Handler mHandler;
     public MyEngineEventHandler(Context ctx,Handler hdl) {
-        this.mContext = ctx;
         this.mHandler = hdl;
     }
     private void mLog(String msg){

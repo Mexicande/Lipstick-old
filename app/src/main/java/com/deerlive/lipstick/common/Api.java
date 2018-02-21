@@ -6,20 +6,18 @@ import android.support.v4.app.FragmentActivity;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.blankj.utilcode.util.LogUtils;
 import com.deerlive.lipstick.MainActivity;
-import com.deerlive.lipstick.MyApplication;
 import com.deerlive.lipstick.R;
 import com.deerlive.lipstick.activity.IntegarlCoinListActivity;
 import com.deerlive.lipstick.intf.OnRequestDataListener;
+import com.deerlive.lipstick.utils.AppUtils;
+import com.deerlive.lipstick.utils.LogUtils;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 
@@ -28,7 +26,7 @@ import java.util.Map;
  * Author: XuDeLong
  */
 public class Api {
-    public static final String APP_VER = MyApplication.getInstance().getPackageName();
+    public static final String APP_VER = AppUtils.getAppVersionCode()+"";
     public static final String HOST = "http://doll.anwenqianbao.com/";
     public static final String OS = "android";
     public static final String QUDAO = "kuailai-two";
@@ -397,12 +395,12 @@ public class Api {
             messageDigest = MessageDigest.getInstance("MD5");
             messageDigest.reset();
             messageDigest.update(str.getBytes("UTF-8"));
-        } catch (Exception e) {
+        } catch (Exception ignored) {
         }
-        byte[] b = messageDigest.digest();
-        StringBuffer buf = new StringBuffer();
-        for (int i = 0; i < b.length; i++) {
-            int a = b[i];
+        byte[] b = messageDigest != null ? messageDigest.digest() : new byte[0];
+        StringBuilder buf = new StringBuilder();
+        for (byte aB : b) {
+            int a = aB;
             if (a < 0) {
                 a += 256;
             }

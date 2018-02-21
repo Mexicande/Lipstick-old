@@ -18,7 +18,9 @@ public abstract class BaseEditActivity extends BaseActivity {
                 View v = getCurrentFocus();
                 if (isShouldHideKeyboard(v, ev)) {
                     InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                    imm.hideSoftInputFromWindow(v.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+                    if (imm != null) {
+                        imm.hideSoftInputFromWindow(v.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+                    }
                 }
             }
             return super.dispatchTouchEvent(ev);

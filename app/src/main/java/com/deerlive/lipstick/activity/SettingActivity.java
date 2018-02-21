@@ -5,6 +5,7 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.TextView;
@@ -12,15 +13,14 @@ import android.widget.TextView;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.alibaba.fastjson.JSONObject;
-import com.blankj.utilcode.util.ActivityUtils;
-import com.blankj.utilcode.util.AppUtils;
-import com.blankj.utilcode.util.SPUtils;
-import com.blankj.utilcode.util.StringUtils;
 import com.deerlive.lipstick.R;
 import com.deerlive.lipstick.base.BaseActivity;
 import com.deerlive.lipstick.common.Api;
 import com.deerlive.lipstick.common.WebviewActivity;
 import com.deerlive.lipstick.intf.OnRequestDataListener;
+import com.deerlive.lipstick.utils.ActivityUtils;
+import com.deerlive.lipstick.utils.SPUtils;
+import com.deerlive.lipstick.utils.Utils;
 import com.deerlive.lipstick.view.supertextview.SuperTextView;
 
 import java.util.HashMap;
@@ -63,7 +63,7 @@ public class SettingActivity extends BaseActivity {
     }
 
     private void setListener() {
-        String versionName = AppUtils.getAppVersionName();
+        String versionName = Utils.getApp().getPackageName();
         btVersion.setRightString("v"+versionName);
 
         checkboxBgm.setSwitchCheckedChangeListener(new SuperTextView.OnSwitchCheckedChangeListener() {
@@ -137,7 +137,7 @@ public class SettingActivity extends BaseActivity {
             @Override
             public void requestSuccess(int code, JSONObject data) {
                 JSONObject info = data.getJSONObject("data");
-                if (!StringUtils.isEmpty(info.getString("package"))) {
+                if (!TextUtils.isEmpty(info.getString("package"))) {
                     checkUpgrade(info.getString("package"), info.getString("description"));
                 }
             }

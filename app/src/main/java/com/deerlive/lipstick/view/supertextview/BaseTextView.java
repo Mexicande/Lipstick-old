@@ -48,7 +48,7 @@ public class BaseTextView extends LinearLayout {
 
     private void initTopView() {
         if (topTVParams == null) {
-            topTVParams = getParams(topTVParams);
+            topTVParams = getParams(null);
         }
         if (topTextView == null) {
             topTextView = initTextView(topTVParams, topTextView);

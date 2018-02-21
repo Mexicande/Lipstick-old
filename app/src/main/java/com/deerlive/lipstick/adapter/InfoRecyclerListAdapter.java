@@ -30,18 +30,12 @@ public class InfoRecyclerListAdapter extends RecyclerView.Adapter<RecyclerView.V
 
     private View mFooterView;
 
-    private Context mContext;
     private ArrayList<DanmuMessage> mItems;
-    private OnRecyclerViewItemClickListener mOnRecyclerViewItemClickListener;
 
     public InfoRecyclerListAdapter(Context mContext, ArrayList<DanmuMessage> mVideoItems) {
-        this.mContext = mContext;
         this.mItems = mVideoItems;
     }
 
-    public void setOnRecyclerViewItemClickListener(OnRecyclerViewItemClickListener onRecyclerViewItemClickListener) {
-        mOnRecyclerViewItemClickListener = onRecyclerViewItemClickListener;
-    }
 
     @Override
     public int getItemViewType(int position) {

@@ -21,7 +21,7 @@ import com.deerlive.lipstick.adapter.RecordZjRecyclerListAdapter;
 import com.deerlive.lipstick.common.Api;
 import com.deerlive.lipstick.intf.OnRequestDataListener;
 import com.deerlive.lipstick.model.DanmuMessage;
-import com.deerlive.lipstick.utils.Utils;
+import com.deerlive.lipstick.utils.SizeUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -56,9 +56,6 @@ public class RecordFragment extends DialogFragment {
         Bundle bundle = getArguments();
         if (bundle != null) {
             mArgument = bundle.getString("params");
-        } else {
-            //toast(getResources().getString(R.string.net_error));
-            return;
         }
     }
 
@@ -67,7 +64,9 @@ public class RecordFragment extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_zhongjiang_record, container, false);
         ButterKnife.bind(this, view);
-        getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        if(getDialog().getWindow()!=null){
+            getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        }
 
         mRecordZjAdapter = new RecordZjRecyclerListAdapter( mRecordZjDate);
         LinearLayoutManager m = new LinearLayoutManager(getActivity());
@@ -90,13 +89,15 @@ public class RecordFragment extends DialogFragment {
         super.onStart();
 
         Window window = getDialog().getWindow();
-        WindowManager.LayoutParams windowParams = window.getAttributes();
-        windowParams.gravity = Gravity.BOTTOM;
-        int i = Utils.dip2px(getActivity(), 220);
-        windowParams.y = i;
-        windowParams.dimAmount = 0.0f;
-
-        window.setAttributes(windowParams);
+        WindowManager.LayoutParams windowParams = null;
+        if (window != null) {
+            windowParams = window.getAttributes();
+            windowParams.gravity = Gravity.BOTTOM;
+            int i = SizeUtils.dp2px(220);
+            windowParams.y = i;
+            windowParams.dimAmount = 0.0f;
+            window.setAttributes(windowParams);
+        }
     }
 
     private void getData() {

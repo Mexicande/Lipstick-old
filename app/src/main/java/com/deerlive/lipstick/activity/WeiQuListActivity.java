@@ -11,7 +11,6 @@ import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.blankj.utilcode.util.SPUtils;
 import com.deerlive.lipstick.R;
 import com.deerlive.lipstick.adapter.WeiQuRecyclerListAdapter;
 import com.deerlive.lipstick.base.BaseActivity;
@@ -19,6 +18,7 @@ import com.deerlive.lipstick.common.Api;
 import com.deerlive.lipstick.intf.OnRecyclerViewItemClickListener;
 import com.deerlive.lipstick.intf.OnRequestDataListener;
 import com.deerlive.lipstick.model.GrabBean;
+import com.deerlive.lipstick.utils.SPUtils;
 import com.deerlive.lipstick.view.dialog.CashDialog;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;

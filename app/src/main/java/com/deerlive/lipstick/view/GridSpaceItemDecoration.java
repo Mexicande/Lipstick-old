@@ -9,10 +9,9 @@ import android.view.View;
  */
 
 public class GridSpaceItemDecoration extends RecyclerView.ItemDecoration {
-    private int space;
 
     public GridSpaceItemDecoration(int space) {
-        this.space = space;
+        int space1 = space;
     }
 
     @Override

@@ -61,7 +61,7 @@ public class SharedPreferencesUtil {
                 editor.putLong(key, (Long) data);
             }
 
-            editor.commit();
+            editor.apply();
         } catch (Exception e) {
             //CommFunc.ToastPromptMsg("XML配置文件保存操作失败");
         }
@@ -125,7 +125,7 @@ public class SharedPreferencesUtil {
      */
     public static void initialData(Context context, String key, Object data) {
         try {
-            if (getData(context, key, "HasNoInitial").toString().equals("HasNoInitial")) {
+            if ("HasNoInitial".equals(getData(context, key, "HasNoInitial"))) {
                 saveData(context, key, data);
             }
         } catch (Exception e) {
