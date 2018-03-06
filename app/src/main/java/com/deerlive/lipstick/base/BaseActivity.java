@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
+import com.deerlive.lipstick.R;
 import com.deerlive.lipstick.utils.ToastUtils;
 import com.umeng.analytics.MobclickAgent;
 
@@ -31,13 +32,20 @@ public abstract class BaseActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 
-            View decorView = getWindow().getDecorView();
+            View decorView = null;
+            try {
+                decorView = getWindow().getDecorView();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
             int option = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
 
                     | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
 
-            decorView.setSystemUiVisibility(option);
+            if (decorView != null) {
+                decorView.setSystemUiVisibility(option);
+            }
 
             this.getWindow().setStatusBarColor(Color.TRANSPARENT);
 

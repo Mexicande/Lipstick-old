@@ -46,8 +46,8 @@ public class MessageActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         tvTitle.setText(getResources().getString(R.string.message));
         mToken = SPUtils.getInstance().getString("token");
-        mRefreshLayout.autoRefresh();
         initMessageList();
+        mRefreshLayout.autoRefresh();
     }
 
     private void initMessageList() {
@@ -91,7 +91,9 @@ public class MessageActivity extends BaseActivity {
                 }
                 NoticeMessageBean noticeMessageBean = JSON.parseObject(data.toString(), NoticeMessageBean.class);
                 mListData.addAll(noticeMessageBean.getInfo());
-                mAdapter.addData(mListData);
+               // mAdapter.addData(mListData);
+
+                mAdapter.setNewData(mListData);
             }
 
             @Override

@@ -40,8 +40,8 @@ public class WebviewActivity extends BaseActivity implements PlatformActionListe
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Bundle data = getIntent().getExtras();
         super.onCreate(savedInstanceState);
+        Bundle data = getIntent().getExtras();
         mPlatFormWeChat = ShareSDK.getPlatform(Wechat.NAME);
         mPlatFormMoment = ShareSDK.getPlatform(WechatMoments.NAME);
         mPlatFormWeChat.setPlatformActionListener(this);

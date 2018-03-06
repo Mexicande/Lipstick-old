@@ -27,7 +27,7 @@ import java.util.Map;
  */
 public class Api {
     public static final String APP_VER = AppUtils.getAppVersionCode()+"";
-    public static final String HOST = "http://doll.anwenqianbao.com/";
+    public static final String HOST = "http://test.doll.anwenqianbao.com/";
     public static final String OS = "android";
     public static final String QUDAO = "kuailai-two";
 
